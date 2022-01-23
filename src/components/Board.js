@@ -1,95 +1,73 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 import { Category } from './Category';
 import { v4 as uuid } from 'uuid';
 
-import { ReactComponent as AddIcon } from './icons/add.svg';
-
-import { collection, getDocs } from 'firebase/firestore';
+import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from './App.js';
 
 export function Board() {
-  const { id } = useParams();
-  const [data, setData] = useState({name: "", categories: []});
-  const [newCat, setNewCat] = useState(false);
 
+  const { state } = useLocation();
+  const [data, setData] = useState({name: "", categories: []});
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+
+  // Everything inside this useEffect is called when the component mounts and each time the board ID changes.
   useEffect(() => {
     populateData();
-  }, [id]);
+  }, [state.boardId]);
 
-  async function populateData() {
+  function populateData() {
 
-    getDocs(collection(db, 'boards', id, 'data')).then((snapshot) => {
-      const items = snapshot.docs.map((doc) => {
-        return {id: doc.id, ...doc.data()}
-      })
-      setData({...items[0]});
-    })
-    
+    onSnapshot(doc(db, "boardData", state.dataId), (doc) => {
+      setData({id: doc.id, ...doc.data()});
+  });
   }
 
-  async function createCategory(name) {
-    const category = {
-      boardId: this.state.id,
-      categoryId: uuid(),
-      categoryName: name,
-      objectives: [],
-    };
+  function createObjective(name, catId) {
 
-    this.setState({ categories: [...this.state.categories, category] });
+    const it = data.categories.findIndex((cat) => cat.id === catId);
 
-    const request = await fetch('/api/category/new', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(category),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const categories = this.state.categories;
-        const catIndex = categories.findIndex(
-          (obj) => obj.categoryId === category.categoryId
-        );
+    const categories = [...data.categories];
+    categories[it].objectives.push({id: uuid(), name: name});
 
-        if (catIndex > -1) {
-          categories.splice(catIndex, 1);
-        }
-
-        this.setState({ categories: [...categories, data] });
-      });
+    updateDoc(doc(db, 'boardData', state.dataId), {categories});
   }
 
-  async function deleteCategory(catId) {
-    const it = this.state.categories.findIndex(
-      (cat) => cat.categoryId === catId
-    );
-    const categories = this.state.categories;
+  function createCategory(name) {
+
+    const categories = [...data.categories];
+    categories.push({id: uuid(), name: name, objectives: []});
+
+    updateDoc(doc(db, 'boardData', state.dataId), {categories});
+
+  }
+
+  function deleteCategory(catId) {
+
+    const it = data.categories.findIndex((cat) => cat.id === catId);
+    const categories = [...data.categories];
 
     if (it > -1) {
       categories.splice(it, 1);
     }
 
-    this.setState({ categories: categories });
+    updateDoc(doc(db, 'boardData', state.dataId), {categories});
 
-    await fetch(`/api/category/delete?id=${catId}`);
   }
 
-  function addCategory(event) {
+  //Clean this up a bit
+  function newCategoryInput(event) {
     if (event.target instanceof HTMLInputElement) {
-      if ((event.target.value.trim() === '') | undefined) {
-        setNewCat(false);
+      if ((event.target.value.trim() === '') || undefined) {
+        setShowNewCategoryInput(false);
       } else {
         createCategory(event.target.value.trim());
-        setNewCat(false);
+        setShowNewCategoryInput(false);
       }
     } else {
-      setNewCat(true);
+      setShowNewCategoryInput(true);
     }
   }
 
@@ -97,30 +75,24 @@ export function Board() {
     <div className="flex row no-wrap gap-15 board h-100">
       {data.categories.map((item) => {
         return (
-          <Category
-            key={item.id}
-            delete={deleteCategory}
-            board={id}
-            data={item}
-          />
+          <Category key={item.id} delete={deleteCategory} createObjective={createObjective} board={state.boardId} dataId={state.dataId} data={item}/>
         );
       })}
-
-      {newCat ? (
-        <input
-          autoFocus
-          onBlur={addCategory}
-          className="new-category-input align-start"
-          placeholder="Enter name"
-        ></input>
-      ) : (
-        <button
-          onClick={addCategory}
-          className="md-title align-start new-category-button"
-        >
-          Add Category
-        </button>
-      )}
+      <NewCategoryInput show={showNewCategoryInput} click={newCategoryInput}/>
     </div>
   );
+}
+
+function NewCategoryInput(props) {
+  return(
+    <div>
+      {props.show ? (
+      <input autoFocus onBlur={props.click} className="new-category-input align-start" placeholder="Enter name"></input>
+    ) : (
+      <button onClick={props.click} className="md-title align-start new-category-button">
+        Add Category
+      </button>
+    )}
+    </div>
+  )
 }

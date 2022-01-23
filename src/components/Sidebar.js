@@ -101,7 +101,7 @@ function BoardList(props) {
 function BoardItem(props) {
 
   return (
-    <Link className="flex row board-item" to={`/board/${props.data.id}`}>
+    <Link className="flex row board-item" state={{ boardId: props.data.id, dataId: props.data.data}} to={`/board/${props.data.id}`}>
       <div className="board-item-icon">
         {props.data.name.charAt(0).toUpperCase()}
       </div>
