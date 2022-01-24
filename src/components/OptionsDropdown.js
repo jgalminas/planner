@@ -42,9 +42,7 @@ export function OptionsDropdown(props) {
             <OptionsIcon/>
             </button>
         {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit objective-options'>
-            {props.options.map((option) => (
-            <button className='category-options-item m-0' key={option.name} onClick={() => {setVisible(false); option.click()}}> {option.name} </button>))
-            }
+            {props.children}
         </div> : null}
         </div>
     );

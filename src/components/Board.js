@@ -5,9 +5,11 @@ import { Category } from './Category';
 import { v4 as uuid } from 'uuid';
 
 import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
-import { db } from './App.js';
+import { db } from '../firebase';
 
-export function Board() {
+import { ReactComponent as OptionsIcon } from './icons/options_h.svg';
+
+export function Board(props) {
 
   const { state } = useLocation();
   const [data, setData] = useState({name: "", categories: []});
@@ -33,6 +35,24 @@ export function Board() {
     categories[it].objectives.push({id: uuid(), name: name});
 
     updateDoc(doc(db, 'boardData', state.dataId), {categories});
+  }
+
+  function deleteObjective(objId, catId) {
+
+    const categories = [...data.categories];
+    const categoryItem = categories.findIndex((cat) => cat.id === catId);
+
+    const objectives = categories[categoryItem].objectives;
+    const objectiveItem = objectives.findIndex(obj => obj.id === objId);
+
+
+    if (objectiveItem > -1) {
+        objectives.splice(objectiveItem, 1);
+    }
+
+    categories[categoryItem].objectives = objectives;
+    updateDoc(doc(db, 'boardData', state.dataId), {categories});
+
   }
 
   function createCategory(name) {
@@ -72,13 +92,24 @@ export function Board() {
   }
 
   return (
-    <div className="flex row no-wrap gap-15 board h-100">
+    <div className='h-100 board'>
+      <BoardHeader name={state.name}/>
+    <div className="flex row no-wrap gap-15 board-content">
       {data.categories.map((item) => {
         return (
-          <Category key={item.id} delete={deleteCategory} createObjective={createObjective} board={state.boardId} dataId={state.dataId} data={item}/>
+          <Category
+          key={item.id}
+          delete={deleteCategory}
+          createObjective={createObjective}
+          deleteObjective={deleteObjective}
+          board={state.boardId}
+          dataId={state.dataId}
+          data={item}
+          />
         );
       })}
       <NewCategoryInput show={showNewCategoryInput} click={newCategoryInput}/>
+    </div>
     </div>
   );
 }
@@ -93,6 +124,20 @@ function NewCategoryInput(props) {
         Add Category
       </button>
     )}
+    </div>
+  )
+}
+
+function BoardHeader(props) {
+
+  return(
+    <div className='flex row board-header w-100'>
+      <p className='h-100 board-title'>
+        {props.name}
+      </p>
+      <button>
+        <OptionsIcon className="pointer"/>
+      </button>
     </div>
   )
 }

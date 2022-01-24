@@ -1,79 +1,57 @@
-﻿import React, { useState, useEffect, Component } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as AddIcon } from './icons/add.svg';
 
 
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from './App.js';
+import { collection, onSnapshot, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 
-export class Sidebar extends Component {
-  static displayName = Sidebar.name;
+export function Sidebar() {
 
-  constructor(props) {
-    super(props);
-    this.state = { data: [], new: false };
-    this.newBoard = this.newBoard.bind(this);
-    this.createBoard = this.createBoard.bind(this);
-  }
+  const [data, setData] = useState([]);
+  const [showInput, setShowInput] = useState(false);
 
-  componentDidMount() {
-    this.populateData();
-  }
+  useEffect(() => {
+    populateData();
+  }, [])
 
-  async populateData() {
-
-    const colRef = collection(db, 'boards');
-
-    getDocs(colRef).then((snapshot) => {
-      const boards = snapshot.docs.map((doc) => {
-        return ({ id: doc.id, ...doc.data() }
-      )});
-      this.setState({ data: boards });
-    });
-  }
-
-  // parameters in the passed object must start with lower case
-  async createBoard(name) {
-    const request = await fetch('/api/board/new', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        boardName: name,
-      }),
+  function populateData() {
+    
+    onSnapshot(collection(db, 'boards'), (col) => {
+      const boards = col.docs.map((doc) => {
+        return {id: doc.id, ...doc.data()}
+      })
+      setData([...boards]);
     });
 
-    const response = await request.json();
-
-    if (request.ok) {
-      this.setState({ data: [...this.state.data, response], new: false });
-    }
   }
 
-  newBoard() {
-    if (this.state.new) {
-      this.setState({ new: false });
+  function toggleInput() {
+    if (showInput) {
+      setShowInput(false);
     } else {
-      this.setState({ new: true });
+      setShowInput(true);
     }
   }
 
-  render() {
-    return (
-      <aside className="sidebar">
-        <BoardOptions newBoard={this.newBoard} />
-        {this.state.new ? <NewBoard new={this.createBoard} /> : ''}
-        <BoardList data={this.state.data} />
-      </aside>
-    );
+  function createBoard(name) {
+
+    addDoc(collection(db, 'boardData'), {categories: []}).then((doc) => {
+      addDoc(collection(db, 'boards'), {name: name, data: doc.id})
+    })
   }
+
+  
+
+  return (
+    <aside className="sidebar">
+      <BoardOptions newBoard={toggleInput}/>
+      {showInput ? <NewBoardInput new={createBoard} /> : null}
+      <BoardList data={data}/>
+    </aside>
+  );
 }
 
 function BoardOptions(props) {
@@ -101,7 +79,7 @@ function BoardList(props) {
 function BoardItem(props) {
 
   return (
-    <Link className="flex row board-item" state={{ boardId: props.data.id, dataId: props.data.data}} to={`/board/${props.data.id}`}>
+    <Link className="flex row board-item" state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/board/${props.data.id}`}>
       <div className="board-item-icon">
         {props.data.name.charAt(0).toUpperCase()}
       </div>
@@ -110,29 +88,25 @@ function BoardItem(props) {
   );
 }
 
-export class NewBoard extends Component {
-  constructor(props) {
-    super(props);
-    this.input = React.createRef();
-  }
+export function NewBoardInput(props) {
 
-  render() {
-    return (
-      <div className="flex col no-wrap p-10 gap-15">
-        <input
-          ref={this.input}
-          className="h-fit new-board-input w-auto"
-          type="text"
-          placeholder="Enter name"
-        ></input>
-        <button
-          className="new-board-button white w-100"
-          autoFocus
-          onClick={() => this.props.new(this.input.current.value)}
-        >
-          Create Board
-        </button>
-      </div>
-    );
-  }
+  const input = useRef();
+
+  return (
+    <div className="flex col no-wrap p-10 gap-15">
+      <input
+        ref={input}
+        className="h-fit new-board-input w-auto"
+        type="text"
+        placeholder="Enter name"
+      ></input>
+      <button
+        className="new-board-button white w-100"
+        autoFocus
+        onClick={() => props.new(input.current.value)}
+      >
+        Create Board
+      </button>
+    </div>
+  );
 }

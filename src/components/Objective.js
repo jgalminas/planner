@@ -6,22 +6,28 @@ import { OptionsDropdown } from './OptionsDropdown.js'
 
 export function Objective(props) {
     
-    const [data, setData] = useState(props.data);
     const [hover, setHover] = useState(false);
 
 
-    function renameObjective() {
-        console.log("To Do");
+    function renameObjective(id) {
+        console.log("Rename => ", id);
     }
 
-    function deleteObjective() {
-        props.del(data.objectiveId);
+    function deleteObjective(id) {
+        console.log("delete => ", id);
+        //props.delete(props.data.id);
     }
 
     return (
         <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="flex wrap p-10 objective soft-shadow"> 
                 <p className="h-fit w-100 m-0"> {props.data.name} </p>
-                {(hover) ? <OptionsDropdown options={ [{click: renameObjective, name: 'Rename'}, {click: deleteObjective, name: 'Delete'}] }/> : null }
+                {(hover) ?
+                <OptionsDropdown catId={props.catId}>
+                    <button className='category-options-item m-0' onClick={() => renameObjective(props.data.id)}> Rename </button>
+                    <button className='category-options-item m-0' onClick={() => props.delete(props.data.id, props.catId)}> Delete </button>
+                </OptionsDropdown>
+                : null }
         </div>
     );
 }
+
