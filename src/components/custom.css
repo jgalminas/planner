@@ -89,6 +89,10 @@ a {
     flex-wrap: nowrap;
 }
 
+.gap-10 {
+    gap: 10px;
+}
+
 .gap-15 {
     gap: 15px;
 }
@@ -369,7 +373,27 @@ a {
 
 */
 
-.button {
+.sign-button {
     width: 250px;
+    height: 40px;
     
+    background-color: rgb(82, 94, 201);
+    color: white;
+
+    border: none;
+}
+
+.sign-label {
+    color: rgb(39, 39, 39);
+}
+
+.sign-input {
+    border: 1px solid rgb(160, 160, 160);
+
+    width: 250px;
+    height: 40px;
+}
+
+.sign-input:hover, .sign-input:focus, .sign-button:hover {
+    outline: 1px solid rgb(65, 65, 65);
 }
