@@ -357,3 +357,19 @@ a {
     border-radius: 3px;
     background-color: rgb(231, 231, 231);
 }
+
+.credentials-form {
+    justify-content: center;
+    align-items: center;
+}
+
+/* 
+
+<-- Sign Up Page Styles
+
+*/
+
+.button {
+    width: 250px;
+    
+}

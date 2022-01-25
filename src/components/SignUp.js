@@ -12,15 +12,15 @@ export function SignUp(props) {
     }
 
     return(
-        <div>
-            <form action="">
+        <div className="flex row w-100 credentials-form">
+            <form className="flex col" action="">
                 <label htmlFor="email"> Email </label>
                 <input type="email" name="email"></input>
                 <label htmlFor="password"> Password </label>
                 <input type="password" name="password"></input>
                 <label htmlFor="repeatPassword"> Repeat Password </label>
                 <input type="password" name="repeatPassword"></input>
-                <input type="submit" value="Submit"/>
+                <input className="button" type="submit" value="Sign Up"/>
             </form>
         </div>
     )
