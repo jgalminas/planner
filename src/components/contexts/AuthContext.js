@@ -27,10 +27,12 @@ export function AuthProvider({children}) {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
 
-            setDoc(doc(db, "users", user.uid), {
-                email: user.email
-              });
-              
+            if (user) {
+                setDoc(doc(db, "users", user.uid), {
+                    email: user.email
+                  });
+            }
+
             setLoading(false);
         })
 
