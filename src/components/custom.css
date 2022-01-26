@@ -53,6 +53,18 @@ a {
     text-decoration: none;
 }
 
+p {
+    overflow-wrap: break-word;
+}
+
+.a-blue {
+    color: royalblue;
+}
+
+.red {
+    color: red;
+}
+
 .white {
     color: var(--main-white);
 }
@@ -374,7 +386,6 @@ a {
 */
 
 .sign-button {
-    width: 250px;
     height: 40px;
     
     background-color: rgb(82, 94, 201);
@@ -389,11 +400,13 @@ a {
 
 .sign-input {
     border: 1px solid rgb(160, 160, 160);
-
-    width: 250px;
     height: 40px;
 }
 
 .sign-input:hover, .sign-input:focus, .sign-button:hover {
     outline: 1px solid rgb(65, 65, 65);
+}
+
+.w-250 {
+    width: 250px;
 }

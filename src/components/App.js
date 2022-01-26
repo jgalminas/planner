@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Routes} from 'react-router';
 
-import { Sidebar } from './Sidebar';
-import { Board } from './Board';
+import { Dashboard } from './Dashboard';
 import { SignUp } from './SignUp';
+import { Login } from './Login';
 
 import { AuthProvider } from './contexts/AuthContext';
+import { AuthRoute } from './AuthRoute';
 
 import './custom.css'
 
@@ -16,12 +17,11 @@ export default class App extends Component {
           <div className="flex row main">
             <AuthProvider>
               <Routes>
+                <Route path='/' element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
+                <Route path="/:id" element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
                 <Route path='/signup' element={<SignUp/>}/>
+                <Route path='/login' element={<Login/>}/>
               </Routes>
-              {/* <Sidebar />
-              <Routes>
-                  <Route path="/board/:id" element={<Board/>}/>
-              </Routes> */}
               </AuthProvider>
           </div>
     );

@@ -1,32 +1,10 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
 import { ReactComponent as AddIcon } from './icons/add.svg';
 
+export function Sidebar(props) {
 
-import { collection, onSnapshot, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-
-
-export function Sidebar() {
-
-  const [data, setData] = useState([]);
   const [showInput, setShowInput] = useState(false);
-
-  useEffect(() => {
-    populateData();
-  }, [])
-
-  function populateData() {
-    
-    onSnapshot(collection(db, 'boards'), (col) => {
-      const boards = col.docs.map((doc) => {
-        return {id: doc.id, ...doc.data()}
-      })
-      setData([...boards]);
-    });
-
-  }
 
   function toggleInput() {
     if (showInput) {
@@ -36,20 +14,11 @@ export function Sidebar() {
     }
   }
 
-  function createBoard(name) {
-
-    addDoc(collection(db, 'boardData'), {categories: []}).then((doc) => {
-      addDoc(collection(db, 'boards'), {name: name, data: doc.id})
-    })
-  }
-
-  
-
   return (
     <aside className="sidebar">
       <BoardOptions newBoard={toggleInput}/>
-      {showInput ? <NewBoardInput new={createBoard} /> : null}
-      <BoardList data={data}/>
+      {showInput ? <NewBoardInput new={props.createBoard} /> : null}
+      <BoardList data={props.data}/>
     </aside>
   );
 }
@@ -79,7 +48,7 @@ function BoardList(props) {
 function BoardItem(props) {
 
   return (
-    <Link className="flex row board-item" state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/board/${props.data.id}`}>
+    <Link className="flex row board-item" state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/${props.data.id}`}>
       <div className="board-item-icon">
         {props.data.name.charAt(0).toUpperCase()}
       </div>

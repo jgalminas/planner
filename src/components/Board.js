@@ -1,28 +1,23 @@
-﻿import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
-
+﻿import { useState, useEffect } from 'react';
 import { Category } from './Category';
 import { v4 as uuid } from 'uuid';
-
 import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
-
 import { ReactComponent as OptionsIcon } from './icons/options_h.svg';
 
 export function Board(props) {
 
-  const { state } = useLocation();
   const [data, setData] = useState({name: "", categories: []});
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
 
   // Everything inside this useEffect is called when the component mounts and each time the board ID changes.
   useEffect(() => {
     populateData();
-  }, [state.boardId]);
+  }, [props.board.boardId]);
 
   function populateData() {
 
-    onSnapshot(doc(db, "boardData", state.dataId), (doc) => {
+    onSnapshot(doc(db, "boardData", props.board.dataId), (doc) => {
       setData({id: doc.id, ...doc.data()});
   });
   }
@@ -34,7 +29,7 @@ export function Board(props) {
     const categories = [...data.categories];
     categories[it].objectives.push({id: uuid(), name: name});
 
-    updateDoc(doc(db, 'boardData', state.dataId), {categories});
+    updateDoc(doc(db, 'boardData', props.board.dataId), {categories});
   }
 
   function deleteObjective(objId, catId) {
@@ -51,7 +46,7 @@ export function Board(props) {
     }
 
     categories[categoryItem].objectives = objectives;
-    updateDoc(doc(db, 'boardData', state.dataId), {categories});
+    updateDoc(doc(db, 'boardData', props.board.dataId), {categories});
 
   }
 
@@ -60,7 +55,7 @@ export function Board(props) {
     const categories = [...data.categories];
     categories.push({id: uuid(), name: name, objectives: []});
 
-    updateDoc(doc(db, 'boardData', state.dataId), {categories});
+    updateDoc(doc(db, 'boardData', props.board.dataId), {categories});
 
   }
 
@@ -73,7 +68,7 @@ export function Board(props) {
       categories.splice(it, 1);
     }
 
-    updateDoc(doc(db, 'boardData', state.dataId), {categories});
+    updateDoc(doc(db, 'boardData', props.board.dataId), {categories});
 
   }
 
@@ -93,7 +88,7 @@ export function Board(props) {
 
   return (
     <div className='h-100 board'>
-      <BoardHeader name={state.name}/>
+      <BoardHeader name={props.board.name}/>
     <div className="flex row no-wrap gap-15 board-content">
       {data.categories.map((item) => {
         return (
@@ -102,8 +97,8 @@ export function Board(props) {
           delete={deleteCategory}
           createObjective={createObjective}
           deleteObjective={deleteObjective}
-          board={state.boardId}
-          dataId={state.dataId}
+          board={props.board.boardId}
+          dataId={props.board.dataId}
           data={item}
           />
         );
