@@ -17,10 +17,10 @@ export default class App extends Component {
           <div className="flex row main">
             <AuthProvider>
               <Routes>
-                <Route path='/' element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
                 <Route path="/:id" element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
                 <Route path='/signup' element={<SignUp/>}/>
                 <Route path='/login' element={<Login/>}/>
+                <Route path='/' exact element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
               </Routes>
               </AuthProvider>
           </div>

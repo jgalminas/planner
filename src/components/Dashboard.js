@@ -15,8 +15,6 @@ export function Dashboard() {
     const [data, setData] = useState([]);
     const authContext = useAuth();
     const { uid } = authContext.currentUser; 
-  
-    console.log(uid);
 
     useEffect(() => {
       populateData();

@@ -5,5 +5,5 @@ export function AuthRoute({children}) {
 
     const { currentUser } = useAuth();
 
-    return currentUser ? children : <Navigate to="/signup"/>
+    return currentUser ? children : <Navigate to="/login"/>
 }

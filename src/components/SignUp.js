@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
-import { setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase";
 
-export function SignUp(props) {
+export function SignUp() {
 
     const authContext = useAuth();
+    const navigate = useNavigate();
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [email, setEmail] = useState('');
@@ -14,27 +15,18 @@ export function SignUp(props) {
 
     function signUp(e) {
         e.preventDefault();
-        
         setLoading(true);
 
-        authContext.signUp(email, password).then((response) => {
-            
-        }).catch((error) => {
+        authContext.signUp(email, password)
+        .then(() => {
+            setLoading(false);
+            navigate('/');
+        })
+        .catch(() => {
+            setLoading(false);
             setError("Could not sign up, please try again..")
         }
         )
-
-    }
-
-    function createUser(uid, email) {
-        setDoc(db, 'users', uid, {
-            email: email,
-            creationDate: serverTimestamp()
-        }).then(() => {
-            setLoading(false);
-        }).catch(() => {
-            setError('Could not create user!');
-        }) 
     }
 
     function handleChange(e) {
@@ -71,7 +63,7 @@ export function SignUp(props) {
                 <label className="sign-label" htmlFor="repeatPassword"> Repeat Password </label>
                 <input value={repeatPassword} onChange={handleChange} className="sign-input" required type="password" name="repeatPassword"></input>
 
-                <input className="sign-button pointer" type="submit" value="Sign Up"/>
+                <input className="sign-button pointer" disabled={loading} type="submit" value="Sign Up"/>
                 <p> Already have an account? <a className="a-blue" href="/login"> Log In! </a> </p>
             </form>
         </div>
