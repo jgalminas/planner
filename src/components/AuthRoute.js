@@ -7,3 +7,11 @@ export function AuthRoute({children}) {
 
     return currentUser ? children : <Navigate to="/login"/>
 }
+
+export function InaccessibleWhenAuthedRoute({children}) {
+
+    const { currentUser } = useAuth();
+
+    return !currentUser ? children : <Navigate to="/"/>
+
+}

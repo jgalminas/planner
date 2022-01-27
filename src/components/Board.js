@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { ReactComponent as OptionsIcon } from './icons/options_h.svg';
+import { OptionsDropdown } from './OptionsDropdown';
 
 export function Board(props) {
 
@@ -130,9 +131,9 @@ function BoardHeader(props) {
       <p className='h-100 board-title'>
         {props.name}
       </p>
-      <button>
-        <OptionsIcon className="pointer"/>
-      </button>
+      <OptionsDropdown>
+        <button className='category-options-item m-0' onClick={() => props.delete(props.dataId, props.boardId)}> Delete </button>
+        </OptionsDropdown>
     </div>
   )
 }

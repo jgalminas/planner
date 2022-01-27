@@ -22,7 +22,7 @@ export function Objective(props) {
         <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="flex wrap p-10 objective soft-shadow"> 
                 <p className="h-fit w-100 m-0"> {props.data.name} </p>
                 {(hover) ?
-                <OptionsDropdown catId={props.catId}>
+                <OptionsDropdown>
                     <button className='category-options-item m-0' onClick={() => renameObjective(props.data.id)}> Rename </button>
                     <button className='category-options-item m-0' onClick={() => props.delete(props.data.id, props.catId)}> Delete </button>
                 </OptionsDropdown>

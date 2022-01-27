@@ -1,23 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ReactComponent as OptionsIcon } from './icons/options_v.svg'
 
-// Props: show (boolean), options (object containing name of option and onClick function) 
-
 export function OptionsDropdown(props) {
 
     const [visible, setVisible] = useState(false);
     const menu = useRef();
+    const button = useRef();
 
     function useClickOutside() {
         useEffect(() => {
             function handleClick(e) {
                 if (menu.current && !menu.current.contains(e.target)) {
                     setVisible(false);
+                    console.log("menu clicked");
                 }
             }
 
             document.addEventListener("mousedown", handleClick);
-        return () => {
+            return () => {
             document.removeEventListener("mousedown", handleClick);
         }
 
@@ -37,8 +37,8 @@ export function OptionsDropdown(props) {
     }
 
     return (
-        <div >
-            <button className="objective-options-button icon-button p-0" onClick={showOptions}>
+        <div>
+            <button ref={button} className="objective-options-button icon-button p-0" onClick={showOptions}>
             <OptionsIcon/>
             </button>
         {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit objective-options'>

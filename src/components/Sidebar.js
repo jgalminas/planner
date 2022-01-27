@@ -1,9 +1,11 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as AddIcon } from './icons/add.svg';
+import { useAuth } from './contexts/AuthContext';
 
 export function Sidebar(props) {
 
+  const authContext = useAuth();
   const [showInput, setShowInput] = useState(false);
 
   function toggleInput() {
@@ -16,6 +18,10 @@ export function Sidebar(props) {
 
   return (
     <aside className="sidebar">
+      <div>
+        <p className='white p-10'> Logged in as: {authContext.currentUser.email} </p>
+        <button onClick={authContext.logOut} className='p-10 options-button white pointer'> Log Out </button>
+      </div>
       <BoardOptions newBoard={toggleInput}/>
       {showInput ? <NewBoardInput new={props.createBoard} /> : null}
       <BoardList data={props.data}/>

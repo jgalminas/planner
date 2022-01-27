@@ -6,7 +6,7 @@ import { SignUp } from './SignUp';
 import { Login } from './Login';
 
 import { AuthProvider } from './contexts/AuthContext';
-import { AuthRoute } from './AuthRoute';
+import { AuthRoute, InaccessibleWhenAuthedRoute } from './AuthRoute';
 
 import './custom.css'
 
@@ -18,8 +18,8 @@ export default class App extends Component {
             <AuthProvider>
               <Routes>
                 <Route path="/:id" element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
-                <Route path='/signup' element={<SignUp/>}/>
-                <Route path='/login' element={<Login/>}/>
+                <Route path='/signup' element={ <InaccessibleWhenAuthedRoute> <SignUp/> </InaccessibleWhenAuthedRoute> }/>
+                <Route path='/login' element={ <InaccessibleWhenAuthedRoute> <Login/> </InaccessibleWhenAuthedRoute> }/>
                 <Route path='/' exact element={ <AuthRoute> <Dashboard/> </AuthRoute>}/>
               </Routes>
               </AuthProvider>
