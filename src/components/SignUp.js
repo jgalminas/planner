@@ -17,7 +17,7 @@ export function SignUp() {
     function signUp(e) {
         e.preventDefault();
 
-        if (validateInputs() == true) {
+        if (validateInputs() === true) {
             setLoading(true);
             authContext.signUp(email, password)
             .then(() => {
@@ -46,6 +46,9 @@ export function SignUp() {
                 break;
             case 'repeatPassword':
                 setRepeatPassword(e.target.value);
+                break;
+            default:
+                break;
         }
     }
 

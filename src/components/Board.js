@@ -1,7 +1,8 @@
 ﻿import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Category } from './Category';
 import { v4 as uuid } from 'uuid';
-import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { ReactComponent as OptionsIcon } from './icons/options_h.svg';
 import { OptionsDropdown } from './OptionsDropdown';
@@ -10,6 +11,7 @@ export function Board(props) {
 
   const [data, setData] = useState({name: "", categories: []});
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+  const navigate = useNavigate();
 
   // Everything inside this useEffect is called when the component mounts and each time the board ID changes.
   useEffect(() => {
@@ -18,9 +20,19 @@ export function Board(props) {
 
   function populateData() {
 
-    onSnapshot(doc(db, "boardData", props.board.dataId), (doc) => {
+    const unsubscribe = onSnapshot(doc(db, "boardData", props.board.dataId), (doc) => {
       setData({id: doc.id, ...doc.data()});
+  }, () => {
+    navigate("/");
   });
+
+    return unsubscribe;
+  }
+
+  function deleteBoard(boardId, boardDataId) {
+    deleteDoc(doc(db, 'boardData', boardDataId)).then(() => {
+      deleteDoc(doc(db, 'boards', boardId))
+    })
   }
 
   function createObjective(name, catId) {
@@ -89,9 +101,9 @@ export function Board(props) {
 
   return (
     <div className='h-100 board'>
-      <BoardHeader name={props.board.name}/>
+      <BoardHeader data={props.board} delete={deleteBoard}/>
     <div className="flex row no-wrap gap-15 board-content">
-      {data.categories.map((item) => {
+      {(data.categories) ? data.categories.map((item) => {
         return (
           <Category
           key={item.id}
@@ -103,7 +115,7 @@ export function Board(props) {
           data={item}
           />
         );
-      })}
+      }) : null}
       <NewCategoryInput show={showNewCategoryInput} click={newCategoryInput}/>
     </div>
     </div>
@@ -129,10 +141,10 @@ function BoardHeader(props) {
   return(
     <div className='flex row board-header w-100'>
       <p className='h-100 board-title'>
-        {props.name}
+        {props.data.name}
       </p>
       <OptionsDropdown>
-        <button className='category-options-item m-0' onClick={() => props.delete(props.dataId, props.boardId)}> Delete </button>
+        <button className='category-options-item m-0' onClick={() => props.delete(props.data.boardId, props.data.dataId)}> Delete </button>
         </OptionsDropdown>
     </div>
   )

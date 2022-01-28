@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ReactComponent as OptionsIcon } from './icons/options_v.svg'
+import { ReactComponent as OptionsIconVertical } from './icons/options_v.svg'
+import { ReactComponent as OptionsIconHorizontal } from './icons/options_h.svg'
 
 export function OptionsDropdown(props) {
 
@@ -39,7 +40,7 @@ export function OptionsDropdown(props) {
     return (
         <div>
             <button ref={button} className="objective-options-button icon-button p-0" onClick={showOptions}>
-            <OptionsIcon/>
+            <OptionsIconVertical/>
             </button>
         {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit objective-options'>
             {props.children}

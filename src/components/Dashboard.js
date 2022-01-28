@@ -1,11 +1,11 @@
 import { Sidebar } from './Sidebar';
 import { Board } from './Board';
 
-import { Route, Routes, useLocation} from 'react-router';
+import { useLocation} from 'react-router';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { collection, onSnapshot, addDoc, where, query, deleteDoc, doc } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc, where, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from './contexts/AuthContext';
 
@@ -25,8 +25,9 @@ export function Dashboard() {
     const colRef = collection(db, 'boards');
     const userData = query(colRef, where('user', '==', uid));
       
-      const unsubscribe = onSnapshot(userData, (col) => {
-        const boards = col.docs.map((doc) => {
+      const unsubscribe = onSnapshot(userData,
+        (snapshot) => {
+        const boards = snapshot.docs.map((doc) => {
           return {id: doc.id, ...doc.data()}
         })
         setData([...boards]);
@@ -38,12 +39,6 @@ export function Dashboard() {
     function createBoard(name) {
         addDoc(collection(db, 'boardData'), {categories: [], user: uid}).then((doc) => {
           addDoc(collection(db, 'boards'), {name: name, user: uid, data: doc.id})
-      })
-    }
-
-    function deleteBoard(boardId, boardDataId) {
-      deleteDoc(doc(db, 'boardData', boardDataId)).then(() => {
-        deleteDoc(doc(db, 'board', boardId))
       })
     }
 
