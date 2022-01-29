@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function DatePicker(props) {
     
-    const [date, setDate] = useState(props.label);
+    const [date, setDate] = useState();
     const [visible, setVisible] = useState(false);
 
     function showCalendar() {
@@ -15,10 +15,11 @@ export function DatePicker(props) {
 
     return(
         <div className="p-10">
-            <button onClick={showCalendar}> {date} </button>
+            <button className="pointer" onClick={showCalendar}> {(date) ? date : props.label} </button>
             {(visible) ?
-            <div>
-                
+            <div className="flex col no-wrap w-fit h-fit modal">
+                asd
+                ads
             </div>
             : null}
         </div>

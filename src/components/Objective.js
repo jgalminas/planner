@@ -10,7 +10,7 @@ export function Objective(props) {
     const [hover, setHover] = useState(false);
 
     const options = [
-        {name: "Rename", click: () => props.renamere(props.data.id)},
+        {name: "Rename", click: () => props.rename(props.data.id)},
         {name: "Delete", click: () => props.delete(props.data.id, props.catId)}
     ]
 
