@@ -7,6 +7,9 @@ import { db } from '../firebase';
 import { ReactComponent as OptionsIcon } from './icons/options_h.svg';
 import { OptionsDropdown } from './OptionsDropdown';
 
+import { ReactComponent as OptionsIcon_V } from './icons/options_v.svg'
+import { ReactComponent as OptionsIcon_H } from './icons/options_h.svg'
+
 export function Board(props) {
 
   const [data, setData] = useState({name: "", categories: []});
@@ -143,9 +146,9 @@ function BoardHeader(props) {
       <p className='h-100 board-title'>
         {props.data.name}
       </p>
-      <OptionsDropdown>
+        {/* <OptionsDropdown icon={<OptionsIcon_H/>}>
         <button className='category-options-item m-0' onClick={() => props.delete(props.data.boardId, props.data.dataId)}> Delete </button>
-        </OptionsDropdown>
+        </OptionsDropdown> */}
     </div>
   )
 }

@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { ReactComponent as AddIcon } from './icons/add.svg';
 import { useAuth } from './contexts/AuthContext';
+import { DatePicker } from './DatePicker';
 
 export function Sidebar(props) {
 
