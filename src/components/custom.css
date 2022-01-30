@@ -163,6 +163,10 @@ p {
     padding: 0px;
 }
 
+.p-5 {
+    padding: 5px;
+}
+
 .p-10 {
     padding: 10px;
 }
@@ -210,8 +214,16 @@ p {
     height: fit-content;
     font-size: 18px;
 
+    max-width: 200px;
     padding-left: 30px;
     padding-right: 15px;
+}
+
+.text-overflow {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .board-content {
@@ -239,10 +251,8 @@ p {
 }
 
 .objective-options{
-    position: absolute;
-    right: 10px;
-    top: 40px;
-
+    top: 120%;
+    right: 0px;
     z-index: 4;
     border-radius: 3px;
     outline: 1px solid rgba(230, 230, 230, 0.8);
@@ -316,8 +326,15 @@ p {
     right: 10px;
 }
 
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+
 .board-item-icon {
-    width: 30px;
+    min-width: 30px;
     height: 30px;
 
     line-height: 30px;

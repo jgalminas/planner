@@ -18,7 +18,9 @@ export function Objective(props) {
         <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="flex col p-10 objective gap-10 soft-shadow"> 
                 <p className="h-fit w-100"> {props.data.name} </p>
                 {(hover) ?
-                <OptionsDropdown icon={<OptionsIconV/>} options={options}/>
+                <div className='objective-options-button'>
+                    <OptionsDropdown icon={<OptionsIconV/>} options={options}/>
+                </div>
                 : null }
         </div>
     );

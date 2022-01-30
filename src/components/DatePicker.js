@@ -13,6 +13,8 @@ export function DatePicker(props) {
         }
     }
 
+    
+
     return(
         <div className="p-10">
             <button className="pointer" onClick={showCalendar}> {(date) ? date : props.label} </button>

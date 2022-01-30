@@ -21,11 +21,11 @@ export function OptionsDropdown(props) {
     }
 
     return (
-        <div>
-            <button ref={button} className="objective-options-button icon-button p-0" onClick={() => setVisible(!visible)}>
+        <div className='flex relative'>
+            <button ref={button} className="icon-button p-5" onClick={() => setVisible(!visible)}>
             {props.icon}
             </button>
-        {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit objective-options'>
+        {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute objective-options'>
             {(props.options) ? props.options.map((option, key) => {
                 return <button key={key} className='category-options-item m-0' onClick={() => handleClick(option.click)}> {option.name} </button>
             }) : null}

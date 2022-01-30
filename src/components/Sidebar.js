@@ -59,7 +59,7 @@ function BoardItem(props) {
       <div className="board-item-icon">
         {props.data.name.charAt(0).toUpperCase()}
       </div>
-      <div className="align-center white light"> {props.data.name} </div>
+      <div className="align-center white light text-overflow"> {props.data.name} </div>
     </Link>
   );
 }

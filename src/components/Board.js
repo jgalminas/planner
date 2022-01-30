@@ -7,8 +7,7 @@ import { db } from '../firebase';
 import { ReactComponent as OptionsIcon } from './icons/options_h.svg';
 import { OptionsDropdown } from './OptionsDropdown';
 
-import { ReactComponent as OptionsIcon_V } from './icons/options_v.svg'
-import { ReactComponent as OptionsIconH } from './icons/options_h.svg'
+import { ReactComponent as Dropdown } from './icons/dropdown.svg'
 import { DatePicker } from './DatePicker';
 
 export function Board(props) {
@@ -148,11 +147,10 @@ function BoardHeader(props) {
 
   return(
     <div className='flex row board-header w-100'>
-      <p className='board-title'>
+      <span className='board-title text-overflow'>
         {props.data.name}
-      </p>
-        <DatePicker label="Set Due Date"/>
-        <OptionsDropdown icon={<OptionsIconH/>} options={options} />
+      </span>
+        <OptionsDropdown icon={<Dropdown/>} options={options} />
     </div>
   )
 }
