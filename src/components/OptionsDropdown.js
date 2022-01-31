@@ -22,7 +22,7 @@ export function OptionsDropdown(props) {
 
     return (
         <div className='flex relative'>
-            <button ref={button} className="icon-button p-5" onClick={() => setVisible(!visible)}>
+            <button ref={button} className="icon-button p-5" onClick={(e) => {e.stopPropagation(); setVisible(!visible)} }>
             {props.icon}
             </button>
         {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute objective-options'>

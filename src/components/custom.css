@@ -109,6 +109,10 @@ p {
     gap: 15px;
 }
 
+.gap-30 {
+    gap: 30px;
+}
+
 .w-100 {
     min-width: 100%;
     max-width: 100%;
@@ -266,14 +270,27 @@ p {
     background-color: rgba(230, 230, 230, 1);
 }
 
-.modal {
-    position: absolute;
-    top: 35px;
+.objective-details-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
-    z-index: 4;
+    padding: 40px;
+
+    z-index: 7;
     border-radius: 3px;
     outline: 1px solid rgba(230, 230, 230, 0.8);
     background-color: var(--main-white);
+}
+
+.exit-button {
+    right: 10px;
+    top: 10px;
+
+    height: 24px;
+    width: 24px;
+    z-index: 9;
 }
 
 .category-header {
@@ -452,6 +469,52 @@ p {
     border-radius: 2px;
 }
 
-.datepicker-label {
 
+
+.od-borderless-input {
+    font-weight: 500;
+    font-size: 18px;
+    width: 500px;
+    border: none;
+    padding: 5px;
 }
+
+.od-borderless-input:hover {
+   outline: 1px solid #4B4B4B;
+}
+
+.od-borderless-input:focus {
+    outline: 2px solid #4b4b4b;
+ }
+
+ .od-details-input {
+     width: 100%;
+     
+     border: none;
+     outline: 1px solid #4B4B4B;
+ }
+
+.select {
+    width: 180px;
+    height: 32px;
+    border: none;
+    border-radius: 3px;
+
+    outline: 1px solid rgba(56, 56, 56, 0.459);
+    background-color: rgb(243, 243, 243);
+  }
+
+.select-label {
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.select:focus {
+    border: none;
+    outline: 2px solid #4b4b4b;
+}
+
+.select option {
+    margin: 10px;
+  }

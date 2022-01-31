@@ -19,7 +19,7 @@ export function DatePicker(props) {
         <div className="p-10">
             <button className="pointer" onClick={showCalendar}> {(date) ? date : props.label} </button>
             {(visible) ?
-            <div className="flex col no-wrap w-fit h-fit modal">
+            <div className="flex col no-wrap w-fit h-fit">
                 asd
                 ads
             </div>
