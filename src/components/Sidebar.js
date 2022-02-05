@@ -1,21 +1,17 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as AddIcon } from './icons/add.svg';
 import { useAuth } from './contexts/AuthContext';
-import { DatePicker } from './DatePicker';
 
-export function Sidebar(props) {
+import { useGlobalState } from 'state-pool';
+import { useData } from './contexts/DataContext';
+
+export function Sidebar() {
 
   const authContext = useAuth();
   const [showInput, setShowInput] = useState(false);
 
-  function toggleInput() {
-    if (showInput) {
-      setShowInput(false);
-    } else {
-      setShowInput(true);
-    }
-  }
+  const [boardList] = useGlobalState("boardList");
 
   return (
     <aside className="sidebar">
@@ -23,9 +19,9 @@ export function Sidebar(props) {
         <p className='white p-10'> Logged in as: {authContext.currentUser.email} </p>
         <button onClick={authContext.logOut} className='p-10 options-button white pointer'> Log Out </button>
       </div>
-      <BoardOptions newBoard={toggleInput}/>
-      {showInput ? <NewBoardInput new={props.createBoard} /> : null}
-      <BoardList data={props.data}/>
+      <BoardOptions showInput={() => setShowInput(!showInput)}/>
+      {showInput ? <NewBoardInput/> : null}
+      <BoardList boardList={boardList}/>
     </aside>
   );
 }
@@ -34,7 +30,7 @@ function BoardOptions(props) {
   return (
     <div className="flex row no-wrap w-100 p-10">
       <h1 className="md-title white w-fit m-0">Your Boards</h1>
-      <button className="w-fit" type="submit" onClick={props.newBoard}>
+      <button className="w-fit" onClick={props.showInput}>
         <AddIcon stroke="#ffffff" />
       </button>
     </div>
@@ -45,7 +41,7 @@ function BoardList(props) {
 
   return (
     <div className="flex col">
-      {props.data.map((item) => {
+      {props.boardList.map((item) => {
         return <BoardItem key={item.id} data={item}/>
       })}
     </div>
@@ -64,23 +60,15 @@ function BoardItem(props) {
   );
 }
 
-export function NewBoardInput(props) {
+export function NewBoardInput() {
 
-  const input = useRef();
+  const [name, setName] = useState("");
+  const dataContext = useData();
 
   return (
     <div className="flex col no-wrap p-10 gap-15">
-      <input
-        ref={input}
-        className="h-fit new-board-input w-auto"
-        type="text"
-        placeholder="Enter name"
-      ></input>
-      <button
-        className="new-board-button white w-100"
-        autoFocus
-        onClick={() => props.new(input.current.value)}
-      >
+      <input className="h-fit new-board-input w-auto" type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)}></input>
+      <button className="new-board-button white w-100" autoFocus onClick={() => dataContext.createBoard(name)}>
         Create Board
       </button>
     </div>

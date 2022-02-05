@@ -23,22 +23,3 @@ export default function useClickOutside(clickNodeRef, menuNodeRef, callback) {
 
     })
 }
-
-// export default function useClickOutside(clickNodeRef, menuNodeRef, callback) {
-//     useEffect(() => {
-        
-//         function handleClick(e) {
-//             if (clickNodeRef && clickNodeRef.current.contains(e.target)) {
-//                 return;
-//             } else if (menuNodeRef.current && !menuNodeRef.current.contains(e.target)) {
-//                 callback();
-//             }
-//         }
-        
-//         document.addEventListener("mousedown", handleClick);
-//         return () => {
-//         document.removeEventListener("mousedown", handleClick);
-//     }
-
-//     }, [])
-// }
