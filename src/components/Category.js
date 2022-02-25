@@ -1,31 +1,68 @@
-﻿import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef, Fragment } from 'react';
 import { ReactComponent as AddIcon } from './icons/add.svg';
 import { ReactComponent as OptionsIconV } from './icons/options_v.svg';
-import { Objective } from './Objective.js';
+import { SortableObjective } from './Objective.js';
 import { OptionsDropdown } from './OptionsDropdown';
-import { useData } from './contexts/DataContext';
+
+import { useDroppable } from "@dnd-kit/core";
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {CSS} from '@dnd-kit/utilities';
+import { useDispatch } from 'react-redux';
+import { createObjective, deleteCategory } from './slices/currentBoardSlice';
+
 
 export function Category(props) {
 
   const [showForm, setShowForm] = useState(false);
-  const dataContext = useData();
+  const dispatch = useDispatch();
+  
+    const { setNodeRef } = useDroppable({
+      id: props.id,
+    });
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef: sortRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({id: props.id, data: {
+    type: 'Category'
+  }});
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  };
 
   const options = [
-    {name: "Delete", click: () => dataContext.deleteCategory(props.id)}
+    {name: "Delete", click: () => dispatch(deleteCategory({catId: props.id}))}
   ];
 
   return (
-  <div className="category h-100">
-        <CategoryHeader show={() => setShowForm(!showForm)} id={props.id} name={props.name}>
-          <OptionsDropdown icon={<OptionsIconV/>} options={options} />
-        </CategoryHeader>
-          <div className="flex col gap-15 p-10 cat-content">
-          {props.objectives.map((item, key) => {
-          return <Objective index={key} catId={props.id} key={item.id} data={item} />;
+    <SortableContext id={props.id} items={props.objectives} strategy={verticalListSortingStrategy}>
+      
+      <div className={isDragging ? "dragging category h-100" : "category h-100"} ref={sortRef} style={style} {...attributes} {...listeners } >
+
+          {!isDragging && 
+            <CategoryHeader show={() => setShowForm(!showForm)} id={props.id} name={props.name}>
+            <OptionsDropdown icon={<OptionsIconV/>} options={options} />
+            </CategoryHeader>}
+
+          <div className="flex col gap-15 p-10 cat-content" ref={setNodeRef}>
+          {!isDragging &&
+          <Fragment>
+          {props.objectives.map((item) => {
+          return <SortableObjective catId={props.id} key={item.id} data={item} />;
           })}
           {showForm && <NewObjectiveInput catId={props.id} show={() => setShowForm(!showForm)}/>}
-          </div>
+          </Fragment>}
+          </div> 
+
       </div>
+
+    </SortableContext>
   );
 }
 
@@ -46,9 +83,11 @@ export function CategoryHeader(props) {
 export function NewObjectiveInput(props) {
 
   const [name, setName] = useState("");
-  const dataContext = useData();
   const button = useRef();
 
+  const dispatch = useDispatch();
+
+  //Component will scroll into view once it is mounted.
   useEffect(() => {
     button.current.scrollIntoView({
       behavior: "smooth",
@@ -56,6 +95,7 @@ export function NewObjectiveInput(props) {
   }, []) 
 
   return (
+
     <div className="flex wrap w-100 objective soft-shadow p-0">
       <div className="w-100 h-fit p-10">
         <input autoFocus
@@ -69,7 +109,7 @@ export function NewObjectiveInput(props) {
       <button
         ref={button}
         onClick={() => {
-          dataContext.createObjective(props.catId, name);
+          dispatch(createObjective({catId: props.catId, name: name}));
           props.show();
         }}
         className="new-objective-button w-100 h-fit align-end">

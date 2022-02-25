@@ -9,7 +9,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import { AuthRoute, InaccessibleWhenAuthedRoute } from './AuthRoute';
 import { DataProvider } from './contexts/DataContext';
 
+import '../styles/styles.css'
 import './custom.css'
+
 
 export default class App extends Component {
 

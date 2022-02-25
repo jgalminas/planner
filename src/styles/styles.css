@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Varela+Round&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0px;
+}
+
+.text-overflow, .board-list .board-item {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.no-wrap {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+.sidebar {
+  height: 100%;
+  width: 250px;
+  background-color: #2D2E3D;
+}
+
+.sidebar hr {
+  border: none;
+  height: 1px;
+  background-color: #525471;
+}
+
+.board-list {
+  padding: 20px;
+}
+
+.board-list .title {
+  font-family: "Varela Round", sans-serif;
+  font-size: 13px;
+  color: #767AB5;
+  letter-spacing: 1px;
+}
+
+.board-list .input {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.board-list .input input {
+  width: 100%;
+  height: 30px;
+  background-color: #414253;
+  border: none;
+  border-radius: 3px;
+  padding-left: 5px;
+  margin-right: 5px;
+  color: #A8A8A8;
+}
+
+.board-list .input input:focus {
+  outline: 1px solid #5c5e75;
+}
+
+.board-list .input button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.board-list .input button:hover {
+  background-color: #414253;
+  border-radius: 3px;
+}
+
+.board-list .board-item {
+  font-family: "Varela Round", sans-serif;
+  padding: 5px;
+  color: #DCDCDC;
+  width: 100%;
+}
+
+.board-list .board-item:hover {
+  background-color: #3f4263;
+  border-radius: 3px;
+}
+
+.current-user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.current-user p {
+  font-family: "Varela Round", sans-serif;
+  color: #ffffff;
+}
+
+.current-user .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #1D6569;
+}
+
+.current-user .icon .char {
+  font-size: 22px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.current-user .name {
+  font-size: 18px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+/*# sourceMappingURL=styles.css.map */

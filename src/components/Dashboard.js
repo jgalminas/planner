@@ -1,6 +1,6 @@
 import { Sidebar } from './Sidebar';
 import { Board } from './Board';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useData } from './contexts/DataContext';
 import { useLocation } from 'react-router-dom';
 
@@ -14,9 +14,9 @@ export function Dashboard() {
     }, [])
 
     return(
-        <>
+        <Fragment>
         <Sidebar/>
         {(state !== null) ? <Board location={state}/> : null}
-        </>
+        </Fragment>
     )
 }

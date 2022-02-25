@@ -1,49 +1,53 @@
-﻿import React, { useState, useRef } from 'react';
+﻿import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as AddIcon } from './icons/add.svg';
+import { ReactComponent as CheckIcon } from './icons/check.svg'
 import { useAuth } from './contexts/AuthContext';
 
-import { useGlobalState } from 'state-pool';
-import { useData } from './contexts/DataContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { createBoard } from './slices/currentBoardSlice';
+import { CurrentUser } from './CurrentUser';
 
 export function Sidebar() {
 
   const authContext = useAuth();
-  const [showInput, setShowInput] = useState(false);
 
-  const [boardList] = useGlobalState("boardList");
+  const boardList = useSelector((state) => state.boardList.value);
 
   return (
-    <aside className="sidebar">
-      <div>
-        <p className='white p-10'> Logged in as: {authContext.currentUser.email} </p>
-        <button onClick={authContext.logOut} className='p-10 options-button white pointer'> Log Out </button>
-      </div>
-      <BoardOptions showInput={() => setShowInput(!showInput)}/>
-      {showInput ? <NewBoardInput/> : null}
+    <aside className='sidebar flex col no-wrap'>
+      <CurrentUser/>
+      {/* <button onClick={() => authContext.logOut()}> sign out </button> */}
+      <hr/>
+
       <BoardList boardList={boardList}/>
-    </aside>
-  );
-}
 
-function BoardOptions(props) {
-  return (
-    <div className="flex row no-wrap w-100 p-10">
-      <h1 className="md-title white w-fit m-0">Your Boards</h1>
-      <button className="w-fit" onClick={props.showInput}>
-        <AddIcon stroke="#ffffff" />
-      </button>
-    </div>
+    </aside>
   );
 }
 
 function BoardList(props) {
 
+  const authContext = useAuth();
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const input = useRef();
+
   return (
-    <div className="flex col">
-      {props.boardList.map((item) => {
-        return <BoardItem key={item.id} data={item}/>
-      })}
+    <div className="board-list flex col">
+      <p className='title'> BOARDS </p>
+      <div className='input flex row'>
+      <input ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text" placeholder='enter board name'/>
+      <button onClick={() => {
+        dispatch(createBoard({name: name, uid: authContext.currentUser.uid}));
+        input.current.value = '';
+        }}> <CheckIcon fill="#767AB5"/> </button>
+      </div>
+      <div>
+        {props.boardList && props.boardList.map((item) => {
+          return <BoardItem key={item.id} data={item}/>
+        })}
+      </div>
     </div>
   );
 }
@@ -51,26 +55,8 @@ function BoardList(props) {
 function BoardItem(props) {
 
   return (
-    <Link className="flex row board-item" state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/${props.data.id}`}>
-      <div className="board-item-icon">
-        {props.data.name.charAt(0).toUpperCase()}
-      </div>
-      <div className="align-center white light text-overflow"> {props.data.name} </div>
+    <Link state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/${props.data.id}`}>
+      <p className='board-item'> {props.data.name} </p>
     </Link>
-  );
-}
-
-export function NewBoardInput() {
-
-  const [name, setName] = useState("");
-  const dataContext = useData();
-
-  return (
-    <div className="flex col no-wrap p-10 gap-15">
-      <input className="h-fit new-board-input w-auto" type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)}></input>
-      <button className="new-board-button white w-100" autoFocus onClick={() => dataContext.createBoard(name)}>
-        Create Board
-      </button>
-    </div>
   );
 }

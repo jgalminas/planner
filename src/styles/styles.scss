@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Varela+Round&display=swap');
+
+$varela: 'Varela Round', sans-serif;
+$roboto: 'Roboto', sans-serif;
+
+$white: #ffffff;
+$sidebar-width: 250px;
+$sidebar-colour: #2D2E3D;
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+.text-overflow {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flex {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.no-wrap {
+    flex-wrap: nowrap;
+}
+
+.sidebar {
+    height: 100%;
+    width: $sidebar-width;
+    background-color: $sidebar-colour;
+
+    hr {
+        border: none;
+        height: 1px;
+        background-color: #525471;
+    }
+}
+
+.board-list {
+
+    padding: 20px;
+
+    .title {
+        font-family: $varela;
+        font-size: 13px;
+        color: #767AB5;
+        letter-spacing: 1px;
+    }
+
+    .input {
+
+        align-items: center;
+        padding-top: 10px;
+        padding-bottom: 15px;
+
+        input {
+            width: 100%;
+            height: 30px;
+
+            background-color: #414253;
+            border: none;
+            border-radius: 3px;
+            padding-left: 5px;
+            margin-right: 5px;
+
+            color: #A8A8A8;
+
+            &:focus {
+                outline: 1px solid #5c5e75;
+            }
+        }
+    
+        button {
+            display: flex;
+            height: 30px;
+            width: 30px;
+
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                background-color: #414253;
+                border-radius: 3px;
+            }
+        }
+    
+    }
+
+    .board-item {
+        @extend .text-overflow;
+
+        font-family: $varela;
+        padding: 5px;
+        color: #DCDCDC;
+        width: 100%;
+
+        &:hover {
+            background-color: #3f4263;
+            border-radius: 3px;
+        }
+    }
+
+}
+
+
+
+.current-user {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+
+    padding: 10px;
+
+    p {
+        font-family: $varela;
+        color: $white;
+    }
+
+    .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 25px;
+        background-color: #1D6569;
+    
+        .char {
+            font-size: 22px;
+            text-align: center;
+            line-height: 40px;
+        }
+    }
+
+    .name {
+        font-size: 18px;
+        align-self: center;
+    }
+
+}
+

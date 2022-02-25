@@ -4,7 +4,7 @@
 :root {
     --sidebar-width: 250px;
     --sidebar-height: 100vh;
-    --sidebar-colour: #222222;
+    --sidebar-colour: #2D2E3D;
     --header-height: 60px;
     --main-height: 100vh;
     --main-width: calc(100% - var(--sidebar-width));
@@ -187,14 +187,14 @@ p {
     cursor: pointer;
 }
 
-.sidebar {
+/* .sidebar {
     height: 100%;
     min-width: var(--sidebar-width);
     max-width: var(--sidebar-width);
     background-color: var(--sidebar-colour);
 
     color: white;
-}
+} */
 
 .main {
     height: 100%;
@@ -221,13 +221,6 @@ p {
     max-width: 200px;
     padding-left: 30px;
     padding-right: 15px;
-}
-
-.text-overflow {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .board-content {
@@ -349,10 +342,6 @@ p {
     color: var(--main-white);
     background-color: rgb(46, 134, 75);
     border-radius: 15px;
-}
-
-.board-item:hover {
-    background-color: #3a3a3a;
 }
 
 .new-board-input {
@@ -485,11 +474,12 @@ p {
 
 .select {
     width: 180px;
-    height: 32px;
+    height: 38px;
     border: none;
     border-radius: 3px;
+    padding-left: 5px;
 
-    outline: 1px solid rgba(56, 56, 56, 0.459);
+    outline: 1px solid rgb(77, 77, 77);
     background-color: rgb(243, 243, 243);
   }
 
@@ -528,6 +518,47 @@ p {
 
     z-index: 110;
     border-radius: 3px;
-    outline: 1px solid rgba(230, 230, 230, 0.8);
+    box-shadow: rgba(99, 99, 99, 0.6) 0px 0px 80px 10px;
     background-color: var(--main-white);
 }
+
+.drag-overlay {
+    background-color: rgb(245, 245, 245);
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+
+    outline: 1px solid rgb(216, 216, 216);
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.dragging {
+    background-color: #d3d3d3;
+    border-radius: 5px;
+}
+
+.rename-input {
+    font-size: 18px;
+    max-width: 200px;
+    border-radius: 3px;
+    padding: 5px;
+    outline: 1px solid #0000003b;
+    border: none;
+    margin-right: 10px;
+}
+
+.rename-input:hover, .rename-input:focus {
+    border: none;
+    outline: 1px solid #0000003b
+}
+
+.rename {
+    padding-left: 25px;
+}
+
+/* 
+height: fit-content;
+font-size: 18px;
+
+max-width: 200px;
+padding-left: 30px;
+padding-right: 15px; */

@@ -2,8 +2,8 @@ import { ReactComponent as CloseIcon} from './icons/close.svg';
 import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useData } from './contexts/DataContext';
-import { useGlobalState } from 'state-pool';
 import useClickOutside from './hooks/ClickOutside';
+import { useSelector } from 'react-redux';
 
 export function ObjectiveDetails(props) {
 
@@ -13,8 +13,7 @@ export function ObjectiveDetails(props) {
 
     const modal = useRef();
 
-    const selector = (currentBoard) => currentBoard.categories;
-    const [categories] = useGlobalState("currentBoard", { selector: selector });
+    const categories = useSelector((state) => state.currentBoard.value.categories);
 
     useEffect(() => {
       getCurrentCategory(props.catId);
