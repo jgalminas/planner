@@ -59,6 +59,10 @@
   background-color: #525471;
 }
 
+.sidebar .placeholder {
+  height: 30%;
+}
+
 .board-list {
   padding: 20px;
 }
@@ -145,22 +149,156 @@
 }
 
 .current-user .icon {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 25px;
   background-color: #1D6569;
 }
 
 .current-user .icon .char {
-  font-size: 22px;
+  font-size: 18px;
   text-align: center;
-  line-height: 40px;
+  line-height: 32px;
 }
 
 .current-user .name {
-  font-size: 18px;
+  font-size: 16px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+}
+
+.react-datepicker-wrapper {
+  z-index: 1000;
+}
+
+.datepicker-input {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 14px;
+  color: #2c2c2c;
+  font-weight: 300;
+  z-index: 100;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.date-picker {
+  border: none;
+}
+
+.date-picker .datepicker-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px;
+}
+
+.date-picker .current-month {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 16px;
+  color: #3f3f3f;
+  font-weight: 300;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.date-picker .change-month-button {
+  height: 20px;
+  width: 20px;
+  padding: 0px;
+  outline: 1px solid #b8b8b8;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin: 0px 20px 0px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.date-picker .change-month-button svg {
+  stroke: #585858;
+}
+
+.date-picker .change-month-button:hover {
+  background-color: #f0f0f0;
+}
+
+.date-picker .react-datepicker__day--today {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 13px;
+  color: #3f3f3f;
+  font-weight: 300;
+  outline: 1px solid #a5a5a5;
+  border-radius: 5px;
+}
+
+.date-picker .react-datepicker__day--today:hover {
+  background-color: #dadada;
+  border-radius: 5px;
+}
+
+.date-picker .react-datepicker__day {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 13px;
+  color: #3f3f3f;
+  font-weight: 300;
+}
+
+.date-picker .react-datepicker__day:hover {
+  background-color: #dadada;
+  border-radius: 5px;
+}
+
+.date-picker .react-datepicker__day--keyboard-selected {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 13px;
+  color: #3f3f3f;
+  font-weight: 300;
+  background-color: #d1d1d1;
+  border-radius: 5px;
+  outline: none;
+}
+
+.date-picker .react-datepicker__day--outside-month {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 13px;
+  color: #bebebe;
+  font-weight: 300;
+}
+
+.date-picker .react-datepicker__day-name {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 13px;
+  color: #818181;
+  font-weight: 300;
+}
+
+.date-picker .react-datepicker__header {
+  background-color: #ffffff;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 13px;
+  color: black;
+  font-weight: 300;
+  border: none;
+  padding-bottom: 0px;
 }
 /*# sourceMappingURL=styles.css.map */

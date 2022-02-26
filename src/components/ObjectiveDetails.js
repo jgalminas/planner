@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { useData } from './contexts/DataContext';
 import useClickOutside from './hooks/ClickOutside';
 import { useSelector } from 'react-redux';
+import { DatePicker } from './DatePicker';
 
 export function ObjectiveDetails(props) {
 
@@ -90,9 +91,11 @@ export function ObjectiveDetails(props) {
         </div>
         
         </div>
-
+        
+        <DatePicker/>
         <textarea className="od-details-input" value={details.notes} onChange={(e) => setDetails({ ...details, notes: e.target.value})}/>
       </div>
+
       </div>)
       , document.getElementById('root')
     )

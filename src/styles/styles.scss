@@ -7,6 +7,20 @@ $white: #ffffff;
 $sidebar-width: 250px;
 $sidebar-colour: #2D2E3D;
 
+// Mixin for using Valera Round font
+// To keep weight as default use 'default' as the param
+@mixin Varela($color, $size, $weight) {
+    font-family: 'Varela Round', sans-serif;
+    font-size: $size;
+    color: $color;
+
+    @if $weight == 'default' {
+        font-weight: 300;
+    } @else {
+        font-weight: $weight;
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0px;
@@ -50,6 +64,10 @@ $sidebar-colour: #2D2E3D;
         border: none;
         height: 1px;
         background-color: #525471;
+    }
+
+    .placeholder {
+        height: 30%;
     }
 }
 
@@ -120,8 +138,6 @@ $sidebar-colour: #2D2E3D;
 
 }
 
-
-
 .current-user {
 
     display: flex;
@@ -137,22 +153,120 @@ $sidebar-colour: #2D2E3D;
     }
 
     .icon {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
         border-radius: 25px;
         background-color: #1D6569;
     
         .char {
-            font-size: 22px;
+            font-size: 18px;
             text-align: center;
-            line-height: 40px;
+            line-height: 32px;
         }
     }
 
     .name {
-        font-size: 18px;
+        font-size: 16px;
         align-self: center;
     }
 
 }
 
+.react-datepicker-wrapper {
+    z-index: 1000;
+}
+
+.datepicker-input {
+    @include Varela(rgb(44, 44, 44), 14px, default);
+    z-index: 100;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.date-picker {
+    border: none;
+    
+    .datepicker-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .current-month {
+        @include Varela(rgb(63, 63, 63), 16px, default);
+        width: fit-content;
+
+    }
+
+    .change-month-button {
+        height: 20px;
+        width: 20px;
+        padding: 0px;
+        outline: 1px solid #b8b8b8;
+        background-color: $white;
+        border-radius: 5px;
+        margin: 0px 20px 0px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        svg {
+            stroke: #585858;
+        }
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+
+    .react-datepicker__day--today {
+        @include Varela(rgb(63, 63, 63), 13px, default);
+
+        outline: 1px solid rgb(165, 165, 165);
+        // background-color: #a1a2af !important;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: #dadada;
+            border-radius: 5px;
+        }
+    }
+
+    .react-datepicker__day {
+        @include Varela(rgb(63, 63, 63), 13px, default);
+
+        &:hover {
+            background-color: #dadada;
+            border-radius: 5px;
+        }
+    }
+    
+    .react-datepicker__day--keyboard-selected {
+        @include Varela(rgb(63, 63, 63), 13px, default);
+
+        background-color: rgb(209, 209, 209);
+        border-radius: 5px;
+        outline: none;
+
+    }
+    
+    .react-datepicker__day--outside-month {
+        @include Varela(rgb(190, 190, 190), 13px, default);
+    }
+    
+    .react-datepicker__day-name {
+        @include Varela(rgb(129, 129, 129), 13px, default);
+    }
+    
+    .react-datepicker__header{
+        background-color: $white;
+        @include Varela(black, 13px, default);
+        border: none;
+        padding-bottom: 0px;
+    }
+
+  }

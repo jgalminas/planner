@@ -187,14 +187,6 @@ p {
     cursor: pointer;
 }
 
-/* .sidebar {
-    height: 100%;
-    min-width: var(--sidebar-width);
-    max-width: var(--sidebar-width);
-    background-color: var(--sidebar-colour);
-
-    color: white;
-} */
 
 .main {
     height: 100%;
@@ -516,7 +508,7 @@ p {
 
     padding: 40px;
 
-    z-index: 110;
+    z-index: 1;
     border-radius: 3px;
     box-shadow: rgba(99, 99, 99, 0.6) 0px 0px 80px 10px;
     background-color: var(--main-white);

@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBoard } from './slices/currentBoardSlice';
 import { CurrentUser } from './CurrentUser';
 
+import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from './DatePicker';
+
 export function Sidebar() {
 
   const authContext = useAuth();
@@ -17,6 +20,10 @@ export function Sidebar() {
   return (
     <aside className='sidebar flex col no-wrap'>
       <CurrentUser/>
+
+      <DatePicker/>
+
+      <div className='placeholder'></div>
       {/* <button onClick={() => authContext.logOut()}> sign out </button> */}
       <hr/>
 
