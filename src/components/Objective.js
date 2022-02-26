@@ -53,11 +53,12 @@ export function Objective({isDragging, catId, data}) {
             <div
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={() => setShowDetails(true)}
+            onClick={(e) => {setShowDetails(true)}}
             className={className}>
             {!isDragging &&
             <Fragment>
            <p className="h-fit w-100"> {data?.name} </p>
+
            {hover &&
            <div className='objective-options-button'>
                <OptionsDropdown icon={<OptionsIconV/>} options={options}/>

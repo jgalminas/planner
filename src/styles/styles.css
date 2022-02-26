@@ -168,8 +168,8 @@
       align-self: center;
 }
 
-.react-datepicker-wrapper {
-  z-index: 1000;
+.react-datepicker__tab-loop {
+  position: absolute;
 }
 
 .datepicker-input {
@@ -185,6 +185,8 @@
 
 .date-picker {
   border: none;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
+          box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
 }
 
 .date-picker .datepicker-header {

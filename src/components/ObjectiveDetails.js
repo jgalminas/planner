@@ -51,12 +51,13 @@ export function ObjectiveDetails(props) {
         >
           <CloseIcon />
         </button>
+        
         <input
           className="od-borderless-input"
           value={details.name}
           onChange={(e) => setDetails({ ...details, name: e.target.value})}
           type="text"/>
-          
+        
         <div className='flex row gap-30'>
 
         <div className="flex col gap-10">
@@ -91,7 +92,6 @@ export function ObjectiveDetails(props) {
         </div>
         
         </div>
-        
         <DatePicker/>
         <textarea className="od-details-input" value={details.notes} onChange={(e) => setDetails({ ...details, notes: e.target.value})}/>
       </div>

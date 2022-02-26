@@ -501,7 +501,9 @@ p {
 }
 
 .objective-details-modal {
-    position: fixed;
+    position: relative;
+    width: fit-content;
+    height: auto;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

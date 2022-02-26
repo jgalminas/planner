@@ -172,8 +172,8 @@ $sidebar-colour: #2D2E3D;
 
 }
 
-.react-datepicker-wrapper {
-    z-index: 1000;
+.react-datepicker__tab-loop {
+    position: absolute;
 }
 
 .datepicker-input {
@@ -186,7 +186,8 @@ $sidebar-colour: #2D2E3D;
 
 .date-picker {
     border: none;
-    
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
+
     .datepicker-header {
         display: flex;
         flex-direction: row;
