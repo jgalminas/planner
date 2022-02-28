@@ -303,4 +303,41 @@
   border: none;
   padding-bottom: 0px;
 }
+
+.select-wrapper {
+  position: relative;
+  width: 200px;
+}
+
+.select-wrapper .select-control {
+  width: 100%;
+  padding: 5px;
+  color: #2c2c2c;
+  cursor: pointer;
+  outline: 1px solid #414141;
+  background-color: #ffffff;
+  border-radius: 3px;
+}
+
+.select-wrapper .select-menu {
+  position: absolute;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #ffffff;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
+          box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
+}
+
+.select-wrapper .select-option {
+  padding: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #494949;
+}
+
+.select-wrapper .select-option:hover {
+  background-color: #e8eaf8;
+  border-radius: 3px;
+}
 /*# sourceMappingURL=styles.css.map */
