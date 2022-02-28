@@ -5,6 +5,7 @@ import { useData } from './contexts/DataContext';
 import useClickOutside from './hooks/ClickOutside';
 import { useSelector } from 'react-redux';
 import { DatePicker } from './DatePicker';
+import Select from './Select';
 
 export function ObjectiveDetails(props) {
 
@@ -13,6 +14,15 @@ export function ObjectiveDetails(props) {
     const dataContext = useData();
 
     const modal = useRef();
+
+
+    const [select, setSelect] = useState("Select a value");
+    const options = [
+      {value: 0, label: 'Option 1'},
+      {value: 1, label: 'Option 2'},
+      {value: 2, label: 'Option 3'}
+    ]
+
 
     const categories = useSelector((state) => state.currentBoard.value.categories);
 
@@ -92,6 +102,7 @@ export function ObjectiveDetails(props) {
         </div>
         
         </div>
+        <Select value={select} options={options} onChange={(e) => setSelect(e.label)}/>
         <DatePicker/>
         <textarea className="od-details-input" value={details.notes} onChange={(e) => setDetails({ ...details, notes: e.target.value})}/>
       </div>

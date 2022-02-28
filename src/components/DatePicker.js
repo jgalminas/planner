@@ -3,6 +3,8 @@ import { ReactComponent as ChevronLeft } from './icons/chevron-left.svg';
 import { ReactComponent as ChevronRight } from './icons/chevron-right.svg';
 import ReactDatePicker, { CalendarContainer } from 'react-datepicker';
 
+import "react-datepicker/dist/react-datepicker.css";
+
 export function DatePicker(props) {
 
   const [date, setDate] = useState(null);

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBoard } from './slices/currentBoardSlice';
 import { CurrentUser } from './CurrentUser';
 
-import "react-datepicker/dist/react-datepicker.css";
 import Select from './Select';
 
 
@@ -18,12 +17,7 @@ export function Sidebar() {
   const boardList = useSelector((state) => state.boardList.value);
 
 
-  const [select, setSelect] = useState("Select a value");
-  const options = [
-    {value: 0, label: 'Option 1'},
-    {value: 1, label: 'Option 2'},
-    {value: 2, label: 'Option 3'}
-  ]
+ 
 
 
 
@@ -31,7 +25,6 @@ export function Sidebar() {
     <aside className='sidebar flex col no-wrap'>
       <CurrentUser/>
 
-      <Select value={select} options={options} onChange={(e) => setSelect(e.label)}/>
 
       <div className='placeholder'></div>
       {/* <button onClick={() => authContext.logOut()}> sign out </button> */}
