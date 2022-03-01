@@ -1,34 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Varela+Round&display=swap');
-
-
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-
-$varela: 'Varela Round', sans-serif;
-$roboto: 'Roboto', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 $white: #ffffff;
 $sidebar-width: 250px;
 $sidebar-colour: #2D2E3D;
 
-// Mixin for using Valera Round font
-// To keep weight as default use 'default' as the param
-@mixin Varela($color, $size, $weight) {
-    font-family: 'Varela Round', sans-serif;
-    font-size: $size;
-    color: $color;
-
-    @if $weight == 'default' {
-        font-weight: 300;
-    } @else {
-        font-weight: $weight;
-    }
-}
-
 * {
     box-sizing: border-box;
     margin: 0px;
-    font-family: 'League Spartan', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
 }
 
 .text-overflow {
@@ -81,7 +61,6 @@ $sidebar-colour: #2D2E3D;
     padding: 20px;
 
     .title {
-        font-family: $varela;
         font-size: 13px;
         color: #767AB5;
         letter-spacing: 1px;
@@ -152,7 +131,6 @@ $sidebar-colour: #2D2E3D;
     padding: 10px;
 
     p {
-        font-family: $varela;
         color: $white;
     }
 
@@ -181,7 +159,6 @@ $sidebar-colour: #2D2E3D;
 }
 
 .datepicker-input {
-    @include Varela(rgb(44, 44, 44), 14px, default);
     z-index: 100;
     padding: 5px;
     border-radius: 5px;
@@ -201,7 +178,6 @@ $sidebar-colour: #2D2E3D;
     }
 
     .current-month {
-        @include Varela(rgb(63, 63, 63), 16px, default);
         width: fit-content;
 
     }
@@ -229,8 +205,8 @@ $sidebar-colour: #2D2E3D;
     }
 
     .react-datepicker__day--today {
-        @include Varela(rgb(63, 63, 63), 13px, default);
-
+        color: #414253;
+        font-weight: 400;
         outline: 1px solid rgb(165, 165, 165);
         // background-color: #a1a2af !important;
         border-radius: 5px;
@@ -242,7 +218,8 @@ $sidebar-colour: #2D2E3D;
     }
 
     .react-datepicker__day {
-        @include Varela(rgb(63, 63, 63), 13px, default);
+        font-size: 14px;
+        color: #414253;
 
         &:hover {
             background-color: #dadada;
@@ -251,8 +228,8 @@ $sidebar-colour: #2D2E3D;
     }
     
     .react-datepicker__day--keyboard-selected {
-        @include Varela(rgb(63, 63, 63), 13px, default);
-
+        font-size: 14px;
+        color: #414253;
         background-color: rgb(209, 209, 209);
         border-radius: 5px;
         outline: none;
@@ -260,16 +237,18 @@ $sidebar-colour: #2D2E3D;
     }
     
     .react-datepicker__day--outside-month {
-        @include Varela(rgb(190, 190, 190), 13px, default);
+        font-size: 14px;
+        color: #414253;
     }
     
     .react-datepicker__day-name {
-        @include Varela(rgb(129, 129, 129), 13px, default);
+        font-size: 14px;
+        color: #414253;
     }
     
     .react-datepicker__header{
         background-color: $white;
-        @include Varela(black, 13px, default);
+
         border: none;
         padding-bottom: 0px;
     }
@@ -285,10 +264,8 @@ $sidebar-colour: #2D2E3D;
         padding: 10px;
         display: flex;
         align-items: center;
-
-        font-size: 14px;
         
-        color: rgb(44, 44, 44);
+        color: rgb(83, 83, 83);
         text-align: left;
 
         cursor: pointer;
@@ -324,7 +301,6 @@ $sidebar-colour: #2D2E3D;
     .select-option {
         padding: 10px;
         cursor: pointer;
-        font-size: 14px;
 
         color: rgb(73, 73, 73);
 

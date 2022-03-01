@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Varela+Round&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0px;
-  font-family: 'League Spartan', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
 }
 
 .text-overflow, .board-list .board-item {
@@ -70,7 +70,6 @@
 }
 
 .board-list .title {
-  font-family: "Varela Round", sans-serif;
   font-size: 13px;
   color: #767AB5;
   letter-spacing: 1px;
@@ -145,7 +144,6 @@
 }
 
 .current-user p {
-  font-family: "Varela Round", sans-serif;
   color: #ffffff;
 }
 
@@ -174,10 +172,6 @@
 }
 
 .datepicker-input {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 14px;
-  color: #2c2c2c;
-  font-weight: 300;
   z-index: 100;
   padding: 5px;
   border-radius: 5px;
@@ -208,10 +202,6 @@
 }
 
 .date-picker .current-month {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 16px;
-  color: #3f3f3f;
-  font-weight: 300;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -246,10 +236,8 @@
 }
 
 .date-picker .react-datepicker__day--today {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 13px;
-  color: #3f3f3f;
-  font-weight: 300;
+  color: #414253;
+  font-weight: 400;
   outline: 1px solid #a5a5a5;
   border-radius: 5px;
 }
@@ -260,10 +248,8 @@
 }
 
 .date-picker .react-datepicker__day {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 13px;
-  color: #3f3f3f;
-  font-weight: 300;
+  font-size: 14px;
+  color: #414253;
 }
 
 .date-picker .react-datepicker__day:hover {
@@ -272,35 +258,25 @@
 }
 
 .date-picker .react-datepicker__day--keyboard-selected {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 13px;
-  color: #3f3f3f;
-  font-weight: 300;
+  font-size: 14px;
+  color: #414253;
   background-color: #d1d1d1;
   border-radius: 5px;
   outline: none;
 }
 
 .date-picker .react-datepicker__day--outside-month {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 13px;
-  color: #bebebe;
-  font-weight: 300;
+  font-size: 14px;
+  color: #414253;
 }
 
 .date-picker .react-datepicker__day-name {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 13px;
-  color: #818181;
-  font-weight: 300;
+  font-size: 14px;
+  color: #414253;
 }
 
 .date-picker .react-datepicker__header {
   background-color: #ffffff;
-  font-family: 'Varela Round', sans-serif;
-  font-size: 13px;
-  color: black;
-  font-weight: 300;
   border: none;
   padding-bottom: 0px;
 }
@@ -319,8 +295,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 14px;
-  color: #2c2c2c;
+  color: #535353;
   text-align: left;
   cursor: pointer;
   outline: 1px solid #616161;
@@ -357,7 +332,6 @@
 .select-wrapper .select-option {
   padding: 10px;
   cursor: pointer;
-  font-size: 14px;
   color: #494949;
 }
 

@@ -288,7 +288,7 @@ function BoardHeader({ name }) {
       <span className='board-title text-overflow'>
         {name}
         </span>
-        <OptionsDropdown icon={<Dropdown/>} options={options} />
+        <OptionsDropdown icon={<Dropdown width="18" height="18"/>} options={options} />
         </Fragment>}
     </div>
   )

@@ -89,9 +89,7 @@ export function NewObjectiveInput(props) {
 
   //Component will scroll into view once it is mounted.
   useEffect(() => {
-    button.current.scrollIntoView({
-      behavior: "smooth",
-    });
+    button.current.scrollIntoView();
   }, []) 
 
   return (
@@ -101,7 +99,7 @@ export function NewObjectiveInput(props) {
         <input autoFocus
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-auto h-fit new-objective-input"
+          className="w-100 h-fit new-objective-input"
           type="text"
           placeholder="Enter name">
         </input>

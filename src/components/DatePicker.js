@@ -5,7 +5,7 @@ import ReactDatePicker, { CalendarContainer } from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export function DatePicker(props) {
+export function DatePicker() {
 
   const [date, setDate] = useState(null);
 

@@ -9,44 +9,55 @@ import Select from './Select';
 
 export function ObjectiveDetails(props) {
 
+  const categories = useSelector((state) => state.currentBoard.value.categories);
+
     const [details, setDetails] = useState(props.data);
-    const [category, setCategory] = useState({selected: {}, others: []});
+    const [categoryOptions, setCategoryOptions] = useState({current: {value: '', label: ''}, options: []});
     const dataContext = useData();
 
     const modal = useRef();
 
+    useEffect(() => {
 
-    const [select, setSelect] = useState("Select a value");
-    const options = [
-      {value: 0, label: 'Option 1'},
-      {value: 1, label: 'Option 2'},
-      {value: 2, label: 'Option 3'}
+      const currentCat = categories.find((cat) => cat.id === props.catId);
+
+      updateCategories({value: currentCat.id, label: currentCat.name})
+      
+    }, [])
+
+    function updateCategories({value, label}) {
+
+      const categoryOptions = categories.filter((cat) => cat.id !== value).map((option) => {
+        return {value: option.id, label: option.name}
+      })
+
+      setCategoryOptions(
+        {current: {value, label},
+         options: categoryOptions
+        })
+    }
+
+    const progressOptions = [
+      {value: 'Not Started', label: 'Not Started'},
+      {value: 'In Progress', label: 'In Progress'},
+      {value: 'Completed', label: 'Completed'}
     ]
 
-
-    const categories = useSelector((state) => state.currentBoard.value.categories);
-
-    useEffect(() => {
-      getCurrentCategory(props.catId);
-    }, [])
+    const priorityOptions = [
+      {value: 'Low', label: 'Low'},
+      {value: 'Medium', label: 'Medium'},
+      {value: 'High', label: 'High'},
+      {value: 'Urgent', label: 'Urgent'}
+    ]
 
     useClickOutside(null, modal, () => props.close());
 
-    function getCurrentCategory(catId) {
-      const current = categories.find((cat) => cat.id === catId);
-      const rest = categories.filter((cat) => cat.id !== current.id);
-
-      setCategory({
-        selected: current,
-        others: rest
-      });
-    }
 
     function updateDetails() {
 
-        if (details !== props.data || props.catId !== category.selected.id) {
-            dataContext.updateObjective(props.catId, details, category.selected.id);
-        }
+        // if (details !== props.data || props.catId !== category.selected.id) {
+        //     dataContext.updateObjective(props.catId, details, category.selected.id);
+        // }
     }
 
     return createPortal(
@@ -72,37 +83,21 @@ export function ObjectiveDetails(props) {
 
         <div className="flex col gap-10">
             <label htmlFor='priority'> Priority </label>
-          <select className='select' value={details.priority} onChange={(e) => setDetails({ ...details, priority: e.target.value})} name='priority'>
-            <option value="Low"> Low </option>
-            <option value="Medium"> Medium </option>
-            <option value="High"> High </option>
-            <option value="Urgent"> Urgent </option>
-          </select>
+          <Select options={priorityOptions} value={details.priority} onChange={(e) => setDetails({ ...details, priority: e.value})}/>
         </div>
 
         <div className="flex col gap-10">
             <label htmlFor='progress'> Progress </label>
-          <select className='select' value={details.progress} onChange={(e) => setDetails({ ...details, progress: e.target.value})} name='progress'>
-            <option value="Not Started"> Not Started </option>
-            <option value="In Progress"> In Progress </option>
-            <option value="Completed"> Completed </option>
-          </select>
+            <Select options={progressOptions} value={details.progress} onChange={(e) => setDetails({...details, progress: e.value})}/>
         </div>
 
         <div className="flex col gap-10">
             <label htmlFor='category'> Category </label>
-
-            <select className='select' value={category.selected.id} onChange={(e) => getCurrentCategory(e.target.value)} name='progress'>
-            <option value={category.selected.id}> {category.selected.name} </option>
-            {category.others.map((cat) => {
-              return <option key={cat.id} value={cat.id}> {cat.name} </option>
-            })}
-            </select>
-          
+            <Select options={categoryOptions.options} value={categoryOptions.current.label} onChange={(e) => updateCategories(e)}/>
         </div>
         
         </div>
-        <Select value={select} options={options} onChange={(e) => setSelect(e.label)}/>
+
         <DatePicker/>
         <textarea className="od-details-input" value={details.notes} onChange={(e) => setDetails({ ...details, notes: e.target.value})}/>
       </div>

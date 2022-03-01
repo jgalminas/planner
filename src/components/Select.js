@@ -2,6 +2,12 @@ import { useState, useRef } from "react";
 import useClickOutside from "./hooks/ClickOutside";
 import { ReactComponent as Arrow } from './icons/dropdown.svg'
 
+
+// Custom re-useable select component, takes 3 props:
+// * value : the initial value that will be displayed.
+// * options : the array of objects containing value and label for each option
+// * onChange : function that will be executed when option is selected
+
 export default function Select({value, options, onChange}) {
 
   const controlRef = useRef();
@@ -18,8 +24,8 @@ export default function Select({value, options, onChange}) {
 
       {open &&
       <div className="select-menu" ref={menuRef}> 
-        {options.map((option) => {
-            return <div className="select-option" key={option.value} onClick={() => onChange(option)}> {option.label} </div>
+        {options.map((option, key) => {
+            return <div className="select-option" key={option.value + key} onClick={() => onChange(option)}> {option.label} </div>
         })}
       </div>
       }
