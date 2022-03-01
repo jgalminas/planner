@@ -299,11 +299,14 @@ p {
 .objective {
     
     position: relative;
-
     z-index: 3;
     min-height: 150px;
     background-color: var(--main-white);
     border-radius: 5px;
+}
+
+.objective > p {
+    font-size: 14px;
 }
 
 .objective:hover{
@@ -458,7 +461,7 @@ p {
 
  .od-details-input {
     width: 100%;
-    height: 200px;
+    min-height: 200px;
     resize: none;
     border: none;
     padding: 10px;
@@ -505,7 +508,10 @@ p {
 .objective-details-modal {
     position: relative;
     width: fit-content;
-    height: auto;
+    min-height: auto;
+    max-height: 90%;
+    overflow-y: auto;
+
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -513,7 +519,7 @@ p {
     padding: 40px;
 
     z-index: 1;
-    border-radius: 3px;
+    border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.6) 0px 0px 80px 10px;
     background-color: var(--main-white);
 }

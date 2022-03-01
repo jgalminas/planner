@@ -339,4 +339,21 @@
   background-color: #e8eaf8;
   border-radius: 3px;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #bebebe;
+  border-radius: 50px;
+}
 /*# sourceMappingURL=styles.css.map */
