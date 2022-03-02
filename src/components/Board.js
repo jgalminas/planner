@@ -35,8 +35,11 @@ export function Board(props) {
 
 
   const activationConstraint = {
-    distance: 30
+    distance: 10
   }
+
+  // fix for trying to click on a task when no distance is set:
+  // https://github.com/clauderic/dnd-kit/issues/477
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint }), useSensor(TouchSensor, { activationConstraint }));
 
