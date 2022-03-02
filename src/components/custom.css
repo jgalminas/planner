@@ -297,7 +297,7 @@ p {
 }
 
 .objective {
-    
+    user-select: none;
     position: relative;
     z-index: 3;
     min-height: 150px;

@@ -10,7 +10,7 @@ import { Objective } from './Objective';
 import {
   DndContext,
   DragOverlay,
-  PointerSensor,
+  MouseSensor,
   useSensor,
   useSensors,
   TouchSensor,
@@ -35,13 +35,13 @@ export function Board(props) {
 
 
   const activationConstraint = {
-    distance: 10
+    distance: 15
   }
 
   // fix for trying to click on a task when no distance is set:
   // https://github.com/clauderic/dnd-kit/issues/477
 
-  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint }), useSensor(TouchSensor, { activationConstraint }));
+  const sensors = useSensors(useSensor(MouseSensor, { activationConstraint }), useSensor(TouchSensor, { activationConstraint }));
 
 
   // Everything inside this useEffect is called when the component mounts and each time the board ID changes.
