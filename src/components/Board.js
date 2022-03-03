@@ -260,7 +260,7 @@ function NewCategoryInput(props) {
       {props.show ? (
       <input autoFocus onBlur={props.click} className="new-category-input align-start" placeholder="Enter name"></input>
     ) : (
-      <button onClick={props.click} className="md-title align-start new-category-button pointer">
+      <button onClick={props.click} className="category-title align-start new-category-button pointer">
         Add Category
       </button>
     )}

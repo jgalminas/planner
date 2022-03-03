@@ -81,7 +81,7 @@ export function Login(props) {
                 <input value={password} onChange={handleChange} className="sign-input" required type="password" name="password"></input>
 
                 <input className="sign-button pointer" disabled={loading} type="submit" value="Log In"/>
-                <p> Haven't got an account? <a className="a-blue" href="/signup"> Sign Up! </a> </p>
+                <p> Haven't got an account? <a href="/signup"> Sign Up! </a> </p>
             </form>
         </div>
     )

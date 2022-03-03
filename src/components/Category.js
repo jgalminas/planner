@@ -70,8 +70,8 @@ export function Category(props) {
 export function CategoryHeader(props) {
 
   return (
-    <div className="category-header p-10 flex row no-wrap">
-      <p className="w-auto md-title m-0"> {props.name} </p>
+    <div className="p-10 flex row no-wrap">
+      <p className="w-auto category-title m-0"> {props.name} </p>
       <button onClick={props.show} className="icon-button align-right w-auto pointer">
         <AddIcon stroke="#4B4B4B" />
       </button>

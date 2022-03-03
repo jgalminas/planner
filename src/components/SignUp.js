@@ -96,7 +96,7 @@ export function SignUp() {
                 <input value={repeatPassword} onChange={handleChange} className="sign-input" required type="password" name="repeatPassword"></input>
 
                 <input className="sign-button pointer" disabled={loading} type="submit" value="Sign Up"/>
-                <p> Already have an account? <a className="a-blue" href="/login"> Log In! </a> </p>
+                <p> Already have an account? <a href="/login"> Log In! </a> </p>
             </form>
         </div>
     )
