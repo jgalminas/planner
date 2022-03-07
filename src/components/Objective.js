@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react';
 import { ReactComponent as OptionsIconV } from './icons/options_v.svg'
+import { ReactComponent as CalendarIcon } from './icons/calendar.svg'
 import { ObjectiveDetails } from './ObjectiveDetails.js';
 import { OptionsDropdown } from './OptionsDropdown.js'
 
@@ -49,24 +50,42 @@ export function Objective({isDragging, catId, data}) {
     const className = isDragging ? "objective dragging" : "flex col p-10 objective gap-10 soft-shadow pointer"
 
     return (
-        <div>
-            <div
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={(e) => {setShowDetails(true)}}
-            className={className}>
-            {!isDragging &&
+      <div>
+        <div
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={(e) => {
+            setShowDetails(true);
+          }}
+          className={className}
+        >
+          {!isDragging && (
             <Fragment>
-           <p className="h-fit w-100"> {data?.name} </p>
-
-           {hover &&
-           <div className='objective-options-button'>
-               <OptionsDropdown icon={<OptionsIconV/>} options={options}/>
-           </div>}
-           </Fragment>} 
-            </div>
-        {showDetails && <ObjectiveDetails catId={catId} data={data} close={() => setShowDetails(false)}/>}
+              <p className="objective-title"> {data?.name} </p>
+              <div className="flex due-date">
+                {data?.dueDate.date !== '' ? (
+                  <Fragment>
+                    <CalendarIcon />
+                    <p>{new Date(data?.dueDate?.date).toLocaleDateString()} </p>
+                  </Fragment>
+                ) : null}
+              </div>
+              {hover && (
+                <div className="objective-options-button">
+                  <OptionsDropdown icon={<OptionsIconV />} options={options} />
+                </div>
+              )}
+            </Fragment>
+          )}
         </div>
+        {showDetails && (
+          <ObjectiveDetails
+            catId={catId}
+            data={data}
+            close={() => setShowDetails(false)}
+          />
+        )}
+      </div>
     );
 }
 

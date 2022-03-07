@@ -93,14 +93,33 @@
     user-select: none;
     position: relative;
     z-index: 3;
-    min-height: 150px;
+    min-height: 80px;
     background-color: var(--main-white);
     border-radius: 5px;
 }
 
-.objective > p {
+.objective-title {
+    font-size: 14px;
+    max-height: 150px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.due-date {
+    align-items: center;
+    margin-top: auto;
+}
+
+.due-date p {
     font-size: 14px;
 }
+
+.due-date svg {
+    margin-right: 5px;
+}
+
+
 
 .objective:hover{
         outline: 1px solid rgba(116, 116, 116, 0.6);
@@ -110,6 +129,9 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    border-radius: 3px;
+    outline: 1px solid rgb(231, 231, 231);
+    background-color: #FEFEFE;
 }
 
 .relative {

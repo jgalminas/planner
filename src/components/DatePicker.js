@@ -55,7 +55,7 @@ class Input extends Component {
 
     return (
       <button className="datepicker-input" onClick={onClick} >
-      {(!date) ? 'Pick a date' :  `Due ${new Date(date).toLocaleDateString()}`}
+      {(!date) ? 'Pick a date' :  new Date(date).toLocaleDateString()}
     </button>
     )
   }
