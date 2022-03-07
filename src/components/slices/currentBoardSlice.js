@@ -3,7 +3,7 @@ import { arrayMove } from '@dnd-kit/sortable'
 import { v4 as uuid } from 'uuid';
 
 import { doc, collection, onSnapshot, addDoc, where, query, deleteDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../firebase/firebase';
 
 const initialState = {
   value: {},
@@ -127,7 +127,9 @@ export const createObjective = createAsyncThunk(
         name: name,
         priority: "Medium",
         progress: "Not Started",
-        notes: ""
+        notes: "",
+        startingDate: { date: "", time: "" },
+        dueDate: { date: "", time: "" }
       }
       
       const catIndex = state.categories.findIndex((cat) => cat.id === catId);
@@ -138,6 +140,32 @@ export const createObjective = createAsyncThunk(
       ]
 
       updateDoc(doc(db, 'boardData', state.dataId), { categories });
+
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+)
+
+export const updateObjective = createAsyncThunk(
+  'board/updateObjective',
+  async(args, { getState }) => {
+    const { catId, objId } = args;
+    const state = getState().currentBoard.value
+
+    try {
+      
+      const catIndex = state.categories.findIndex((cat) => cat.id === catId);
+
+      const categories = [...state.categories.slice(0, catIndex),
+        {...state.categories[catIndex], objectives: [...state.categories[catIndex].objectives]},
+      ...state.categories.slice(catIndex + 1, state.categories.length)
+      ]
+
+      console.log(2);
+
+      //updateDoc(doc(db, 'boardData', state.dataId), { categories });
 
     } catch (e) {
       console.log(e);

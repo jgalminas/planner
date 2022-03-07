@@ -421,6 +421,49 @@ p {
   border: none;
   -webkit-box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
           box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.date-picker .time-section {
+  padding: 0px 15px 15px 15px;
+}
+
+.date-picker .time-section .time-label {
+  font-size: 14px;
+  color: #414253;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  line-height: 29px;
+}
+
+.date-picker .time-section .time-input {
+  border: 1px solid #b8b8b8;
+  border-radius: 5px;
+  width: 80px;
+}
+
+.date-picker .time-section .clear-button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 14px;
+  padding: 0px;
+  margin-left: auto;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.date-picker .time-section .clear-button:hover {
+  background-color: #f0f0f0;
 }
 
 .date-picker .datepicker-header {
@@ -437,7 +480,7 @@ p {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 10px;
+  padding: 10px 15px 10px 15px;
 }
 
 .date-picker .current-month {
@@ -450,10 +493,10 @@ p {
   height: 20px;
   width: 20px;
   padding: 0px;
+  margin: 0px;
   outline: 1px solid #b8b8b8;
   background-color: #ffffff;
   border-radius: 5px;
-  margin: 0px 20px 0px 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -603,7 +646,7 @@ p {
   min-height: auto;
   max-height: 90%;
   overflow-y: auto;
-  padding: 40px;
+  padding: 50px;
   z-index: 6;
   border-radius: 5px;
   -webkit-box-shadow: rgba(99, 99, 99, 0.6) 0px 0px 80px 10px;
@@ -611,7 +654,7 @@ p {
   background-color: #ffffff;
 }
 
-.objective-details-modal label {
+.objective-details-modal .label {
   font-size: 14px;
   font-weight: 500;
   color: #43455a;
@@ -629,9 +672,9 @@ p {
   outline: 1px solid #43455a;
 }
 
-.objective-details-modal .details-input {
+.objective-details-modal .notes-input {
   width: 100%;
-  min-height: 200px;
+  min-height: 220px;
   resize: none;
   border: none;
   padding: 10px;
@@ -640,11 +683,11 @@ p {
   border-radius: 3px;
 }
 
-.objective-details-modal .details-input:focus {
+.objective-details-modal .notes-input:focus {
   outline: 1px solid #43455a;
 }
 
-.objective-details-modal .details-input::-webkit-scrollbar {
+.objective-details-modal .notes-input::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }

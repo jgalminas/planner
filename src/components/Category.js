@@ -40,6 +40,24 @@ export function Category(props) {
     {name: "Delete", click: () => dispatch(deleteCategory({catId: props.id}))}
   ];
 
+  useEffect(() => {
+
+    // props.objectives.forEach((item) => {
+
+    //   const date1 = new Date(item.dueDate?.date + " " + item.dueDate?.time)
+    //   const date2 = new Date();
+
+    //   const diff = date1 - date2;
+
+    //   if (date1.toDateString() === date2.toDateString() && diff > 0) {
+    //     setTimeout(() => {new Notification(item.name)}, diff)
+    //   }
+
+    // })
+
+
+  }, [])
+
   return (
     <SortableContext id={props.id} items={props.objectives} strategy={verticalListSortingStrategy}>
       

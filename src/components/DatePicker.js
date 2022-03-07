@@ -5,13 +5,20 @@ import ReactDatePicker, { CalendarContainer } from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export function DatePicker() {
+export function DatePicker({value, onChange}) {
 
-  const [date, setDate] = useState(null);
+  // openToDate={} to open current date
 
   return (
-    <ReactDatePicker customInput={<Input date={date}/>} onChange={(e) => setDate(e.toLocaleDateString("en-UK"))} renderCustomHeader={Header}
-     calendarClassName='date-picker' showPopperArrow={false}/>
+    <ReactDatePicker customInput={<Input date={value?.date}/>} onChange={(e) => onChange({...value, date: e.toLocaleDateString("en-UK")})} renderCustomHeader={Header}
+     calendarClassName='date-picker' showPopperArrow={false}>
+    <div className='flex row gap-15 time-section'>
+    <label className='time-label' htmlFor='time-input'> Time </label>
+    <input className='time-input' type="time" name='time-input' value={value?.time} onChange={(e) => onChange({...value, time: e.target.value})}/>
+    <button className='clear-button' onClick={() => onChange({date: "", value: ""})}> Clear </button>
+    </div>
+
+    </ReactDatePicker>
   );
 }
 
@@ -38,7 +45,7 @@ function Header({
 
   return <div className='datepicker-header'>
       <button className='change-month-button' onClick={decreaseMonth}> <ChevronLeft/> </button>
-      <p className='current-month'> {months[date.getMonth()]} </p>
+      <p className='current-month'> {`${months[date.getMonth()]} ${date.getYear() + 1900}`} </p>
       <button className='change-month-button' onClick={increaseMonth}> <ChevronRight/> </button>
   </div>;
 }

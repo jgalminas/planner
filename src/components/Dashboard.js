@@ -1,16 +1,21 @@
 import { Sidebar } from './Sidebar';
 import { Board } from './Board';
 import { Fragment, useEffect } from 'react';
-import { useData } from './contexts/DataContext';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
+import { subscribeToBoardList } from '../firebase/subscriptions';
 
 export function Dashboard() {
 
-    const dataContext = useData();
     const { state } = useLocation();
+    const { uid } = useAuth().currentUser;
+    const dispatch = useDispatch();
 
     useEffect(() => {
-      dataContext.populateBoardList();
+
+      subscribeToBoardList(uid, dispatch);
+
     }, [])
 
     return(

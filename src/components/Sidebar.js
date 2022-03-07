@@ -15,7 +15,7 @@ export function Sidebar() {
 
   const authContext = useAuth();
   const boardList = useSelector((state) => state.boardList.value);
-
+  
 
  
 

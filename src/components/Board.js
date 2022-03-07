@@ -1,11 +1,12 @@
 ﻿import { useState, useEffect, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Category } from './Category';
 import { OptionsDropdown } from './OptionsDropdown';
 import { ReactComponent as Dropdown } from './icons/dropdown.svg';
 import { ReactComponent as Check} from './icons/check.svg';
 import { ReactComponent as Close} from './icons/close.svg';
-import { useData } from './contexts/DataContext';
 import { Objective } from './Objective';
+import { useAuth } from './contexts/AuthContext';
 
 import {
   DndContext,
@@ -21,18 +22,19 @@ import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortabl
 
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteBoard, createCategory, moveCategory, moveObjective, reorderObjective, updateCategories, renameBoard } from './slices/currentBoardSlice';
+import { subscribeToCurrentBoard } from '../firebase/subscriptions';
+
 
 export function Board(props) {
 
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
-  const dataContext = useData();
 
   const [activeId, setActiveId] = useState();
   const [activeType, setActiveType] = useState();
 
   const currentBoard = useSelector((state) => state.currentBoard.value);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   const activationConstraint = {
     distance: 15
@@ -46,7 +48,10 @@ export function Board(props) {
 
   // Everything inside this useEffect is called when the component mounts and each time the board ID changes.
   useEffect(() => {
-    dataContext.populateCurrentBoard(props.location.dataId, props.location.name, props.location.boardId);
+
+    const { name, boardId, dataId } = props.location;
+    subscribeToCurrentBoard(name, dataId, boardId, navigate, dispatch);
+
   }, [props.location.boardId]);
 
   if (!currentBoard.boardId) {
