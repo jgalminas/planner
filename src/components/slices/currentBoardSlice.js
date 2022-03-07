@@ -151,21 +151,23 @@ export const createObjective = createAsyncThunk(
 export const updateObjective = createAsyncThunk(
   'board/updateObjective',
   async(args, { getState }) => {
-    const { catId, objId } = args;
+    const { catId, objective } = args;
     const state = getState().currentBoard.value
 
     try {
       
       const catIndex = state.categories.findIndex((cat) => cat.id === catId);
+      const objIndex = state.categories[catIndex].objectives.findIndex((obj) => obj.id === objective.id)
 
       const categories = [...state.categories.slice(0, catIndex),
-        {...state.categories[catIndex], objectives: [...state.categories[catIndex].objectives]},
+        {...state.categories[catIndex], 
+          objectives: [...state.categories[catIndex].objectives.slice(0, objIndex),
+          {...objective},
+          ...state.categories[catIndex].objectives.slice(objIndex + 1, state.categories[catIndex].objectives.length)]},
       ...state.categories.slice(catIndex + 1, state.categories.length)
       ]
 
-      console.log(2);
-
-      //updateDoc(doc(db, 'boardData', state.dataId), { categories });
+      updateDoc(doc(db, 'boardData', state.dataId), { categories });
 
     } catch (e) {
       console.log(e);

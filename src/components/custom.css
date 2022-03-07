@@ -180,6 +180,7 @@
 .icon-button {
     display: flex;
     align-items: center;
+    padding: 5px;
 }
 
 .icon-button:hover {
@@ -240,21 +241,3 @@
     border-radius: 5px;
 }
 
-.rename-input {
-    font-size: 18px;
-    max-width: 200px;
-    border-radius: 3px;
-    padding: 5px;
-    outline: 1px solid #0000003b;
-    border: none;
-    margin-right: 10px;
-}
-
-.rename-input:hover, .rename-input:focus {
-    border: none;
-    outline: 1px solid #0000003b
-}
-
-.rename {
-    padding-left: 25px;
-}

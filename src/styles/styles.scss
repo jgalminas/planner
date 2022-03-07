@@ -204,9 +204,29 @@ border-radius: 50px;
             height: fit-content;
             font-size: 18px;
         
-            max-width: 200px;
+            max-width: 300px;
             padding-left: 30px;
             padding-right: 15px;
+        }
+
+        .rename-input {
+            font-size: 18px;
+            max-width: 300px;
+            border-radius: 3px;
+            padding: 5px;
+            outline: 1px solid #0000003b;
+            border: none;
+            margin-right: 10px;
+
+            &:hover, &:focus {
+                border: none;
+                outline: 1px solid #0000003b
+            }
+        }
+        
+        .rename-container {
+            padding-left: 25px;
+            align-items: center;
         }
     }
 

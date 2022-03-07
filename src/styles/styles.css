@@ -224,9 +224,31 @@ p {
   height: -moz-fit-content;
   height: fit-content;
   font-size: 18px;
-  max-width: 200px;
+  max-width: 300px;
   padding-left: 30px;
   padding-right: 15px;
+}
+
+.board .board-header .rename-input {
+  font-size: 18px;
+  max-width: 300px;
+  border-radius: 3px;
+  padding: 5px;
+  outline: 1px solid #0000003b;
+  border: none;
+  margin-right: 10px;
+}
+
+.board .board-header .rename-input:hover, .board .board-header .rename-input:focus {
+  border: none;
+  outline: 1px solid #0000003b;
+}
+
+.board .board-header .rename-container {
+  padding-left: 25px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .board .board-content {

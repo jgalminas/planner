@@ -7,10 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export function DatePicker({value, onChange}) {
 
-  // openToDate={} to open current date
-
   return (
-    <ReactDatePicker customInput={<Input date={value?.date}/>} onChange={(e) => onChange({...value, date: e.toLocaleDateString("en-UK")})} renderCustomHeader={Header}
+    <ReactDatePicker openToDate={value?.date !== '' ? new Date(value?.date) : null} customInput={<Input date={value?.date}/>} onChange={(e) => onChange({...value, date: e.toISOString().split("T")[0]})} renderCustomHeader={Header}
      calendarClassName='date-picker' showPopperArrow={false}>
     <div className='flex row gap-15 time-section'>
     <label className='time-label' htmlFor='time-input'> Time </label>
@@ -57,7 +55,7 @@ class Input extends Component {
 
     return (
       <button className="datepicker-input" onClick={onClick} >
-      {(!date) ? 'Pick a date' :  `Due ${date}`}
+      {(!date) ? 'Pick a date' :  `Due ${new Date(date).toLocaleDateString()}`}
     </button>
     )
   }

@@ -50,18 +50,17 @@ export function ObjectiveDetails(props) {
       {value: 'Urgent', label: 'Urgent'}
     ]
 
-    useClickOutside(null, modal, () => props.close());
-
+    useClickOutside(null, modal, () => {
+      props.close();
+      updateDetails();
+    });
 
     function updateDetails() {
 
         if (props.data !== details) {
-          dispatch(updateObjective({catId: props.catId, objId: ""}))
+          dispatch(updateObjective({catId: props.catId, objective: details}))
         }
 
-        // if (details !== props.data || props.catId !== category.selected.id) {
-        //     dataContext.updateObjective(props.catId, details, category.selected.id);
-        // }
     }
 
     return createPortal(
