@@ -5,7 +5,7 @@ import useClickOutside from './hooks/ClickOutside';
 import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from './DatePicker';
 import Select from './Select';
-import { updateObjective } from './slices/currentBoardSlice';
+import { updateObjective, changeCategory } from './slices/currentBoardSlice';
 
 export function ObjectiveDetails(props) {
 
@@ -14,7 +14,6 @@ export function ObjectiveDetails(props) {
     const [details, setDetails] = useState(props.data);
     const [categoryOptions, setCategoryOptions] = useState({current: {value: '', label: ''}, options: []});
     const dispatch = useDispatch();
-    // console.table(props.data);
 
     const modal = useRef();
 
@@ -57,9 +56,20 @@ export function ObjectiveDetails(props) {
 
     function updateDetails() {
 
+        if (props.catId !== categoryOptions.current.value) {
+          dispatch(
+            changeCategory({
+              newCat: categoryOptions.current.value,
+              oldCat: props.catId,
+              objective: details
+            })
+          );
+          return;
+        }
+        
         if (props.data !== details) {
           dispatch(updateObjective({catId: props.catId, objective: details}))
-        }
+        }        
 
     }
 

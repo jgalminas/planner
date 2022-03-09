@@ -148,6 +148,41 @@ export const createObjective = createAsyncThunk(
   }
 )
 
+export const changeCategory = createAsyncThunk(
+  'board/changeCategory', async(args, { getState }) => {
+
+    try {
+
+      const { newCat, oldCat, objective } = args;
+      const state = getState().currentBoard.value;
+  
+      const newIndex = state.categories.findIndex((cat) => cat.id === newCat);
+      const oldIndex = state.categories.findIndex((cat) => cat.id === oldCat);
+
+      const categories = [];
+
+      state.categories.forEach((cat) => {
+
+        const objectives = []
+        cat.objectives.forEach((obj) => {
+          objectives.push({...obj})
+        })
+
+        categories.push({...cat, objectives: objectives})
+      })
+
+      categories[oldIndex].objectives = state.categories[oldIndex].objectives.filter((obj) => obj.id !== objective.id);
+      categories[newIndex].objectives.push(objective);
+
+      updateDoc(doc(db, 'boardData', state.dataId), { categories });
+
+    } catch (e) {
+      console.log(e);
+    }
+    
+  }
+)
+
 export const updateObjective = createAsyncThunk(
   'board/updateObjective',
   async(args, { getState }) => {
