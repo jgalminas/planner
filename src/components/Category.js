@@ -98,7 +98,7 @@ export function CategoryHeader({id, name, show}) {
 
       {showRenameInput ? 
         <div className='rename-container flex'>
-          <input className='rename-input' value={nameInput} onChange={(e) => setNameInput(e.target.value)} type="text"/>
+          <input autoFocus className='rename-input' value={nameInput} onChange={(e) => setNameInput(e.target.value)} type="text"/>
           <div className='align-left flex'>
           <button onClick={() => {dispatch(renameCategory({catId: id, name: nameInput})); setShowRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
           <button onClick={() => setShowRenameInput(false)} className='icon-button pointer'> <Close/> </button>

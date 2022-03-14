@@ -287,7 +287,7 @@ function BoardHeader({ name }) {
     <div className='flex row board-header w-100'>
       {renameInput ? 
       <div className='rename-container flex'>
-        <input className='rename-input' value={input} onChange={(e) => setInput(e.target.value)} type="text"/>
+        <input autoFocus className='rename-input' value={input} onChange={(e) => setInput(e.target.value)} type="text"/>
         <button onClick={() => {dispatch((renameBoard({name: input}))); setRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
         <button onClick={() => setRenameInput(false)} className='icon-button pointer'> <Close/> </button>
       </div>
