@@ -6,7 +6,6 @@ import { ReactComponent as Dropdown } from './icons/dropdown.svg';
 import { ReactComponent as Check} from './icons/check.svg';
 import { ReactComponent as Close} from './icons/close.svg';
 import { Objective } from './Objective';
-import { useAuth } from './contexts/AuthContext';
 
 import {
   DndContext,
@@ -265,7 +264,7 @@ function NewCategoryInput(props) {
       {props.show ? (
       <input autoFocus onBlur={props.click} className="new-category-input align-start" placeholder="Enter name"></input>
     ) : (
-      <button onClick={props.click} className="category-title align-start new-category-button pointer">
+      <button onClick={props.click} className="align-start new-category-button pointer">
         Add Category
       </button>
     )}
@@ -293,9 +292,7 @@ function BoardHeader({ name }) {
         <button onClick={() => setRenameInput(false)} className='icon-button pointer'> <Close/> </button>
       </div>
       : <Fragment>
-      <span className='board-title text-overflow'>
-        {name}
-        </span>
+      <span className='board-title text-overflow'> {input} </span>
         <OptionsDropdown icon={<Dropdown width="18" height="18"/>} options={options} />
         </Fragment>}
     </div>

@@ -99,11 +99,33 @@ export const updateCategories = createAsyncThunk(
   }
 )
 
+export const renameCategory = createAsyncThunk(
+  'board/renameCategory',
+  async(args, { getState }) => {
+    const state = getState().currentBoard.value
+    const { catId, name } = args;
+
+    try {
+
+      const categories = [...state.categories];
+      const index = categories.findIndex((cat) => cat.id === catId);
+      categories[index] = {...state.categories[index], name: name}
+
+      updateDoc(doc(db, 'boardData', state.dataId), { categories });
+
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+)
+
 export const deleteCategory = createAsyncThunk(
   'board/deleteCategory',
   async(args, { getState }) => {
     const state = getState().currentBoard.value
     const { catId } = args;
+
     try {
       const category = state.categories.find((cat) => cat.id === catId);
       updateDoc(doc(db, 'boardData', state.dataId), { categories: arrayRemove(category) });

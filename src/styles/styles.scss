@@ -230,6 +230,36 @@ border-radius: 50px;
         }
     }
 
+    .new-category-button {
+        font-weight: 500;
+
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin: 10px;
+        
+        min-width: 250px;
+
+        &:hover {
+        border-radius: 3px;
+        background-color: rgb(231, 231, 231);
+        }
+    }
+
+    .new-category-input:focus {
+        height: 35px;
+        width: 250px;
+    
+        margin: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    
+        background-color: transparent;
+    
+        border-radius: 5px;
+        border: 1px solid rgba(82, 82, 82, 0.8);
+    }
+
+
     .board-content {
         height: calc(100% - #{$header-height});
         padding: 10px 20px 10px 20px;
@@ -243,17 +273,54 @@ border-radius: 50px;
     min-width: 250px;
     max-width: 250px;
 
-    .category-options{
-        position: absolute;
-        right: 0px;
-        top: 35px;
+    .category-header {
+
+        align-items: center;
+
+        .category-options{
+            position: absolute;
+            right: 0px;
+            top: 35px;
+        
+            z-index: 4;
+            border-radius: 3px;
+            outline: 1px solid rgba(230, 230, 230, 0.8);
+            background-color: $white;
+        }
     
-        z-index: 4;
-        border-radius: 3px;
-        outline: 1px solid rgba(230, 230, 230, 0.8);
-        background-color: $white;
+        .category-title {
+            font-weight: 500;
+            height: fit-content;
+            padding-left: 2px;
+        }
+    
+        .rename-container {
+            align-items: center;
+            width: 100%;
+            
+            .rename-input {
+    
+                font-weight: 500;
+    
+                width: 100px;
+                flex: 2;
+                border-radius: 3px;
+                padding-top: 4.5px;
+                padding-bottom: 4.5px;
+                outline: 1px solid #0000003b;
+                border: none;
+                margin-right: 10px;
+    
+                &:hover, &:focus {
+                    border: none;
+                    outline: 1px solid #0000003b
+                }
+            }
+    
+        }
+
     }
-    
+
 }
 
 .objective-options{
@@ -388,11 +455,6 @@ border-radius: 50px;
         align-self: center;
     }
 
-}
-
-.category-title {
-    font-weight: 500;
-    line-height: 30px;
 }
 
 .react-datepicker__tab-loop {

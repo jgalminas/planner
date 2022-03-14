@@ -3,12 +3,14 @@ import { ReactComponent as AddIcon } from './icons/add.svg';
 import { ReactComponent as OptionsIconV } from './icons/options_v.svg';
 import { SortableObjective } from './Objective.js';
 import { OptionsDropdown } from './OptionsDropdown';
+import { ReactComponent as Check} from './icons/check.svg';
+import { ReactComponent as Close} from './icons/close.svg';
 
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import {CSS} from '@dnd-kit/utilities';
 import { useDispatch } from 'react-redux';
-import { createObjective, deleteCategory } from './slices/currentBoardSlice';
+import { createObjective, deleteCategory, renameCategory } from './slices/currentBoardSlice';
 
 
 export function Category(props) {
@@ -16,9 +18,9 @@ export function Category(props) {
   const [showForm, setShowForm] = useState(false);
   const dispatch = useDispatch();
   
-    const { setNodeRef } = useDroppable({
-      id: props.id,
-    });
+  const { setNodeRef } = useDroppable({
+    id: props.id,
+  });
 
   const {
     attributes,
@@ -35,10 +37,6 @@ export function Category(props) {
     transform: CSS.Transform.toString(transform),
     transition
   };
-
-  const options = [
-    {name: "Delete", click: () => dispatch(deleteCategory({catId: props.id}))}
-  ];
 
   useEffect(() => {
 
@@ -64,9 +62,7 @@ export function Category(props) {
       <div className={isDragging ? "dragging category h-100" : "category h-100"} ref={sortRef} style={style} {...attributes} {...listeners } >
 
           {!isDragging && 
-            <CategoryHeader show={() => setShowForm(!showForm)} id={props.id} name={props.name}>
-            <OptionsDropdown icon={<OptionsIconV/>} options={options} />
-            </CategoryHeader>}
+            <CategoryHeader show={() => setShowForm(!showForm)} id={props.id} name={props.name}/>}
 
           <div className="flex col gap-15 p-10 cat-content" ref={setNodeRef}>
           {!isDragging &&
@@ -85,18 +81,55 @@ export function Category(props) {
 }
 
 //Category header component which is rendered at the top of the category container
-export function CategoryHeader(props) {
+export function CategoryHeader({id, name, show}) {
+
+  const [showRenameInput, setShowRenameInput] = useState(false);
+  const [nameInput, setNameInput] = useState(name);
+
+  const dispatch = useDispatch();
+
+  const options = [
+    {name: "Rename", click: () => {setShowRenameInput(!showRenameInput);}},
+    {name: "Delete", click: () => dispatch(deleteCategory({catId: id}))}
+  ];
 
   return (
-    <div className="p-10 flex row no-wrap">
-      <p className="w-auto category-title m-0"> {props.name} </p>
-      <button onClick={props.show} className="icon-button align-right w-auto pointer">
-        <AddIcon stroke="#4B4B4B" />
-      </button>
-      {props.children}
+    <div className="category-header p-10 flex row no-wrap">
+
+      {showRenameInput ? 
+        <div className='rename-container flex'>
+          <input className='rename-input' value={nameInput} onChange={(e) => setNameInput(e.target.value)} type="text"/>
+          <div className='align-left flex'>
+          <button onClick={() => {dispatch(renameCategory({catId: id, name: nameInput})); setShowRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
+          <button onClick={() => setShowRenameInput(false)} className='icon-button pointer'> <Close/> </button>
+          </div>
+        </div>
+      : <Fragment>
+          <span className="category-title text-overflow"> {nameInput} </span>
+          <button onClick={show} className="icon-button align-right w-auto pointer">
+            <AddIcon stroke="#4B4B4B" />
+          </button>
+          <OptionsDropdown icon={<OptionsIconV/>} options={options} />
+        </Fragment>}
+
     </div>
   );
 }
+
+
+// {renameInput ? 
+//   <div className='rename-container flex'>
+//     <input className='rename-input' value={input} onChange={(e) => setInput(e.target.value)} type="text"/>
+//     <button onClick={() => {dispatch((renameBoard({name: input}))); setRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
+//     <button onClick={() => setRenameInput(false)} className='icon-button pointer'> <Close/> </button>
+//   </div>
+//   : <Fragment>
+//   <span className='board-title text-overflow'>
+//     {name}
+//     </span>
+//     <OptionsDropdown icon={<Dropdown width="18" height="18"/>} options={options} />
+//     </Fragment>}
+
 
 export function NewObjectiveInput(props) {
 
