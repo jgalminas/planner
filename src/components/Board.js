@@ -278,6 +278,10 @@ function BoardHeader({ name }) {
   const [renameInput, setRenameInput] = useState(false);
   const [input, setInput] = useState(name);
 
+  useEffect(() => {
+    setInput(name);
+  }, [name])
+
   const options = [
     {name: "Rename", click: () => {setRenameInput(!renameInput); setInput(name);}},
     {name: "Delete", click: () => dispatch((deleteBoard()))}
