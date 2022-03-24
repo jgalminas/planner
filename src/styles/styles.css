@@ -206,11 +206,7 @@ p {
   width: 100%;
 }
 
-.board {
-  width: calc(100% - 250px);
-}
-
-.board .board-header {
+.board-header {
   height: 60px;
   background-color: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -219,17 +215,18 @@ p {
           align-items: center;
 }
 
-.board .board-header .board-title {
+.board-header .board-title {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   font-size: 18px;
+  font-weight: 500;
   max-width: 300px;
   padding-left: 30px;
   padding-right: 15px;
 }
 
-.board .board-header .rename-input {
+.board-header .rename-input {
   font-size: 18px;
   max-width: 300px;
   border-radius: 3px;
@@ -237,18 +234,38 @@ p {
   outline: 1px solid #0000003b;
   border: none;
   margin-right: 10px;
+  font-weight: 500;
 }
 
-.board .board-header .rename-input:hover, .board .board-header .rename-input:focus {
+.board-header .rename-input:hover, .board-header .rename-input:focus {
   border: none;
   outline: 1px solid #0000003b;
 }
 
-.board .board-header .rename-container {
+.board-header .rename-container {
   padding-left: 25px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.board-header .header-menu {
+  padding-left: 15px;
+  gap: 15px;
+}
+
+.board-header .header-menu a {
+  color: #292929;
+  padding: 5px;
+}
+
+.board-header .header-menu .current {
+  background-color: #f1f1f1;
+  border-radius: 3px;
+}
+
+.board {
+  width: calc(100% - 250px);
 }
 
 .board .new-category-button {
@@ -354,7 +371,7 @@ p {
 
 .board-list .title {
   font-size: 13px;
-  color: #767AB5;
+  color: #8e93d8;
   letter-spacing: 1px;
 }
 
@@ -401,6 +418,10 @@ p {
   border-radius: 3px;
 }
 
+.board-list .input button svg {
+  fill: #8e93d8;
+}
+
 .board-list .board-item {
   padding: 5px;
   color: #DCDCDC;
@@ -438,6 +459,16 @@ p {
   height: 30%;
 }
 
+.sidebar .sign-out-button {
+  color: #ffffff;
+  font-size: 14px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-right: 14px;
+  padding: 0px;
+  cursor: pointer;
+}
+
 .current-user {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -457,8 +488,8 @@ p {
 }
 
 .current-user .icon {
-  width: 32px;
-  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 25px;
   background-color: #1D6569;
 }
@@ -720,7 +751,7 @@ p {
           align-items: center;
 }
 
-.objective-details-modal {
+.modal-contents {
   position: relative;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -736,13 +767,13 @@ p {
   background-color: #ffffff;
 }
 
-.objective-details-modal .label {
+.modal-contents .label {
   font-size: 14px;
   font-weight: 500;
   color: #43455a;
 }
 
-.objective-details-modal .objective-name-input {
+.modal-contents .objective-name-input {
   width: 100%;
   border: none;
   padding: 7px;
@@ -750,11 +781,11 @@ p {
   background-color: #f0f0f0;
 }
 
-.objective-details-modal .objective-name-input:focus {
+.modal-contents .objective-name-input:focus {
   outline: 1px solid #43455a;
 }
 
-.objective-details-modal .notes-input {
+.modal-contents .notes-input {
   width: 100%;
   min-height: 220px;
   resize: none;
@@ -765,12 +796,114 @@ p {
   border-radius: 3px;
 }
 
-.objective-details-modal .notes-input:focus {
+.modal-contents .notes-input:focus {
   outline: 1px solid #43455a;
 }
 
-.objective-details-modal .notes-input::-webkit-scrollbar {
+.modal-contents .notes-input::-webkit-scrollbar {
   width: 6px;
   height: 6px;
+}
+
+.deleted-items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  height: calc(100% - 60px);
+  padding: 15px;
+  gap: 15px;
+  background-color: #f7f7f7;
+  overflow-y: auto;
+}
+
+.deleted-objective {
+  width: auto;
+  height: 100px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.deleted-objective p {
+  max-height: 80px;
+  margin-right: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deleted-objective .objective-title {
+  font-size: 14px;
+  max-height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deleted-objective .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.deleted-objective .options button {
+  width: 100px;
+  border-radius: 3px;
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+.deleted-objective .options button:hover {
+  background-color: #dbdbdb;
+}
+
+.due-modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
+
+.due-modal h1 {
+  font-size: 20px;
+}
+
+.due-modal .due-objective {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fafafa;
+  padding: 10px;
+  border-radius: 5px;
+  width: 400px;
+  max-height: 110px;
+  outline: 1px solid #dbdbdb;
+}
+
+.due-modal .due-objective .title {
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /*# sourceMappingURL=styles.css.map */

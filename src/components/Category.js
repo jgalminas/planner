@@ -11,7 +11,7 @@ import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-
 import {CSS} from '@dnd-kit/utilities';
 import { useDispatch } from 'react-redux';
 import { createObjective, deleteCategory, renameCategory } from './slices/currentBoardSlice';
-
+import { useLocation } from 'react-router-dom';
 
 export function Category(props) {
 
@@ -37,24 +37,6 @@ export function Category(props) {
     transform: CSS.Transform.toString(transform),
     transition
   };
-
-  useEffect(() => {
-
-    // props.objectives.forEach((item) => {
-
-    //   const date1 = new Date(item.dueDate?.date + " " + item.dueDate?.time)
-    //   const date2 = new Date();
-
-    //   const diff = date1 - date2;
-
-    //   if (date1.toDateString() === date2.toDateString() && diff > 0) {
-    //     setTimeout(() => {new Notification(item.name)}, diff)
-    //   }
-
-    // })
-
-
-  }, [])
 
   return (
     <SortableContext id={props.id} items={props.objectives} strategy={verticalListSortingStrategy}>
@@ -86,11 +68,14 @@ export function CategoryHeader({id, name, show}) {
   const [showRenameInput, setShowRenameInput] = useState(false);
   const [nameInput, setNameInput] = useState(name);
 
+  const { pathname } = useLocation();
+  const boardId = pathname.split('/')[1];
+
   const dispatch = useDispatch();
 
   const options = [
     {name: "Rename", click: () => {setShowRenameInput(!showRenameInput);}},
-    {name: "Delete", click: () => dispatch(deleteCategory({catId: id}))}
+    {name: "Delete", click: () => dispatch(deleteCategory({boardId: boardId, catId: id}))}
   ];
 
   return (
@@ -98,7 +83,7 @@ export function CategoryHeader({id, name, show}) {
 
       {showRenameInput ? 
         <div className='rename-container flex'>
-          <input autoFocus className='rename-input' value={nameInput} onChange={(e) => setNameInput(e.target.value)} type="text"/>
+          <input data-no-dnd="true" autoFocus className='rename-input' value={nameInput} onChange={(e) => setNameInput(e.target.value)} type="text"/>
           <div className='align-left flex'>
           <button onClick={() => {dispatch(renameCategory({catId: id, name: nameInput})); setShowRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
           <button onClick={() => setShowRenameInput(false)} className='icon-button pointer'> <Close/> </button>
@@ -116,21 +101,6 @@ export function CategoryHeader({id, name, show}) {
   );
 }
 
-
-// {renameInput ? 
-//   <div className='rename-container flex'>
-//     <input className='rename-input' value={input} onChange={(e) => setInput(e.target.value)} type="text"/>
-//     <button onClick={() => {dispatch((renameBoard({name: input}))); setRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
-//     <button onClick={() => setRenameInput(false)} className='icon-button pointer'> <Close/> </button>
-//   </div>
-//   : <Fragment>
-//   <span className='board-title text-overflow'>
-//     {name}
-//     </span>
-//     <OptionsDropdown icon={<Dropdown width="18" height="18"/>} options={options} />
-//     </Fragment>}
-
-
 export function NewObjectiveInput(props) {
 
   const [name, setName] = useState("");
@@ -145,7 +115,7 @@ export function NewObjectiveInput(props) {
 
   return (
 
-    <div className="flex wrap w-100 objective soft-shadow p-0">
+    <div className="flex wrap w-100 objective soft-shadow p-0" data-no-dnd="true">
       <div className="w-100 h-fit p-10">
         <input autoFocus
           value={name}

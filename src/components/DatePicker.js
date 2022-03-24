@@ -7,13 +7,15 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export function DatePicker({value, onChange}) {
 
+  // openToDate={value?.date !== '' ? new Date(value?.date) : null}
+
   return (
-    <ReactDatePicker openToDate={value?.date !== '' ? new Date(value?.date) : null} customInput={<Input date={value?.date}/>} onChange={(e) => onChange({...value, date: e.toISOString().split("T")[0]})} renderCustomHeader={Header}
+    <ReactDatePicker  customInput={<Input date={value}/>} onChange={(e) => onChange(e.toISOString())} renderCustomHeader={Header}
      calendarClassName='date-picker' showPopperArrow={false}>
     <div className='flex row gap-15 time-section'>
-    <label className='time-label' htmlFor='time-input'> Time </label>
-    <input className='time-input' type="time" name='time-input' value={value?.time} onChange={(e) => onChange({...value, time: e.target.value})}/>
-    <button className='clear-button' onClick={() => onChange({date: "", value: ""})}> Clear </button>
+    {/* <label className='time-label' htmlFor='time-input'> Time </label>
+    <input className='time-input' type="time" name='time-input' value={value?.time} onChange={(e) => onChange({...value, time: e.target.value})}/> */}
+    <button className='clear-button' onClick={() => onChange("")}> Clear </button>
     </div>
 
     </ReactDatePicker>
@@ -55,7 +57,7 @@ class Input extends Component {
 
     return (
       <button className="datepicker-input" onClick={onClick} >
-      {(!date) ? 'Pick a date' :  new Date(date).toLocaleDateString()}
+      {(date === '') ? 'Pick a date' :  new Date(date).toLocaleDateString()}
     </button>
     )
   }

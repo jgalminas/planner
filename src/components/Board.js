@@ -1,39 +1,37 @@
-﻿import { useState, useEffect, Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
+﻿import { useState, Fragment, useEffect } from 'react';
 import { Category } from './Category';
-import { OptionsDropdown } from './OptionsDropdown';
-import { ReactComponent as Dropdown } from './icons/dropdown.svg';
-import { ReactComponent as Check} from './icons/check.svg';
-import { ReactComponent as Close} from './icons/close.svg';
 import { Objective } from './Objective';
 
 import {
   DndContext,
   DragOverlay,
-  MouseSensor,
   useSensor,
   useSensors,
-  TouchSensor,
   rectIntersection,
   MeasuringStrategy
 } from "@dnd-kit/core";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import { MouseSensor, TouchSensor } from '../CustomSensors';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteBoard, createCategory, moveCategory, moveObjective, reorderObjective, updateCategories, renameBoard } from './slices/currentBoardSlice';
-import { subscribeToCurrentBoard } from '../firebase/subscriptions';
+import { createCategory, moveCategory, moveObjective, reorderObjective, updateCategories } from './slices/currentBoardSlice';
+import { DueModal } from './DueModal';
 
 
-export function Board(props) {
+
+
+export function Board() {
 
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
-
+  
   const [activeId, setActiveId] = useState();
   const [activeType, setActiveType] = useState();
 
   const currentBoard = useSelector((state) => state.currentBoard.value);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const [notify, setNotify] = useState(false);
+  const [notifyItems, setNotifyItems] = useState([]);
 
   const activationConstraint = {
     distance: 15
@@ -44,14 +42,30 @@ export function Board(props) {
 
   const sensors = useSensors(useSensor(MouseSensor, { activationConstraint }), useSensor(TouchSensor, { activationConstraint }));
 
-
-  // Everything inside this useEffect is called when the component mounts and each time the board ID changes.
   useEffect(() => {
 
-    const { name, boardId, dataId } = props.location;
-    subscribeToCurrentBoard(name, dataId, boardId, navigate, dispatch);
+    if (currentBoard.boardId) {
 
-  }, [props.location.boardId]);
+    if (!sessionStorage.getItem(`${currentBoard.boardId}-notified`)) {
+
+      const today = new Date().toDateString();
+      const items = [];
+  
+      currentBoard?.categories?.forEach((cat) => {
+        items.push(...cat.objectives.filter((obj) => new Date(obj.dueDate).toDateString() === today));
+      })
+
+      if (items.length > 0) {
+        setNotifyItems(items);
+        setNotify(true);
+      }
+
+      sessionStorage.setItem(`${currentBoard.boardId}-notified`, true);
+
+      }
+    }
+
+  }, [currentBoard?.boardId])
 
   if (!currentBoard.boardId) {
     return null;
@@ -217,8 +231,7 @@ export function Board(props) {
 
 
   return (
-    <div className='h-100 board'>
-      <BoardHeader {...currentBoard}/>
+    <Fragment>
 
     {currentBoard.categories && 
     <div className="flex row no-wrap gap-15 board-content">
@@ -252,8 +265,11 @@ export function Board(props) {
 
     </DndContext>
     <NewCategoryInput show={showNewCategoryInput} click={newCategoryInput}/>
+
+    {notify && <DueModal items={notifyItems} close={() => setNotify(false)}/> }
+
     </div>}
-    </div>
+    </Fragment>
 
   );
 }
@@ -268,37 +284,6 @@ function NewCategoryInput(props) {
         Add Category
       </button>
     )}
-    </div>
-  )
-}
-
-function BoardHeader({ name }) {
-
-  const dispatch = useDispatch();
-  const [renameInput, setRenameInput] = useState(false);
-  const [input, setInput] = useState(name);
-
-  useEffect(() => {
-    setInput(name);
-  }, [name])
-
-  const options = [
-    {name: "Rename", click: () => {setRenameInput(!renameInput); setInput(name);}},
-    {name: "Delete", click: () => dispatch((deleteBoard()))}
-  ];
-
-  return(
-    <div className='flex row board-header w-100'>
-      {renameInput ? 
-      <div className='rename-container flex'>
-        <input autoFocus className='rename-input' value={input} onChange={(e) => setInput(e.target.value)} type="text"/>
-        <button onClick={() => {dispatch((renameBoard({name: input}))); setRenameInput(false);}} className='icon-button pointer'> <Check/> </button>
-        <button onClick={() => setRenameInput(false)} className='icon-button pointer'> <Close/> </button>
-      </div>
-      : <Fragment>
-      <span className='board-title text-overflow'> {input} </span>
-        <OptionsDropdown icon={<Dropdown width="18" height="18"/>} options={options} />
-        </Fragment>}
     </div>
   )
 }

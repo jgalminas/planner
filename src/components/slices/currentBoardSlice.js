@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import { doc, collection, onSnapshot, addDoc, where, query, deleteDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
+import { addItem, removeBoard } from './localStorageSlice';
 
 const initialState = {
   value: {},
@@ -27,7 +28,7 @@ export const createBoard = createAsyncThunk(
 
 export const deleteBoard = createAsyncThunk(
   'board/deleteBoard',
-  async(args, { getState }) => {
+  async(args, { dispatch, getState }) => {
 
     const state = getState().currentBoard.value;
 
@@ -35,6 +36,10 @@ export const deleteBoard = createAsyncThunk(
       deleteDoc(doc(db, 'boardData', state.dataId)).then(() => {
         deleteDoc(doc(db, 'boards', state.boardId));
       });
+
+      //removing data stored in local storage
+      dispatch(removeBoard({ boardId: state.boardId }));
+
     } catch (e) {
       console.log(e);
     }
@@ -122,13 +127,25 @@ export const renameCategory = createAsyncThunk(
 
 export const deleteCategory = createAsyncThunk(
   'board/deleteCategory',
-  async(args, { getState }) => {
+  async(args, { dispatch, getState }) => {
     const state = getState().currentBoard.value
-    const { catId } = args;
+    const { boardId, catId } = args;
 
     try {
+
       const category = state.categories.find((cat) => cat.id === catId);
       updateDoc(doc(db, 'boardData', state.dataId), { categories: arrayRemove(category) });
+
+      if (category.objectives.length > 0) {
+
+        const objectives = category.objectives.map((obj) => {
+          return {...obj, catId: catId}
+        })
+
+        dispatch(addItem({boardId: boardId, data: objectives}));
+
+      }
+
     } catch (e) {
       console.log(e);
     }
@@ -150,8 +167,8 @@ export const createObjective = createAsyncThunk(
         priority: "Medium",
         progress: "Not Started",
         notes: "",
-        startingDate: { date: "", time: "" },
-        dueDate: { date: "", time: "" }
+        startingDate: "",
+        dueDate: ""
       }
       
       const catIndex = state.categories.findIndex((cat) => cat.id === catId);
@@ -160,6 +177,51 @@ export const createObjective = createAsyncThunk(
         {...state.categories[catIndex], objectives: [...state.categories[catIndex].objectives, objective]},
       ...state.categories.slice(catIndex + 1, state.categories.length)
       ]
+
+      updateDoc(doc(db, 'boardData', state.dataId), { categories });
+
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+)
+
+export const restoreObjective = createAsyncThunk(
+  'board/restoreObjective',
+  async(args, { getState }) => {
+    const { catId, objective } = args;
+    const state = getState().currentBoard.value
+
+    try {
+
+      const catIndex = state.categories.findIndex((cat) => cat.id === catId);
+
+      let categories;
+
+      if (state.categories.length === 0) {
+
+        categories = [...state.categories, { id: uuid(), name: "Restored", objectives: [objective] }]
+
+
+      } else if (catIndex === -1) {
+
+        categories = [];
+        state.categories.map((cat) => {
+          categories.push({...cat, objectives: [...cat.objectives]});
+        })
+
+        categories[categories.length - 1].objectives.push({catId: categories[categories.length -1].id, ...objective});
+
+      } else {
+
+        categories = [...state.categories.slice(0, catIndex),
+        {...state.categories[catIndex], objectives: [...state.categories[catIndex].objectives, objective]},
+        ...state.categories.slice(catIndex + 1, state.categories.length)]
+
+      }
+
+
 
       updateDoc(doc(db, 'boardData', state.dataId), { categories });
 

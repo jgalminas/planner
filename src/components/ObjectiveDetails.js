@@ -74,8 +74,8 @@ export function ObjectiveDetails(props) {
     }
 
     return createPortal(
-      (<div className='modal-background'>
-        <div className="flex col objective-details-modal gap-30" ref={modal}>
+      (<div className='modal-background' data-no-dnd="true">
+        <div className="flex col modal-contents gap-30" ref={modal}>
         <button
           onClick={() => {
             props.close();

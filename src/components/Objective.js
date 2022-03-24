@@ -8,6 +8,8 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useDispatch } from 'react-redux';
 import { deleteObjective } from './slices/currentBoardSlice';
+import { addItem } from './slices/localStorageSlice';
+import { useLocation } from 'react-router-dom';
 
 export function SortableObjective({ data, catId }) {
 
@@ -19,8 +21,8 @@ export function SortableObjective({ data, catId }) {
     transition,
     isDragging
   } = useSortable({ id: data.id, data: {
-    type: 'Objective'
-  } });
+    type: 'Objective'}
+  });
 
   const animations = {
     transform: CSS.Transform.toString(transform),
@@ -39,34 +41,33 @@ export function Objective({isDragging, catId, data}) {
     
     const [hover, setHover] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
+    const { pathname } = useLocation();
+    const boardId = pathname.split("/")[1];
 
     const dispatch = useDispatch();
     
     const options = [
-        {name: "Rename", click: () => {console.log("rename")}},
-        {name: "Delete", click: () => dispatch(deleteObjective({objId: data.id, catId: catId}))}
+        {name: "Delete", click: () => {dispatch(deleteObjective({objId: data.id, catId: catId})); dispatch(addItem({boardId: boardId, data: {...data, catId: catId}}))}}
     ]
 
     const className = isDragging ? "objective dragging" : "flex col p-10 objective gap-10 soft-shadow pointer"
 
     return (
       <div>
-        <div
+        <div 
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onClick={(e) => {
-            setShowDetails(true);
-          }}
-          className={className}
-        >
+          onClick={() => setShowDetails(true)}
+          className={className}>
+
           {!isDragging && (
             <Fragment>
               <p className="objective-title"> {data?.name} </p>
               <div className="flex due-date">
-                {data?.dueDate.date !== '' ? (
+                {data?.dueDate !== '' ? (
                   <Fragment>
                     <CalendarIcon />
-                    <p>{new Date(data?.dueDate?.date).toLocaleDateString()} </p>
+                    <p>{new Date(data?.dueDate).toLocaleDateString()} </p>
                   </Fragment>
                 ) : null}
               </div>
@@ -77,6 +78,7 @@ export function Objective({isDragging, catId, data}) {
               )}
             </Fragment>
           )}
+          
         </div>
         {showDetails && (
           <ObjectiveDetails
