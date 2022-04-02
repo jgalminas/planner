@@ -11,12 +11,15 @@ import { useNavigate, NavLink } from 'react-router-dom';
 export function BoardHeader({ id }) {
 
     const board = useSelector((state) => state.boardList.value.find((board) => board.id === id));
-
     const dispatch = useDispatch();
+
+    // state for toggling rename input and holding its value
     const [renameInput, setRenameInput] = useState(false);
     const [input, setInput] = useState(board?.name);
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
+    
+    // subscribing to boardData document from Firebase when the board header is rendered
     useEffect(() => {
 
         if (board) {
@@ -24,11 +27,13 @@ export function BoardHeader({ id }) {
         }
         
     }, [board?.id])
-  
+    
+    // setting rename input to current board name when its rendered
     useEffect(() => {
       setInput(board?.name);
     }, [board?.name])
   
+    // options for the options drop down menu
     const options = [
       {name: "Rename", click: () => {setRenameInput(!renameInput); setInput(board.name);}},
       {name: "Delete", click: () => dispatch((deleteBoard()))}

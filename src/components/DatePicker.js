@@ -1,20 +1,22 @@
-import { useState, useEffect, forwardRef, Component  } from 'react';
+import { Component  } from 'react';
 import { ReactComponent as ChevronLeft } from './icons/chevron-left.svg';
 import { ReactComponent as ChevronRight } from './icons/chevron-right.svg';
-import ReactDatePicker, { CalendarContainer } from 'react-datepicker';
+import ReactDatePicker from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
 
+/**
+ * Re-usable datepicker component
+ * 
+ * @param {value} value date value as string
+ * @param {onChange} onChange callback function to update the state
+ */
 export function DatePicker({value, onChange}) {
 
-  // openToDate={value?.date !== '' ? new Date(value?.date) : null}
-
   return (
-    <ReactDatePicker  customInput={<Input date={value}/>} onChange={(e) => onChange(e.toISOString())} renderCustomHeader={Header}
+    <ReactDatePicker openToDate={(value !== '') ? new Date(value) : null} customInput={<Input date={value}/>} onChange={(e) => onChange(e.toISOString())} renderCustomHeader={Header}
      calendarClassName='date-picker' showPopperArrow={false}>
     <div className='flex row gap-15 time-section'>
-    {/* <label className='time-label' htmlFor='time-input'> Time </label>
-    <input className='time-input' type="time" name='time-input' value={value?.time} onChange={(e) => onChange({...value, time: e.target.value})}/> */}
     <button className='clear-button' onClick={() => onChange("")}> Clear </button>
     </div>
 

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { arrayMove } from '@dnd-kit/sortable'
 import { v4 as uuid } from 'uuid';
 
-import { doc, collection, onSnapshot, addDoc, where, query, deleteDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, collection, addDoc, deleteDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import { addItem, removeBoard } from './localStorageSlice';
 

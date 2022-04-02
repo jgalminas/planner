@@ -19,7 +19,9 @@ import { DueModal } from './DueModal';
 
 
 
-
+/**
+ * The component that hols all of the board content, such as categories and tasks.
+ */
 export function Board() {
 
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
@@ -30,6 +32,7 @@ export function Board() {
   const currentBoard = useSelector((state) => state.currentBoard.value);
   const dispatch = useDispatch();
 
+  // state for items that the user will be notified about if they are due that day
   const [notify, setNotify] = useState(false);
   const [notifyItems, setNotifyItems] = useState([]);
 

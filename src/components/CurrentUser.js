@@ -1,7 +1,9 @@
-import { ReactComponent as Settings } from './icons/settings.svg';
 import { useAuth } from './contexts/AuthContext';
 
-export function CurrentUser(props) {
+/**
+* Component which displays the currently signed in user
+*/
+export function CurrentUser() {
 
   const authContext = useAuth();
   const user =  authContext.currentUser.email;

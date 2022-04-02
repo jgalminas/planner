@@ -9,7 +9,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import { AuthRoute, InaccessibleWhenAuthedRoute } from './AuthRoute';
 
 import '../styles/styles.css'
-import './custom.css'
 import { Board } from './Board';
 import { DeletedItems } from './DeletedItems';
 

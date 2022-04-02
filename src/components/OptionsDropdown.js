@@ -25,9 +25,9 @@ export function OptionsDropdown(props) {
             <button ref={button} className="icon-button pointer" onClick={(e) => {e.stopPropagation(); setVisible(!visible)} }>
             {props.icon}
             </button>
-        {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute objective-options'>
+        {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute dropdown-options'>
             {(props.options) ? props.options.map((option, key) => {
-                return <button key={key} className='category-options-item m-0' onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}> {option.name} </button>
+                return <button key={key} className='dropdown-item m-0' onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}> {option.name} </button>
             }) : null}
         </div> : null}
         </div>

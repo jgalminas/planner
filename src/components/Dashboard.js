@@ -1,16 +1,17 @@
 import { Sidebar } from './Sidebar';
-import { Board } from './Board';
 import { Fragment, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from './contexts/AuthContext';
-import { subscribeToBoardList } from '../firebase/subscriptions';
 import { BoardHeader } from './BoardHeader';
 import { populate } from './slices/localStorageSlice';
 
+/**
+ * Dashboard component which renders the sidebar, board header and content pages. 
+ * 
+ */
 export function Dashboard() {
 
-    const { pathname, state } = useLocation();
+    const { pathname } = useLocation();
     const dispatch = useDispatch();
 
     useEffect(() => {
