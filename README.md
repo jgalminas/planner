@@ -1,11 +1,12 @@
 # COMP1004 Main Project - Task Planner
-This is the COMP1004 main project. The objective is to develop a single page application that helps users manage time and explore the possibility of utilising the Alexa Skills technology.
+This is the COMP1004 main project. The objective was to develop a single page application that helps users manage time and explore the possibility of utilising the Alexa Skills technology.
 
 ## Overview
 This application is a time management tool where users can plan their projects / tasks to be more efficient and remember upcoming deadlines.
 The application allows users to create objectives and categorise them to their preferred structure.
 
 **Currently Implemented Features:**
+- Users are able to create accounts to save their data and access it online.
 - Task creation which includes a due date, starting date, priority and description.
 - Category creation for better organised time management plan.
 - Board creation for a way of organising time management plans into seperate views.
@@ -13,4 +14,12 @@ The application allows users to create objectives and categorise them to their p
 - A popup reminder of upcoming deadlines opening the board.
 
 ## Architecture
-The front-end of the application was built entirely with JavaScript using the React framework and Firebase was used for the back-end which provided me an easy way of implementing a database and authentication using a single service.
+
+### Front-End
+The front-end was built using JavaScript, React and a few libraries to help me with some features of the application, such as React Router to handle site routing and React Redux for easy and effective global state management.
+
+### Back-End
+For the back-end I used Firebase which is a service that provides a simple solution for storing data and authenticating users.
+
+### Other Tools & Techniques
+I used SASS (Syntactically Awesome Style Sheets) to style my application, mainly for its simple approach to style nesting and re-usability.
