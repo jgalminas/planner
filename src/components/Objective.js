@@ -50,7 +50,8 @@ export function Objective({isDragging, catId, data}) {
         {name: "Delete", click: () => {dispatch(deleteObjective({objId: data.id, catId: catId})); dispatch(addItem({boardId: boardId, data: {...data, catId: catId}}))}}
     ]
 
-    const className = isDragging ? "objective dragging" : "flex col p-10 objective gap-10 soft-shadow pointer"
+    const objectiveClassName = data.progress === "Completed" ? "objective completed" : "objective";
+    const className = isDragging ? `${objectiveClassName} dragging` : `flex col p-10 ${objectiveClassName} gap-10 soft-shadow pointer`;
 
     return (
       <div>
@@ -59,7 +60,6 @@ export function Objective({isDragging, catId, data}) {
           onMouseLeave={() => setHover(false)}
           onClick={() => setShowDetails(true)}
           className={className}>
-
           {!isDragging && (
             <Fragment>
               <p className="objective-title"> {data?.name} </p>
