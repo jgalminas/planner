@@ -40,29 +40,32 @@ export function Board() {
     distance: 15
   }
 
-  // fix for trying to click on a task when no distance is set:
-  // https://github.com/clauderic/dnd-kit/issues/477
-
   const sensors = useSensors(useSensor(MouseSensor, { activationConstraint }), useSensor(TouchSensor, { activationConstraint }));
 
+  // Notification
   useEffect(() => {
 
     if (currentBoard.boardId) {
-
+    
+    // Checks if the notification has been showed by checking session storage where
+    // a boolean variable is stored.
     if (!sessionStorage.getItem(`${currentBoard.boardId}-notified`)) {
 
       const today = new Date().toDateString();
       const items = [];
   
+      // checks if categories are due today
       currentBoard?.categories?.forEach((cat) => {
         items.push(...cat.objectives.filter((obj) => new Date(obj.dueDate).toDateString() === today));
       })
 
+      // if there are categories due today, set pop-up state to true
       if (items.length > 0) {
         setNotifyItems(items);
         setNotify(true);
       }
 
+      // set session storage variable to true
       sessionStorage.setItem(`${currentBoard.boardId}-notified`, true);
 
       }
@@ -74,8 +77,8 @@ export function Board() {
     return null;
   }
 
-  //Clean this up a bit
   function newCategoryInput(event) {
+
     if (event.target instanceof HTMLInputElement) {
       if ((event.target.value.trim() === '') || undefined) {
         setShowNewCategoryInput(false);

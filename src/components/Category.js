@@ -116,6 +116,11 @@ export function NewObjectiveInput(props) {
   return (
 
     <div className="flex wrap w-100 objective soft-shadow p-0" data-no-dnd="true">
+      <form className='w-100' onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(createObjective({catId: props.catId, name: name}));
+          props.show();
+        }}>
       <div className="w-100 h-fit p-10">
         <input autoFocus
           value={name}
@@ -125,15 +130,12 @@ export function NewObjectiveInput(props) {
           placeholder="Enter name">
         </input>
       </div>
-      <button
+      <input
+        type="submit"
+        value="Add Task"
         ref={button}
-        onClick={() => {
-          dispatch(createObjective({catId: props.catId, name: name}));
-          props.show();
-        }}
-        className="new-objective-button w-100 h-fit align-end">
-        Add Task
-      </button>
+        className="new-objective-button pointer w-100 h-fit align-end"/>
+      </form>
     </div>
   )
 }
