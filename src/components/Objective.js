@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { deleteObjective } from './slices/currentBoardSlice';
 import { addItem } from './slices/localStorageSlice';
 import { useLocation } from 'react-router-dom';
+import { Priority } from '../util/Constants';
 
 export function SortableObjective({ data, catId }) {
 
@@ -50,27 +51,22 @@ export function Objective({isDragging, catId, data}) {
         {name: "Delete", click: () => {dispatch(deleteObjective({objId: data.id, catId: catId})); dispatch(addItem({boardId: boardId, data: {...data, catId: catId}}))}}
     ]
 
-    const objectiveClassName = data.progress === "Completed" ? "objective completed" : "objective";
+    const objectiveClassName = data?.progress === "Completed" ? "objective completed" : "objective";
     const className = isDragging ? `${objectiveClassName} dragging` : `flex col p-10 ${objectiveClassName} gap-10 soft-shadow pointer`;
 
     return (
       <div>
-        <div 
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          onClick={() => setShowDetails(true)}
-          className={className}>
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => setShowDetails(true)} className={className}>
           {!isDragging && (
             <Fragment>
+
+             <PriorityLabel priority={data?.priority}/>
+
+
               <p className="objective-title"> {data?.name} </p>
-              <div className="flex due-date">
-                {data?.dueDate !== '' ? (
-                  <Fragment>
-                    <CalendarIcon />
-                    <p>{new Date(data?.dueDate).toLocaleDateString()} </p>
-                  </Fragment>
-                ) : null}
-              </div>
+
+              <DueDate dueDate={data?.dueDate}/>
+
               {hover && (
                 <div className="objective-options-button">
                   <OptionsDropdown icon={<OptionsIconV />} options={options} />
@@ -91,3 +87,33 @@ export function Objective({isDragging, catId, data}) {
     );
 }
 
+export function DueDate({dueDate}) {
+
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+  const date = new Date(dueDate);
+  const dateString = date.getFullYear() === new Date().getFullYear() ? `${date.getDate()} ${months[date.getMonth()]}` : `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+
+  return (
+    <div className="flex due-date">
+    {dueDate != null & dueDate !== '' ? (
+      <Fragment>
+        <CalendarIcon />
+        <p> {dateString} </p>
+      </Fragment>
+    ) : null}
+  </div>
+  )
+}
+
+export function PriorityLabel({priority}) {
+
+  const className = priority === Priority.HIGH ? "priority orange" : "priority red"
+
+  return (
+    <div className="flex">
+    {priority != null & priority !== '' & priority === Priority.URGENT || priority === Priority.HIGH ? (
+        <p className={className}> </p>
+    ) : null}
+  </div>
+  )
+}

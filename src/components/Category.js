@@ -41,7 +41,7 @@ export function Category(props) {
   return (
     <SortableContext id={props.id} items={props.objectives} strategy={verticalListSortingStrategy}>
       
-      <div className={isDragging ? "dragging category h-100" : "category h-100"} ref={sortRef} style={style} {...attributes} {...listeners } >
+      <div className={isDragging ? "category dragging" : "category"} ref={sortRef} style={style} {...attributes} {...listeners } >
 
           {!isDragging && 
             <CategoryHeader show={() => setShowForm(!showForm)} id={props.id} name={props.name}/>}

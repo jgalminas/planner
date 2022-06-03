@@ -132,6 +132,7 @@ export function ObjectiveDetails(props) {
         <div className="flex col gap-5">
             <label className='label' htmlFor='notes'> Details </label>
             <textarea className="notes-input" name='notes' value={details.notes} onChange={(e) => setDetails({ ...details, notes: e.target.value})}/>
+
         </div>
       </div>
 

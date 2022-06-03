@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { ErrorMessage } from './ErrorMessage';
 
 export function SignUp() {
 
     const authContext = useAuth();
-    const navigate = useNavigate();
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState([]);
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
@@ -20,8 +18,8 @@ export function SignUp() {
         if (validateInputs() === true) {
             setLoading(true);
             authContext.signUp(email, password)
-            .then(() => {
-                navigate('/');
+            .then(({user}) => {
+                authContext.saveUserData(user.uid, user.email, name);
             })
             .catch((err) => {
                 setLoading(false);
@@ -40,6 +38,9 @@ export function SignUp() {
         switch (e.target.name) {
             case 'email':
                 setEmail(e.target.value);
+                break;
+            case 'name':
+                setName(e.target.value);
                 break;
             case 'password':
                 setPassword(e.target.value);
@@ -90,8 +91,13 @@ export function SignUp() {
                 <ErrorMessage errors={error}/>
                 <label className="sign-label" htmlFor="email"> Email </label>
                 <input value={email} onChange={handleChange} className="sign-input" required type="text" name="email"></input>
+
+                <label className="sign-label" htmlFor="name"> Full Name </label>
+                <input value={name} onChange={handleChange} className="sign-input" required type="text" name="name"></input>
+
                 <label className="sign-label" htmlFor="password"> Password </label>
                 <input value={password} onChange={handleChange} className="sign-input" required type="password" name="password"></input>
+
                 <label className="sign-label" htmlFor="repeatPassword"> Repeat Password </label>
                 <input value={repeatPassword} onChange={handleChange} className="sign-input" required type="password" name="repeatPassword"></input>
 

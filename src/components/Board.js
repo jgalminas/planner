@@ -1,4 +1,4 @@
-﻿import { useState, Fragment, useEffect } from 'react';
+﻿import { useState, Fragment, useEffect, useRef } from 'react';
 import { Category } from './Category';
 import { Objective } from './Objective';
 
@@ -8,7 +8,7 @@ import {
   useSensor,
   useSensors,
   rectIntersection,
-  MeasuringStrategy
+  MeasuringStrategy,
 } from "@dnd-kit/core";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import { MouseSensor, TouchSensor } from '../CustomSensors';
@@ -16,8 +16,6 @@ import { MouseSensor, TouchSensor } from '../CustomSensors';
 import { useSelector, useDispatch } from 'react-redux';
 import { createCategory, moveCategory, moveObjective, reorderObjective, updateCategories } from './slices/currentBoardSlice';
 import { DueModal } from './DueModal';
-
-
 
 /**
  * The component that hols all of the board content, such as categories and tasks.
@@ -77,18 +75,19 @@ export function Board() {
     return null;
   }
 
-  function newCategoryInput(event) {
+  function newCategoryInput({current: ref}) {
 
-    if (event.target instanceof HTMLInputElement) {
-      if ((event.target.value.trim() === '') || undefined) {
+    if (ref) {
+      if ((ref.value.trim() === '') || undefined) {
         setShowNewCategoryInput(false);
       } else {
-        dispatch(createCategory({name: event.target.value.trim()}))
+        dispatch(createCategory({name: ref.value.trim()}))
         setShowNewCategoryInput(false);
       }
     } else {
       setShowNewCategoryInput(true);
     }
+
   }
 
   function renderOverlay(activeId, activeType) {
@@ -281,15 +280,20 @@ export function Board() {
 }
 
 function NewCategoryInput(props) {
+
+  const input = useRef();
+
   return(
     <div>
+      <form onSubmit={(e) => { e.preventDefault(); props.click(input);}}>
       {props.show ? (
-      <input autoFocus onBlur={props.click} className="new-category-input align-start" placeholder="Enter name"></input>
-    ) : (
-      <button onClick={props.click} className="align-start new-category-button pointer">
+        <input ref={input} autoFocus onBlur={() => props.click(input)} className="new-category-input align-start" placeholder="Enter name"></input>
+      ) : (
+      <button onClick={() => props.click(input)} className="align-start new-category-button pointer">
         Add Category
       </button>
     )}
+      </form>
     </div>
   )
 }
