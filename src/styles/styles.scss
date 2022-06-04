@@ -964,20 +964,33 @@ border-radius: 50px;
         outline: 1px solid rgb(231, 231, 231);
         background-color: #FEFEFE;
     }
-}
 
-.due-date {
-    margin-top: auto;
+    .due-date {
+        margin-top: auto;
+        
+        p {
+            padding-top: 1px;
+            font-size: 13px;
+        }
     
-    p {
-        padding-top: 1px;
-        font-size: 13px;
+        svg {
+            margin-right: 5px;
+        }
+        
     }
 
-    svg {
-        margin-right: 5px;
+    .priority {
+        border-radius: 5px;
+        width: 25px;
     }
     
+    .red {
+        border: 3px solid rgb(236, 79, 79);;
+    }
+    
+    .orange {
+        border: 3px solid rgb(236, 137, 79);;
+    }
 }
 
 .board-item-icon {
@@ -1051,28 +1064,4 @@ border-radius: 50px;
 .dragging {
     background-color: #d3d3d3;
     border-radius: 5px;
-}
-
-.checkbox {
-    height: 15px;
-    width: 15px;
-}
-
-.checkbox-label {
-    font-size: 14px;
-}
-
-.priority {
-
-    border-radius: 5px;
-    width: 25px;
-
-}
-
-.red {
-    border: 3px solid rgb(236, 79, 79);;
-}
-
-.orange {
-    border: 3px solid rgb(236, 137, 79);;
 }
