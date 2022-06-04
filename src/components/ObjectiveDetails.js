@@ -24,6 +24,42 @@ export function ObjectiveDetails(props) {
       
     }, [])
 
+    // function which validates and changes the dates state
+    function setDate(e, type) {
+
+       // date from the datepicker (type determines which one it is)
+      const date = new Date(e);
+
+      if (type === "DUE_DATE") {
+
+        const startingDate = new Date(details.startingDate);
+        
+        if (date == "Invalid Date") {
+          setDetails({...details, dueDate: ""})
+        } else if (startingDate == "Invalid Date"){
+          setDetails({...details, dueDate: e})
+        } else if ( date < startingDate) {
+          setDetails({...details, startingDate: e, dueDate: e})
+        } else if (date >= startingDate) {
+          setDetails({...details, dueDate: e})
+        }
+
+      } else if (type === "STARTING_DATE") {
+
+        const dueDate = new Date(details.dueDate);
+        if (date == "Invalid Date") {
+          setDetails({...details, startingDate: ""})
+        } else if (dueDate == "Invalid Date"){
+          setDetails({...details, startingDate: e})
+        } else if (date > dueDate) {
+          setDetails({...details, startingDate: e, dueDate: e})
+        } else if (date <= dueDate) {
+          setDetails({...details, startingDate: e})
+        }
+
+      }
+    }
+
     function updateCategories({value, label}) {
 
       const categoryOptions = categories.filter((cat) => cat.id !== value).map((option) => {
@@ -73,6 +109,7 @@ export function ObjectiveDetails(props) {
 
     }
 
+
     return createPortal(
       (<div className='modal-background' data-no-dnd="true">
         <div className="flex col modal-contents gap-30" ref={modal}>
@@ -119,12 +156,12 @@ export function ObjectiveDetails(props) {
 
         <div className="flex col gap-5">
           <label className='label' htmlFor='starting-date'> Starting Date </label>
-          <DatePicker value={details.startingDate} onChange={(e) => setDetails({...details, startingDate: e})} name="starting-date"/>        
+          <DatePicker value={details.startingDate} onChange={(e) => setDate(e, "STARTING_DATE")} name="starting-date"/>        
         </div>
 
         <div className="flex col gap-5">
           <label className='label' htmlFor='due-date'> Due Date </label>
-          <DatePicker value={details.dueDate} onChange={(e) => setDetails({...details, dueDate: e})} name="due-date"/>        
+          <DatePicker value={details.dueDate} onChange={(e) => setDate(e, "DUE_DATE")} name="due-date"/>        
         </div>
 
         </div>
