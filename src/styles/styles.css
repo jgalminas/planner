@@ -377,17 +377,26 @@ p {
 }
 
 .category .cat-content .new-objective-input {
+  font-size: 14px;
   border: none;
 }
 
 .category .cat-content .new-objective-button {
   height: 40px;
   border: none;
-  border-radius: 0px 0px 3px 3px;
+  outline: 1px solid transparent;
+  border-radius: 0px 0px 10px 10px;
   background-color: #e0e0e0;
+  -webkit-transition: ease-in 200ms;
+  transition: ease-in 200ms;
   /* Font */
   font-size: 14px;
   font-weight: 600;
+}
+
+.category .cat-content .new-objective-button:hover {
+  outline: 1px solid #c5c5c5;
+  background-color: #e6e6e6;
 }
 
 .board-list {
@@ -946,22 +955,27 @@ p {
 }
 
 .dropdown-options {
-  position: absolute;
   top: 120%;
   right: 0px;
-  z-index: 4;
+  z-index: 10;
   border-radius: 3px;
   outline: 1px solid rgba(230, 230, 230, 0.8);
   background-color: #ffffff;
+  padding: 4px 0px 4px 0px;
+  border-radius: 6px;
+  outline: 1px solid #dadada;
+  -webkit-transition: ease-in 100ms;
+  transition: ease-in 100ms;
 }
 
 .dropdown-options .dropdown-item {
-  padding: 2px 10px 2px 10px;
+  padding: 2px 20px 2px 20px;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .dropdown-options .dropdown-item:hover {
-  background-color: #e6e6e6;
+  background-color: #f5f5f5;
 }
 
 .exit-button {
@@ -979,10 +993,12 @@ p {
           user-select: none;
   position: relative;
   z-index: 3;
-  min-height: 70px;
+  min-height: 75px;
   background-color: #ffffff;
-  border-radius: 5px;
-  outline: 1px solid rgba(116, 116, 116, 0);
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  outline: 1px solid rgba(116, 116, 116, 0.1);
   -webkit-transition: ease-in 200ms;
   transition: ease-in 200ms;
 }
@@ -1005,22 +1021,46 @@ p {
   position: absolute;
   top: 10px;
   right: 10px;
-  border-radius: 3px;
-  outline: 1px solid #e7e7e7;
-  background-color: #FEFEFE;
 }
 
-.due-date {
+.objective .objective-options-button .icon-button {
+  background-color: white;
+  border-radius: 6px;
+  outline: 1px solid #dadada;
+  -webkit-transition: ease-in 100ms;
+  transition: ease-in 100ms;
+}
+
+.objective .objective-options-button .icon-button:hover {
+  background-color: #f5f5f5;
+  outline: 1px solid #bdbdbd;
+}
+
+.objective .due-date {
   margin-top: auto;
 }
 
-.due-date p {
+.objective .due-date p {
   padding-top: 1px;
   font-size: 13px;
 }
 
-.due-date svg {
+.objective .due-date svg {
   margin-right: 5px;
+}
+
+.objective .priority {
+  border-radius: 5px;
+  height: 6px;
+  width: 25px;
+}
+
+.objective .red {
+  background-color: #ec4f4f;
+}
+
+.objective .orange {
+  background-color: #ec894f;
 }
 
 .board-item-icon {
@@ -1043,12 +1083,14 @@ p {
       -ms-flex-align: center;
           align-items: center;
   padding: 5px;
+  z-index: 3;
+  -webkit-transition: ease-in 100ms;
+  transition: ease-in 100ms;
 }
 
 .icon-button:hover {
-  z-index: 3;
-  border-radius: 3px;
-  background-color: #e7e7e7;
+  border-radius: 6px;
+  background-color: #dddddd;
 }
 
 .credentials-form {
@@ -1097,27 +1139,5 @@ p {
 .dragging {
   background-color: #d3d3d3;
   border-radius: 5px;
-}
-
-.checkbox {
-  height: 15px;
-  width: 15px;
-}
-
-.checkbox-label {
-  font-size: 14px;
-}
-
-.priority {
-  border-radius: 5px;
-  width: 25px;
-}
-
-.red {
-  border: 3px solid #ec4f4f;
-}
-
-.orange {
-  border: 3px solid #ec894f;
 }
 /*# sourceMappingURL=styles.css.map */

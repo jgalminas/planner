@@ -11,7 +11,7 @@ import {
   MeasuringStrategy,
 } from "@dnd-kit/core";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import { MouseSensor, TouchSensor } from '../CustomSensors';
+import { MouseSensor } from '../CustomSensors';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { createCategory, moveCategory, moveObjective, reorderObjective, updateCategories } from './slices/currentBoardSlice';
@@ -38,7 +38,7 @@ export function Board() {
     distance: 15
   }
 
-  const sensors = useSensors(useSensor(MouseSensor, { activationConstraint }), useSensor(TouchSensor, { activationConstraint }));
+  const sensors = useSensors(useSensor(MouseSensor, { activationConstraint }));
 
   // Notification
   useEffect(() => {
