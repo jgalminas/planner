@@ -1,8 +1,8 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { ReactComponent as OptionsIconV } from './icons/options_v.svg'
 import { ReactComponent as CalendarIcon } from './icons/calendar.svg'
 import { ObjectiveDetails } from './ObjectiveDetails.js';
-import { OptionsDropdown } from './OptionsDropdown.js'
+import { ObjectiveOptions } from './ObjectiveOptions.js';
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -41,6 +41,7 @@ export function SortableObjective({ data, catId }) {
 export function Objective({isDragging, catId, data}) {
     
     const [hover, setHover] = useState(false);
+    const [isOptionsOpen, setOptionsOpen] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
     const { pathname } = useLocation();
     const boardId = pathname.split("/")[1];
@@ -52,11 +53,11 @@ export function Objective({isDragging, catId, data}) {
     ]
 
     const objectiveClassName = data?.progress === "Completed" ? "objective completed" : "objective";
-    const className = isDragging ? `${objectiveClassName} dragging` : `flex col p-10 ${objectiveClassName} gap-10 soft-shadow pointer`;
+    const className = isDragging ? `${objectiveClassName} dragging` : `flex col p-10 ${objectiveClassName} gap-10 pointer`;
 
     return (
       <div>
-        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => setShowDetails(true)} className={className}>
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => !isOptionsOpen && setHover(false)} onClick={() => setShowDetails(true)} className={className}>
           {!isDragging && (
             <Fragment>
 
@@ -69,7 +70,7 @@ export function Objective({isDragging, catId, data}) {
 
               {hover && (
                 <div className="objective-options-button">
-                  <OptionsDropdown icon={<OptionsIconV />} options={options} />
+                  <ObjectiveOptions icon={<OptionsIconV />} options={options} isOpen={(e) => setOptionsOpen(e)} setHover={setHover} />
                 </div>
               )}
             </Fragment>
