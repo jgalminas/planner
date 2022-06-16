@@ -1131,7 +1131,7 @@ p {
   -webkit-box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
           box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
   outline: 1px solid #d8d8d8;
-  border-radius: 5px;
+  border-radius: 10px;
   z-index: 10;
   overflow: hidden;
 }
