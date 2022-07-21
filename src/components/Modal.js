@@ -3,6 +3,7 @@ import { ReactComponent as CloseIcon} from './icons/close.svg';
 import { useRef } from "react";
 import useClickOutside from "./hooks/ClickOutside";
 
+
 export function Modal({close, children}) {
 
     const modal = useRef();

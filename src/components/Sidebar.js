@@ -1,20 +1,26 @@
 ﻿import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as AddIcon } from './icons/add.svg';
-import { ReactComponent as CheckIcon } from './icons/check.svg'
 import { useAuth } from './contexts/AuthContext';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { createBoard } from './slices/currentBoardSlice';
-import { CurrentUser } from './CurrentUser';
 import { subscribeToBoardList } from '../firebase/subscriptions';
+
+import { ReactComponent as PlusIcon } from './icons/plus-circle.svg'
+import { ReactComponent as ArrowDown } from './icons/arrow-down.svg';
+import { ReactComponent as WorkspacesIcon } from './icons/workspaces.svg';
+import { ReactComponent as HomeIcon } from './icons/home.svg';
+import { ReactComponent as SettingsIcon } from './icons/settings_cog.svg';
+import { ReactComponent as LogoutIcon } from './icons/exit.svg';
+import { ReactComponent as LogoIcon } from './icons/logo.svg';
+import { ReactComponent as MinimiseIcon } from './icons/minimise.svg';
+
+import { Menu } from './Menu';
 
 export function Sidebar() {
 
   const authContext = useAuth();
   const boardList = useSelector((state) => state.boardList.value);
   
-
   const { uid } = useAuth().currentUser;
   const dispatch = useDispatch();
 
@@ -22,62 +28,92 @@ export function Sidebar() {
     subscribeToBoardList(uid, dispatch);
   }, [])
 
-
-
   return (
-    <aside className='sidebar flex col no-wrap'>
-      <CurrentUser/>
-      <button className='sign-out-button' onClick={() => authContext.logOut()}> Sign Out </button>
+    <aside className='sidebar'>
 
-      <div className='placeholder'></div>
-      <hr/>
+      <div className='sidebar__logo-section'>
+        <LogoIcon/>
+        <button  className='sidebar__logo-section__minimise-button'> <MinimiseIcon/> </button>
+      </div>
 
-      <BoardList boardList={boardList}/>
+      <div className='sidebar__navigation-section'>
+        <Link className='sidebar__navigation-item' to='/'> <HomeIcon/> Home </Link>
+        <Workspaces boardList={boardList}/>
+      </div>
+
+      <div className='sidebar__account-section'>
+        <Link className='sidebar__navigation-item' to='/'> <SettingsIcon/> Account Settings </Link>
+        <Link className='sidebar__account-section__logout' onClick={authContext.logOut} to='/'> <LogoutIcon/> Log Out </Link>
+      </div>
+
 
     </aside>
   );
 }
 
-function BoardList(props) {
+function Workspaces(props) {
 
   const authContext = useAuth();
   const dispatch = useDispatch();
+
   const [name, setName] = useState('');
+  const [showWorkspaces, setShowWorkspaces] = useState(true);
+  const [isOpen, setOpen] = useState(false);
+
+  const addWorkspaceRef = useRef();
   const input = useRef();
+
 
   function submit(e) {
     e.preventDefault();
     
     if (name.trim() !== '' && name.trim().length > 3) {
       dispatch(createBoard({name: name, uid: authContext.currentUser.uid}));
-      input.current.value = '';
+      setOpen(false);
     }
 
   }
 
   return (
-    <div className="board-list flex col">
-      <p className='title'> BOARDS </p>
+      <div id='workspaces' className='workspaces'>
 
-      <form className='input flex row' onSubmit={(e) => submit(e)}>
-      <input ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text" placeholder='enter board name'/>
-      <button type="submit"> <CheckIcon/> </button>
-      </form>
+        <button  ref={addWorkspaceRef} className='workspaces__new-button' onClick={() => setOpen(!isOpen)}> <PlusIcon/> Add Workspace </button>
+        
+        {isOpen &&
+          <Menu position='right' parentRef={addWorkspaceRef} close={() => setOpen(false)}>
+            <form className='new-workspace-form' onSubmit={(e) => submit(e)} autoComplete="off">
+            <label className='new-workspace-form__label' htmlFor='input'> Workspace name </label>
+            <input className='new-workspace-form__input' id='input' ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text"/>
+            <button className='new-workspace-form__button' type="submit"> <PlusIcon/> Add </button>
+            </form>
+          </Menu>
+        }
 
-      <div>
-        {props.boardList && props.boardList.map((item) => {
-          return <BoardItem key={item.id} data={item}/>
-        })}
+        <button className='workspaces__show-button' onClick={() => setShowWorkspaces(!showWorkspaces)}>
+          <span className='workspaces__show-button__span'><WorkspacesIcon/> Workspaces</span>
+          <ArrowDown className={`workspaces__show-button__arrow${(showWorkspaces && '--up')}`}/>
+        </button>
+          
+          {showWorkspaces &&
+            <ul className='workspaces__list'>
+              {props.boardList && props.boardList.map((item) => {
+                return <WorkspaceItem key={item.id} data={item}/>
+              })}
+            </ul>
+          }
+
       </div>
-    </div>
   );
 }
 
-function BoardItem(props) {
+function WorkspaceItem(props) {
 
   return (
-    <Link state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/${props.data.id}`}>
-      <p className='board-item'> {props.data.name} </p>
-    </Link>
+      <li className='workspaces__list__item'>
+        <Link className='workspaces__list__item__link' state={{name: props.data.name, boardId: props.data.id, dataId: props.data.data}} to={`/${props.data.id}`}>
+          <div className='workspaces__list__item__point'></div>
+          <p className='workspaces__list__item__text'> {props.data.name} </p>
+        </Link>
+      </li>
   );
 }

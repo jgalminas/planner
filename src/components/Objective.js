@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment } from 'react';
 import { ReactComponent as OptionsIconV } from './icons/options_v.svg'
 import { ReactComponent as CalendarIcon } from './icons/calendar.svg'
 import { ObjectiveDetails } from './ObjectiveDetails.js';
@@ -42,7 +42,9 @@ export function Objective({isDragging, catId, data}) {
     
     const [hover, setHover] = useState(false);
     const [isOptionsOpen, setOptionsOpen] = useState(false);
+
     const [showDetails, setShowDetails] = useState(false);
+    
     const { pathname } = useLocation();
     const boardId = pathname.split("/")[1];
 
@@ -102,7 +104,7 @@ export function DueDate({dueDate}) {
         <p> {dateString} </p>
       </Fragment>
     ) : null}
-  </div>
+    </div>
   )
 }
 

@@ -18,7 +18,7 @@ import { createCategory, moveCategory, moveObjective, reorderObjective, updateCa
 import { DueModal } from './DueModal';
 
 /**
- * The component that hols all of the board content, such as categories and tasks.
+ * The component that holds all of the board content, such as categories and tasks.
  */
 export function Board() {
 
