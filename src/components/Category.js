@@ -9,17 +9,18 @@ import { ReactComponent as Close} from './icons/close.svg';
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import {CSS} from '@dnd-kit/utilities';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createObjective, deleteCategory, renameCategory } from './slices/currentBoardSlice';
 import { useLocation } from 'react-router-dom';
+import { DatePicker } from './DatePicker';
 
-export function Category(props) {
+export function Category({ id, objectives, name }) {
 
   const [showForm, setShowForm] = useState(false);
   const dispatch = useDispatch();
   
   const { setNodeRef } = useDroppable({
-    id: props.id,
+    id: id,
   });
 
   const {
@@ -29,7 +30,7 @@ export function Category(props) {
     transform,
     transition,
     isDragging,
-  } = useSortable({id: props.id, data: {
+  } = useSortable({id: id, data: {
     type: 'Category'
   }});
 
@@ -39,21 +40,23 @@ export function Category(props) {
   };
 
   return (
-    <SortableContext id={props.id} items={props.objectives} strategy={verticalListSortingStrategy}>
+    <SortableContext id={id} items={objectives} strategy={verticalListSortingStrategy}>
       
       <div className={isDragging ? "category dragging" : "category"} ref={sortRef} style={style} {...attributes} {...listeners } >
 
           {!isDragging && 
-            <CategoryHeader show={() => setShowForm(!showForm)} id={props.id} name={props.name}/>}
+            <CategoryHeader show={() => setShowForm(!showForm)} id={id} name={name}/>}
 
           <div className="flex col gap-15 p-10 cat-content" ref={setNodeRef}>
           {!isDragging &&
           <Fragment>
-          {props.objectives.map((item) => {
-          return <SortableObjective catId={props.id} key={item.id} data={item} />;
+          {objectives.map((item) => {
+          return <SortableObjective catId={id} key={item.id} data={item} />;
           })}
-          {showForm && <NewObjectiveInput catId={props.id} show={() => setShowForm(!showForm)}/>}
+
+          {showForm && <NewObjectiveInput catId={id} show={() => setShowForm(!showForm)}/>}
           </Fragment>}
+
           </div> 
 
       </div>
@@ -63,14 +66,11 @@ export function Category(props) {
 }
 
 //Category header component which is rendered at the top of the category container
-export function CategoryHeader({id, name, show}) {
+export function CategoryHeader({ id, name, show }) {
 
   const [showRenameInput, setShowRenameInput] = useState(false);
   const [nameInput, setNameInput] = useState(name);
-
-  const { pathname } = useLocation();
-  const boardId = pathname.split('/')[1];
-
+  const boardId = useSelector((state) => state.currentBoard.value.boardId);
   const dispatch = useDispatch();
 
   const options = [
@@ -79,7 +79,7 @@ export function CategoryHeader({id, name, show}) {
   ];
 
   return (
-    <div className="category-header p-10 flex row no-wrap">
+    <div className="category__header">
 
       {showRenameInput ? 
         <div className='rename-container flex'>
@@ -103,7 +103,7 @@ export function CategoryHeader({id, name, show}) {
 
 export function NewObjectiveInput(props) {
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const button = useRef();
 
   const dispatch = useDispatch();
@@ -115,26 +115,15 @@ export function NewObjectiveInput(props) {
 
   return (
 
-    <div className="flex wrap w-100 objective soft-shadow p-0" data-no-dnd="true">
-      <form className='w-100' onSubmit={(e) => {
+    <div className='new-objective' data-no-dnd="true">
+      <form autoComplete='off' className='new-objective__form' onSubmit={(e) => {
           e.preventDefault();
           dispatch(createObjective({catId: props.catId, name: name}));
           props.show();
-        }}>
-      <div className="w-100 h-fit p-10">
-        <input autoFocus
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-100 h-fit new-objective-input"
-          type="text"
-          placeholder="Enter name">
-        </input>
-      </div>
-      <input
-        type="submit"
-        value="Add Task"
-        ref={button}
-        className="new-objective-button pointer w-100 h-fit align-end"/>
+      }}>
+        <label className='new-objective__form__label' htmlFor='text'> Title </label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} className='new-objective__form__input' autoFocus name='text'/>
+        <input type="submit" value="Add" ref={button} className='new-objective__form__button'/>
       </form>
     </div>
   )

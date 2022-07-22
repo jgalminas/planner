@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import useClickOutside from './hooks/ClickOutside';
+import { Menu } from './Menu.js';
 
 /**
     * Re-usable options dropdown component
@@ -30,6 +31,12 @@ export function OptionsDropdown({ icon, options }) {
             <button ref={button} className="icon-button pointer" onClick={(e) => {e.stopPropagation(); setVisible(!visible);} }>
             {icon}
             </button>
+
+        {/* {visible &&
+            <Menu position='bottom' parentRef={button} close={setVisible(false)}>
+            asdddd
+            </Menu>} */}
+        
         {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute dropdown-options soft-shadow'>
             {(options) ? options.map((option, key) => {
                 return <button key={key} className='dropdown-item m-0' onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}> {option.name} </button>

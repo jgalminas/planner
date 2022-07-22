@@ -156,19 +156,19 @@ export const deleteCategory = createAsyncThunk(
 export const createObjective = createAsyncThunk(
   'board/createObjective',
   async(args, { getState }) => {
-    const { catId, name } = args;
+    const { catId, name, dueDate } = args;
     const state = getState().currentBoard.value
 
     try {
 
       const objective = {
         id: uuid(),
-        name: name,
+        name: name.trim() === '' ? 'objective name' : name.trim(),
         priority: "Medium",
         progress: "Not Started",
         notes: "",
         startingDate: "",
-        dueDate: ""
+        dueDate: ''
       }
       
       const catIndex = state.categories.findIndex((cat) => cat.id === catId);
