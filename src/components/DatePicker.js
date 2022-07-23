@@ -52,13 +52,14 @@ function Header({
   </div>;
 }
 
+// class compoment has to be used in order to pass ref
 class Input extends Component {
   render() {
 
     const { date, onClick } = this.props;
 
     return (
-      <button className="datepicker-input" onClick={onClick} >
+      <button className="datepicker-input" onClick={(e) => {e.preventDefault(); onClick(e)}} >
       {(date === '') ? 'Pick a date' :  new Date(date).toLocaleDateString()}
     </button>
     )

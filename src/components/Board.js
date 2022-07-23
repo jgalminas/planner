@@ -18,7 +18,7 @@ import { createCategory, moveCategory, moveObjective, reorderObjective, updateCa
 import { DueModal } from './DueModal';
 
 /**
- * The component that hols all of the board content, such as categories and tasks.
+ * The component that holds all of the board content, such as categories and tasks.
  */
 export function Board() {
 
@@ -239,7 +239,7 @@ export function Board() {
     <Fragment>
 
     {currentBoard.categories && 
-    <div className="flex row no-wrap gap-15 board-content">
+    <div className='board-content'>
 
     <DndContext
         measuring={{
@@ -279,20 +279,20 @@ export function Board() {
   );
 }
 
-function NewCategoryInput(props) {
+function NewCategoryInput({ show, click }) {
 
   const input = useRef();
 
   return(
-    <div>
-      <form onSubmit={(e) => { e.preventDefault(); props.click(input);}}>
-      {props.show ? (
-        <input ref={input} autoFocus onBlur={() => props.click(input)} className="new-category-input align-start" placeholder="Enter name"></input>
-      ) : (
-      <button onClick={() => props.click(input)} className="align-start new-category-button pointer">
-        Add Category
-      </button>
-    )}
+    <div className='new-category'>
+      <form onSubmit={(e) => { e.preventDefault(); click(input); }}>
+      
+      { (show)
+        ? 
+        <input ref={input} autoFocus onBlur={() => click(input)} className="new-category__input" placeholder="Enter name"></input>
+        : 
+        <button onClick={() => click(input)} className="new-category__button"> Add Category </button> }
+
       </form>
     </div>
   )

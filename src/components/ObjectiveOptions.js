@@ -1,44 +1,53 @@
+import { Fragment } from 'react';
 import { useState, useRef } from 'react';
-import useClickOutside from './hooks/ClickOutside';
+import { Menu } from './Menu.js';
+import { ReactComponent as TrashIcon } from './icons/trash.svg'
+import { deleteObjective } from './slices/currentBoardSlice';
+import { addItem } from './slices/localStorageSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-/**
-    * Options Dropdown component for the objective card
-    * Pass React Icon Component or any other component to use it as the icon for the button
-    * eg. <OptionsDropdown icon={<OptionsIcon/>}/>
-    * Pass an array of objects which contain the name and click function of each option
-    * eg. [{name: Rename, click: () => renameObjective(params))}, {name: Delete, click: () => deleteObjective(params))}]
-    * 
-    * @param icon icon component for the button
-    * @param options array of objects each one containing a name and click function for the option
-    * @param isOpen a callback function for getting the visibility state of the menu
-    * @param setHover a callback function for setting the Hover state to false
+import { ReactComponent as OptionsIconV } from './icons/options_v.svg'
 
-*/
+export function ObjectiveOptions({ data, setOpen, setHover }) {
 
-export function ObjectiveOptions({ icon, options, isOpen, setHover }) {
-
+    const boardId = useSelector((state) => state.currentBoard.value.boardId);
+    const dispatch = useDispatch();
+    
     const [visible, setVisible] = useState(false);
-    const menu = useRef();
     const button = useRef();
 
-    useClickOutside(button, menu, () => { setVisible(false); isOpen && isOpen(false); setHover && setHover(false) });
+    const { details, catId } = data;
 
+    const options = [
+        {name: "Delete", icon: <TrashIcon/>, type: 'warning', click: () => {
+          dispatch(deleteObjective({objId: details.id, catId: catId}));
+          dispatch(addItem({boardId: boardId, data: {...details, catId: catId}}))}}
+    ];
+    
     function handleClick(optionClick) {
         optionClick();
-        isOpen && isOpen(false);
+        setOpen(false);
         setVisible(false);
     }
 
     return (
-        <div className='flex relative'>
-            <button ref={button} className="icon-button pointer soft-shadow" onClick={(e) => {e.stopPropagation(); setVisible(!visible); isOpen && isOpen(!visible)} }>
-            {icon}
+        <Fragment>
+
+            <button ref={button} className="objective__options-button" onClick={(e) => {e.stopPropagation(); setVisible(!visible); setOpen(!visible)} }>
+            <OptionsIconV/>
             </button>
-        {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute dropdown-options soft-shadow'>
-            {(options) ? options.map((option, key) => {
-                return <button key={key} className='dropdown-item m-0' onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}> {option.name} </button>
-            }) : null}
-        </div> : null}
-        </div>
+                    
+            {visible &&
+                <Menu position='bottom-left' parentRef={button} close={() => {setVisible(false); setOpen(false); setHover && setHover(false)}}>
+                    <div className='options-menu'>
+                        {options && options.map((option, key) => {
+                        return <button className={`options-menu__item --${option.type}`} key={key} onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}>
+                            { option?.icon }
+                            { option.name }
+                            </button>
+                        })}
+                    </div>
+                </Menu>}
+        </Fragment>
     );
 }
