@@ -1,23 +1,21 @@
-import { useState, useRef } from 'react';
+import { useRef, Fragment } from 'react';
 import useClickOutside from './hooks/ClickOutside';
 import { Menu } from './Menu.js';
 
 /**
-    * Re-usable options dropdown component
-    * Pass React Icon Component or any other component to use it as the icon for the button
-    * eg. <OptionsDropdown icon={<OptionsIcon/>}/>
-    * Pass an array of objects which contain the name and click function of each option
-    * eg. [{name: Rename, click: () => renameObjective(params))}, {name: Delete, click: () => deleteObjective(params))}]
-    * 
+    * A re-usable options dropdown component     
+    * @param button button ref which opens the options
     * @param icon icon component for the button
-    * @param options array of objects each one containing a name and click function for the option
+    * @param options array of objects each one containing a name, icon component, type and click function for the option
+    * example: { name: 'Delete', icon: <TrashIcon/>, type: 'warning', click: (e) => doSomething(e)}
+    * @param visible options state
+    * @param setVisible changing options state
+    * 
 */
 
-export function OptionsDropdown({ icon, options }) {
+export function OptionsDropdown({ button, options, visible, setVisible }) {
 
-    const [visible, setVisible] = useState(false);
     const menu = useRef();
-    const button = useRef();
 
     useClickOutside(button, menu, () => setVisible(false));
 
@@ -27,21 +25,19 @@ export function OptionsDropdown({ icon, options }) {
     }
 
     return (
-        <div className='flex relative'>
-            <button ref={button} className="icon-button pointer" onClick={(e) => {e.stopPropagation(); setVisible(!visible);} }>
-            {icon}
-            </button>
-
-        {/* {visible &&
-            <Menu position='bottom' parentRef={button} close={setVisible(false)}>
-            asdddd
-            </Menu>} */}
-        
-        {(visible) ? <div ref={menu} className='flex col no-wrap w-fit h-fit absolute dropdown-options soft-shadow'>
-            {(options) ? options.map((option, key) => {
-                return <button key={key} className='dropdown-item m-0' onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}> {option.name} </button>
-            }) : null}
-        </div> : null}
-        </div>
+        <Fragment>
+        {visible &&
+            <Menu position='bottom-left' parentRef={button} close={() => setVisible(false)}>
+                <div className='options-menu'>
+                {options && options.map((option, key) => {
+                    return <button className={`options-menu__item --${option.type}`} key={key} onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}>
+                            { option?.icon }
+                            { option.name }
+                           </button>
+                })}
+                </div>
+            </Menu>
+        }
+        </Fragment>
     );
 }

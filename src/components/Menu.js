@@ -64,16 +64,14 @@ export function Menu({ parentRef, offset, children, close, position }) {
 
     observer.observe(parentRef.current);
 
-    return () => {
-      observer.unobserve(parentRef.current);
-    }
-
   }, [])
 
 
   useEffect(() => {
 
-    setStyle(calculatePos());
+    if (parentRef) {
+      setStyle(calculatePos());
+    }
 
   }, [x, y, width, height])
 

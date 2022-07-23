@@ -12,10 +12,10 @@ export function CurrentUser() {
     return (
       <div className='current-user'>
         {user && <Fragment>
-          <div className='icon'>
-            <p className='char'> {user[0].toUpperCase()} </p>
+          <div className='current-user__icon'>
+            <p className='current-user__icon__char'> {user[0].toUpperCase()} </p>
           </div>
-          <p className="name text-overflow"> {user} </p>
+          <p className="current-user__name"> {user} </p>
         </Fragment>}
       </div>
     )
