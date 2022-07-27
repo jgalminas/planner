@@ -1,10 +1,10 @@
 import { useState, Fragment } from 'react';
 import { ReactComponent as CalendarIcon } from './icons/calendar.svg'
-import { ObjectiveDetails } from './ObjectiveDetails.js';
 import { ObjectiveOptions } from './ObjectiveOptions.js';
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Priority } from '../util/Constants';
+import { useNavigate } from 'react-router-dom';
 
 export function SortableObjective({ data, catId }) {
 
@@ -28,14 +28,14 @@ export function Objective({isDragging, catId, data}) {
     const [hover, setHover] = useState(false);
     const [isOptionsOpen, setOptionsOpen] = useState(false);
 
-    const [showDetails, setShowDetails] = useState(false);
+    const navigate = useNavigate();
 
     const objectiveClassName = data?.progress === "Completed" ? "objective --completed" : "objective";
     const className = isDragging ? `${objectiveClassName} dragging` : objectiveClassName;
 
     return (
       <Fragment>
-        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => !isOptionsOpen && setHover(false)} onClick={() => setShowDetails(true)} className={className}>
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => !isOptionsOpen && setHover(false)} onClick={() => navigate(data.id)} className={className}>
           {!isDragging && 
             <Fragment>
               
@@ -48,13 +48,7 @@ export function Objective({isDragging, catId, data}) {
             </Fragment>}
           
         </div>
-        {showDetails && (
-          <ObjectiveDetails
-            catId={catId}
-            data={data}
-            close={() => setShowDetails(false)}
-          />
-        )}
+
       </Fragment>
     );
 }
@@ -75,10 +69,13 @@ export function DueDate({ dueDate }) {
   return (
     <Fragment>
     {dueDate && dueDate !== '' &&
+      <Fragment>
+        <hr className='due-date__divider'/>
       <div className='due-date'>
         <CalendarIcon className='due-date__icon'/>
         <p className='due-date__text'> {dateString} </p>
-      </div>}
+      </div>
+      </Fragment>}
     </Fragment>
   )
 }

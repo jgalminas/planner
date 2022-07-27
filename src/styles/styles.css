@@ -9,36 +9,12 @@
   flex-shrink: 0;
 }
 
-.row {
-  flex-direction: row;
-}
-
 .col {
   flex-direction: column;
 }
 
-.wrap {
-  flex-wrap: wrap;
-}
-
-.no-wrap {
-  flex-wrap: nowrap;
-}
-
-.gap-5 {
-  gap: 5px;
-}
-
 .gap-10 {
   gap: 10px;
-}
-
-.gap-15 {
-  gap: 15px;
-}
-
-.gap-30 {
-  gap: 30px;
 }
 
 .w-100 {
@@ -46,393 +22,8 @@
   max-width: 100%;
 }
 
-.w-auto {
-  width: auto;
-}
-
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.h-100 {
-  min-height: 100%;
-  max-height: 100%;
-}
-
-.h-auto {
-  height: auto;
-}
-
-.h-fit {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-}
-
-.align-end {
-  align-self: end;
-}
-
-.align-center {
-  align-self: center;
-}
-
-.align-start {
-  align-self: start;
-}
-
-.align-right {
-  margin-left: auto;
-}
-
-.align-left {
-  margin-right: auto;
-}
-
-.m-0 {
-  margin: 0px;
-}
-
-.p-0 {
-  padding: 0px;
-}
-
-.p-5 {
-  padding: 5px;
-}
-
 .p-10 {
   padding: 10px;
-}
-
-.p-15 {
-  padding: 15px;
-}
-
-.soft-shadow {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-
-.relative {
-  position: relative;
-}
-
-.absolute {
-  position: absolute;
-}
-
-.pointer:hover {
-  cursor: pointer;
-}
-
-.react-datepicker__tab-loop {
-  position: absolute;
-}
-
-.datepicker-input {
-  display: flex;
-  z-index: 5;
-  padding: 7px;
-  border-radius: 3px;
-  width: 200px;
-  align-items: flex-start;
-  cursor: pointer;
-  background-color: rgb(240, 240, 240);
-}
-.datepicker-input:focus {
-  outline: 1px solid #43455a;
-}
-
-.date-picker {
-  border: none;
-  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
-  display: flex;
-  flex-direction: column;
-}
-.date-picker .time-section {
-  padding: 0px 15px 15px 15px;
-}
-.date-picker .time-section .time-label {
-  font-size: 14px;
-  color: #414253;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  text-align: center;
-  line-height: 29px;
-}
-.date-picker .time-section .time-input {
-  border: 1px solid #b8b8b8;
-  border-radius: 5px;
-  width: 80px;
-}
-.date-picker .time-section .clear-button {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  font-size: 14px;
-  padding: 0px;
-  margin-left: auto;
-  padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.date-picker .time-section .clear-button:hover {
-  background-color: #f0f0f0;
-}
-.date-picker .datepicker-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 15px 10px 15px;
-}
-.date-picker .current-month {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.date-picker .change-month-button {
-  height: 20px;
-  width: 20px;
-  padding: 0px;
-  margin: 0px;
-  outline: 1px solid #b8b8b8;
-  background-color: #ffffff;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.date-picker .change-month-button svg {
-  stroke: #585858;
-}
-.date-picker .change-month-button:hover {
-  background-color: #f0f0f0;
-}
-.date-picker .react-datepicker__day--today {
-  color: #414253;
-  font-weight: 400;
-  outline: 1px solid rgb(165, 165, 165);
-  border-radius: 5px;
-}
-.date-picker .react-datepicker__day--today:hover {
-  background-color: #dadada;
-  border-radius: 5px;
-}
-.date-picker .react-datepicker__day {
-  font-size: 14px;
-  color: #414253;
-}
-.date-picker .react-datepicker__day:hover {
-  background-color: #dadada;
-  border-radius: 5px;
-}
-.date-picker .react-datepicker__day--keyboard-selected {
-  font-size: 14px;
-  color: #414253;
-  background-color: rgb(209, 209, 209);
-  border-radius: 5px;
-  outline: none;
-}
-.date-picker .react-datepicker__day--outside-month {
-  font-size: 14px;
-  color: #414253;
-}
-.date-picker .react-datepicker__day-name {
-  font-size: 14px;
-  color: #414253;
-}
-.date-picker .react-datepicker__header {
-  background-color: #ffffff;
-  border: none;
-  padding-bottom: 0px;
-}
-
-.select-wrapper {
-  position: relative;
-  width: 200px;
-}
-.select-wrapper .select-control {
-  width: 100%;
-  padding: 7px;
-  display: flex;
-  align-items: center;
-  color: rgb(58, 58, 58);
-  text-align: left;
-  border-radius: 3px;
-  cursor: pointer;
-  background-color: rgb(240, 240, 240);
-}
-.select-wrapper .select-control:focus {
-  outline: 1px solid #43455a;
-}
-.select-wrapper .select-control:focus svg {
-  transform: rotate(180deg);
-}
-.select-wrapper .select-control svg {
-  margin-left: auto;
-}
-.select-wrapper .select-menu {
-  position: absolute;
-  z-index: 100;
-  margin-top: 10px;
-  width: 100%;
-  border-radius: 3px;
-  background-color: #ffffff;
-  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 2px;
-}
-.select-wrapper .select-option {
-  padding: 10px;
-  cursor: pointer;
-  color: rgb(73, 73, 73);
-}
-.select-wrapper .select-option:hover {
-  background-color: #e8eaf8;
-  border-radius: 3px;
-}
-
-.modal-background {
-  background-color: rgba(58, 58, 58, 0.2196078431);
-  position: fixed;
-  z-index: 5;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-contents {
-  position: relative;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  min-height: auto;
-  max-height: 90%;
-  overflow-y: auto;
-  padding: 50px;
-  z-index: 6;
-  border-radius: 5px;
-  box-shadow: rgba(99, 99, 99, 0.6) 0px 0px 80px 10px;
-  background-color: #ffffff;
-}
-.modal-contents .label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #43455a;
-}
-.modal-contents .objective-name-input {
-  width: 100%;
-  border: none;
-  padding: 7px;
-  border-radius: 3px;
-  background-color: rgb(240, 240, 240);
-}
-.modal-contents .objective-name-input:focus {
-  outline: 1px solid #43455a;
-}
-.modal-contents .notes-input {
-  width: 100%;
-  min-height: 220px;
-  resize: none;
-  border: none;
-  padding: 10px;
-  color: rgb(58, 58, 58);
-  background-color: rgb(240, 240, 240);
-  border-radius: 3px;
-}
-.modal-contents .notes-input:focus {
-  outline: 1px solid #43455a;
-}
-.modal-contents .notes-input::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.deleted-items {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: calc(100% - 115px);
-  padding: 15px;
-  gap: 15px;
-  background-color: #f7f7f7;
-  overflow-y: auto;
-}
-
-.deleted-objective {
-  width: auto;
-  height: 100px;
-  padding: 15px;
-  border-radius: 5px;
-  background-color: #ffffff;
-  align-items: center;
-}
-.deleted-objective p {
-  max-height: 80px;
-  margin-right: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.deleted-objective .objective-title {
-  font-size: 14px;
-  max-height: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.deleted-objective .options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-left: auto;
-}
-.deleted-objective .options button {
-  width: 100px;
-  border-radius: 3px;
-  background-color: #eeeeee;
-  cursor: pointer;
-}
-.deleted-objective .options button:hover {
-  background-color: #dbdbdb;
-}
-
-.due-modal {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.due-modal h1 {
-  font-size: 20px;
-}
-.due-modal .due-objective {
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  background-color: #fafafa;
-  padding: 10px;
-  border-radius: 5px;
-  width: 400px;
-  max-height: 110px;
-  outline: 1px solid rgb(219, 219, 219);
-}
-.due-modal .due-objective .title {
-  max-height: 80px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.exit-button {
-  right: 10px;
-  top: 10px;
-  height: 24px;
-  width: 24px;
-  z-index: 9;
 }
 
 .credentials-form {
@@ -508,6 +99,7 @@ p {
 }
 
 ::-webkit-scrollbar-track {
+  margin: 5px 5px;
   background: transparent;
 }
 
@@ -534,7 +126,8 @@ p {
   flex-wrap: nowrap;
   gap: 10px;
   height: 100%;
-  width: 270px;
+  max-width: 270px;
+  min-width: 270px;
   background-color: #2B3E51;
   overflow-y: auto;
 }
@@ -739,6 +332,11 @@ p {
 .due-date__icon {
   stroke: #5A5C6C;
 }
+.due-date__divider {
+  border: 0px;
+  height: 1px;
+  background-color: #E7E7E7;
+}
 
 .objective {
   display: flex;
@@ -840,6 +438,7 @@ p {
   border-radius: 5px;
   z-index: 10;
   overflow: hidden;
+  height: 100%;
 }
 
 .dragging {
@@ -978,11 +577,13 @@ p {
 }
 
 .main {
+  display: flex;
   height: 100%;
   width: 100%;
 }
 
 .board-header {
+  grid-column: span 2;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -1097,14 +698,22 @@ p {
 }
 
 .board {
+  display: grid;
+  grid-template-rows: 115px calc(100% - 115px);
+  grid-template-columns: minmax(0, 1fr) auto;
   width: calc(100% - 270px);
+  height: 100%;
 }
 
 .board-content {
+  grid-row: 2;
+  grid-column: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-wrap: no-wrap;
+  position: relative;
+  flex-wrap: nowrap;
   gap: 15px;
-  height: calc(100% - 115px);
   padding: 10px 20px 10px 20px;
   background-color: #FBFBFB;
   overflow-x: auto;
@@ -1128,4 +737,365 @@ p {
   background-color: transparent;
   border-radius: 5px;
   border: 1px solid rgba(82, 82, 82, 0.8);
+}
+
+.select {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 500px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.select__control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  font-size: 14px;
+  color: #5A5C6C;
+  cursor: pointer;
+}
+.select__control.--active svg {
+  transform: rotate(180deg);
+}
+.select__control svg {
+  stroke: #5A5C6C;
+}
+.select__menu {
+  position: absolute;
+  z-index: 9999;
+  margin-top: 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+  outline: 1px solid #e9e9e9;
+}
+.select__menu :first-child:hover {
+  border-radius: 5px 5px 0px 0px;
+}
+.select__menu :last-child:hover {
+  border-radius: 0px 0px 5px 5px;
+}
+.select__menu__option {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 10px;
+  padding: 7px 40px;
+  cursor: pointer;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #5A5C6C;
+}
+.select__menu__option:hover {
+  background-color: #f8f8f8;
+}
+.select__menu__option svg {
+  position: absolute;
+  left: 11px;
+  stroke: #5A5C6C;
+}
+
+.objective-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  grid-row: 2;
+  grid-column: 2;
+  padding: 30px;
+  height: 100%;
+  width: 550px;
+  overflow: scroll;
+  background-color: white;
+  border-left: 1px solid #E7E7E7;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+}
+.objective-details__header {
+  font-size: 18px;
+  font-weight: 600;
+}
+.objective-details__divider {
+  border: none;
+  height: 1px;
+  box-shadow: 0px 1px 0px 0px #E7E7E7;
+}
+.objective-details__row {
+  display: flex;
+  gap: 35px;
+  padding: 10px 0px;
+  align-items: center;
+}
+.objective-details__column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.objective-details__label {
+  font-size: 14px;
+  color: #5A5C6C;
+  font-weight: 500;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  white-space: nowrap;
+}
+.objective-details__title-input {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  padding: 15px;
+  color: #27283A;
+  font-size: 16px;
+  background-color: #FBFBFB;
+  border-radius: 3px;
+  border: 1px solid #e9e9e9;
+}
+.objective-details__title-input:focus {
+  outline: 1px solid #6997EE;
+}
+.objective-details__title-input::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.objective-details__description-input {
+  width: 100%;
+  min-height: 200px;
+  resize: none;
+  padding: 15px;
+  color: #27283A;
+  font-size: 16px;
+  background-color: #FBFBFB;
+  border-radius: 3px;
+  border: 1px solid #e9e9e9;
+}
+.objective-details__description-input:focus {
+  outline: 1px solid #6997EE;
+}
+.objective-details__description-input::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.react-datepicker__tab-loop {
+  position: relative;
+}
+
+.datepicker-input {
+  display: flex;
+  z-index: 5;
+  max-width: 200px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.react-datepicker {
+  border: 1px solid #E7E7E7 !important;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.date-picker {
+  display: flex;
+  flex-direction: column;
+}
+.date-picker__clear-button {
+  margin: 10px;
+  padding: 5px 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 14px;
+  float: right;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: #6997EE;
+}
+.date-picker__clear-button:hover {
+  background-color: #003054;
+}
+.date-picker__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px 10px 15px;
+}
+.date-picker__header____current-month-label {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.date-picker__header__change-month-button {
+  height: 20px;
+  width: 20px;
+  padding: 0px;
+  margin: 0px;
+  outline: 1px solid #b8b8b8;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.date-picker__header__change-month-button svg {
+  stroke: #5A5C6C;
+}
+.date-picker__header__change-month-button:hover {
+  background-color: #f0f0f0;
+}
+.date-picker .react-datepicker__day--today {
+  color: #5A5C6C;
+  font-weight: 400;
+  outline: 1px solid #6997EE;
+  border-radius: 5px;
+}
+.date-picker .react-datepicker__day {
+  font-size: 14px;
+  color: #27283A;
+}
+.date-picker .react-datepicker__day:hover {
+  background-color: #E7E7E7;
+  color: #5A5C6C;
+  border-radius: 5px;
+}
+.date-picker .react-datepicker__day--keyboard-selected {
+  font-size: 14px;
+  color: white;
+  background-color: #6997EE;
+  border-radius: 5px;
+  outline: none;
+}
+.date-picker .react-datepicker__day--outside-month {
+  font-size: 14px;
+  color: #5A5C6C;
+}
+.date-picker .react-datepicker__day-name {
+  font-size: 14px;
+  color: #27283A;
+}
+.date-picker .react-datepicker__header {
+  background-color: white;
+  border: none;
+  padding-bottom: 0px;
+}
+
+.deleted-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 115px);
+  padding: 15px;
+  gap: 15px;
+  height: 100%;
+  background-color: #FBFBFB;
+  overflow-y: auto;
+}
+
+.deleted-objective {
+  display: flex;
+  width: auto;
+  height: 100px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: white;
+  align-items: center;
+}
+.deleted-objective__text {
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.deleted-objective__options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
+}
+.deleted-objective__options__button {
+  width: 100px;
+  border-radius: 3px;
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+.deleted-objective__options__button:hover {
+  background-color: #dbdbdb;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-contents {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  z-index: 8;
+}
+
+.modal-exit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 24px;
+  width: 24px;
+  z-index: 9;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.account-settings {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 500px;
+  width: 50vw;
+  max-width: 1000px;
+  height: 90vh;
+}
+.account-settings__header {
+  background-color: white;
+  border-bottom: 1px solid #E7E7E7;
+  padding: 40px 20px 20px 20px;
+  border-radius: 5px 5px 0px 0px;
+}
+.account-settings__content {
+  background-color: white;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 0px 0px 5px 5px;
+  height: 100%;
+}
+.account-settings__content p {
+  text-align: center;
+  padding: 300px 0px;
 }/*# sourceMappingURL=styles.css.map */

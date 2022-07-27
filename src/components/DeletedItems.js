@@ -24,11 +24,11 @@ export function DeletedObjective({boardId, data}) {
     const dispatch = useDispatch();
 
     return (
-        <div className="flex deleted-objective soft-shadow">
-            <p> {data.name} </p>
-            <div className="options">
-            <button onClick={() => dispatch(removeItem({boardId: boardId, objId: objective.id})) }> Remove </button>
-            <button onClick={() => {dispatch(restoreObjective({catId: catId, objective: objective})); dispatch((removeItem({boardId: boardId, objId: objective.id})))} }> Restore </button>
+        <div className='deleted-objective'>
+            <p className='deleted-objectives__title'> {data.name} </p>
+            <div className='deleted-objective__options'>
+            <button className='deleted-objective__options__button' onClick={() => dispatch(removeItem({boardId: boardId, objId: objective.id})) }> Remove </button>
+            <button className='deleted-objective__options__button'onClick={() => {dispatch(restoreObjective({catId: catId, objective: objective})); dispatch((removeItem({boardId: boardId, objId: objective.id})))} }> Restore </button>
             </div>
         </div>
     )

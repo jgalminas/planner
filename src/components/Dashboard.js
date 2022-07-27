@@ -23,7 +23,7 @@ export function Dashboard() {
     return(
         <Fragment>
         <Sidebar/>
-        <div className='h-100 board'>
+        <div className='board'>
           <BoardHeader id={pathname.split("/")[1]}/>
           <Outlet/>
         </div>

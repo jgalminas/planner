@@ -345,7 +345,7 @@ export const currentBoardSlice = createSlice({
 
       state.value.categories[active].objectives = arrayMove(state.value.categories[active].objectives, activeIndex, overIndex)
 
-    }
+    },
   }
 })
 

@@ -1,6 +1,8 @@
 ﻿import { useState, Fragment, useEffect, useRef } from 'react';
 import { Category } from './Category';
 import { Objective } from './Objective';
+import { Outlet } from 'react-router-dom';
+
 
 import {
   DndContext,
@@ -15,7 +17,6 @@ import { MouseSensor } from '../CustomSensors';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { createCategory, moveCategory, moveObjective, reorderObjective, updateCategories } from './slices/currentBoardSlice';
-import { DueModal } from './DueModal';
 
 /**
  * The component that holds all of the board content, such as categories and tasks.
@@ -30,46 +31,11 @@ export function Board() {
   const currentBoard = useSelector((state) => state.currentBoard.value);
   const dispatch = useDispatch();
 
-  // state for items that the user will be notified about if they are due that day
-  const [notify, setNotify] = useState(false);
-  const [notifyItems, setNotifyItems] = useState([]);
-
   const activationConstraint = {
     distance: 15
   }
 
   const sensors = useSensors(useSensor(MouseSensor, { activationConstraint }));
-
-  // Notification
-  useEffect(() => {
-
-    if (currentBoard.boardId) {
-    
-    // Checks if the notification has been showed by checking session storage where
-    // a boolean variable is stored.
-    if (!sessionStorage.getItem(`${currentBoard.boardId}-notified`)) {
-
-      const today = new Date().toDateString();
-      const items = [];
-  
-      // checks if categories are due today
-      currentBoard?.categories?.forEach((cat) => {
-        items.push(...cat.objectives.filter((obj) => new Date(obj.dueDate).toDateString() === today));
-      })
-
-      // if there are categories due today, set pop-up state to true
-      if (items.length > 0) {
-        setNotifyItems(items);
-        setNotify(true);
-      }
-
-      // set session storage variable to true
-      sessionStorage.setItem(`${currentBoard.boardId}-notified`, true);
-
-      }
-    }
-
-  }, [currentBoard?.boardId])
 
   if (!currentBoard.boardId) {
     return null;
@@ -263,15 +229,17 @@ export function Board() {
     </SortableContext> 
 
     <DragOverlay>
-      <div className='h-100 drag-overlay'>
+      <div className='drag-overlay'>
         {renderOverlay(activeId, activeType)}
       </div>
     </DragOverlay>
 
     </DndContext>
+
     <NewCategoryInput show={showNewCategoryInput} click={newCategoryInput}/>
 
-    {notify && <DueModal items={notifyItems} close={() => setNotify(false)}/> }
+    {/* Route */}
+    <Outlet/> 
 
     </div>}
     </Fragment>

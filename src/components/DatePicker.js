@@ -1,6 +1,7 @@
 import { Component  } from 'react';
 import { ReactComponent as ChevronLeft } from './icons/chevron-left.svg';
 import { ReactComponent as ChevronRight } from './icons/chevron-right.svg';
+
 import ReactDatePicker from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,19 +17,14 @@ export function DatePicker({value, onChange}) {
   return (
     <ReactDatePicker openToDate={(value !== '') ? new Date(value) : null} customInput={<Input date={value}/>} onChange={(e) => onChange(e.toISOString())} renderCustomHeader={Header}
      calendarClassName='date-picker' showPopperArrow={false}>
-    <div className='flex row gap-15 time-section'>
-    <button className='clear-button' onClick={() => onChange("")}> Clear </button>
-    </div>
+      
+    <button className='date-picker__clear-button' onClick={() => onChange("")}> Clear </button>
 
     </ReactDatePicker>
   );
 }
 
-function Header({
-  date,
-  decreaseMonth,
-  increaseMonth,
-}) {
+function Header({ date, decreaseMonth, increaseMonth }) {
 
     const months = [
         "January",
@@ -45,11 +41,13 @@ function Header({
         "December",
       ];
 
-  return <div className='datepicker-header'>
-      <button className='change-month-button' onClick={decreaseMonth}> <ChevronLeft/> </button>
-      <p className='current-month'> {`${months[date.getMonth()]} ${date.getYear() + 1900}`} </p>
-      <button className='change-month-button' onClick={increaseMonth}> <ChevronRight/> </button>
-  </div>;
+  return (
+    <div className='date-picker__header'>
+      <button className='date-picker__header__change-month-button' onClick={decreaseMonth}> <ChevronLeft/> </button>
+      <p className='date-picker__header__current-month-label'> {`${months[date.getMonth()]} ${date.getYear() + 1900}`} </p>
+      <button className='date-picker__header__change-month-button' onClick={increaseMonth}> <ChevronRight/> </button>
+    </div>
+  );
 }
 
 // class compoment has to be used in order to pass ref
@@ -61,7 +59,7 @@ class Input extends Component {
     return (
       <button className="datepicker-input" onClick={(e) => {e.preventDefault(); onClick(e)}} >
       {(date === '') ? 'Pick a date' :  new Date(date).toLocaleDateString()}
-    </button>
+      </button>
     )
   }
 }

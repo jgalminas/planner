@@ -21,5 +21,45 @@ export default function useClickOutside(clickNodeRef, menuNodeRef, callback) {
         document.removeEventListener("mousedown", handleClick);
     }
 
-    })
+    }, [])
+}
+
+
+// click outside expect when clicked on element that contains the provided classname
+export function useClickOutsideExcept(nodeRef, ignoredClass, callback) {
+
+    function hasIgnoredClass(element, ignoredClass) {
+
+        if (element.classList.contains(ignoredClass)) {
+            return true;
+        }
+
+        do {
+            if (element.classList.contains(ignoredClass)) {
+                return true;
+            }
+        } while ((element = element.parentElement))
+    
+        return false
+
+    }
+
+    useEffect(() => {
+
+        function handleClick(e) {
+
+            if (nodeRef && nodeRef.current.contains(e.target)) {
+                return;
+            } else if (!hasIgnoredClass(e.target, ignoredClass)) {
+                callback();
+            }
+        }
+        
+        document.addEventListener("mousedown", handleClick);
+        return () => {
+        document.removeEventListener("mousedown", handleClick);
+    }
+
+    }, [])
+
 }

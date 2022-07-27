@@ -15,14 +15,15 @@ import { ReactComponent as LogoIcon } from './icons/logo.svg';
 import { ReactComponent as MinimiseIcon } from './icons/minimise.svg';
 
 import { Menu } from './Menu';
+import { AccountSettings } from './AccountSettings';
 
 export function Sidebar() {
 
   const authContext = useAuth();
   const boardList = useSelector((state) => state.boardList.value);
-  
   const { uid } = useAuth().currentUser;
   const dispatch = useDispatch();
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     subscribeToBoardList(uid, dispatch);
@@ -42,10 +43,11 @@ export function Sidebar() {
       </div>
 
       <div className='sidebar__account-section'>
-        <Link className='sidebar__navigation-item' to='/'> <SettingsIcon/> Account Settings </Link>
+        <button onClick={() => setShowSettings(!showSettings)} className='sidebar__navigation-item'> <SettingsIcon/> Account Settings </button>
         <Link className='sidebar__account-section__logout' onClick={authContext.logOut} to='/'> <LogoutIcon/> Log Out </Link>
       </div>
-
+      
+      {showSettings && <AccountSettings close={setShowSettings}/>}
 
     </aside>
   );
@@ -83,7 +85,7 @@ function Workspaces(props) {
           <Menu position='right' parentRef={addWorkspaceRef} close={() => setOpen(false)}>
             <form className='new-workspace-form' onSubmit={(e) => submit(e)} autoComplete="off">
             <label className='new-workspace-form__label' htmlFor='input'> Workspace name </label>
-            <input className='new-workspace-form__input' id='input' ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text"/>
+            <input autoFocus className='new-workspace-form__input' minLength={4} id='input' ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text"/>
             <button className='new-workspace-form__button' type="submit"> <PlusIcon/> Add </button>
             </form>
           </Menu>
