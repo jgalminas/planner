@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { useState, useRef } from 'react';
-import { Menu } from './Menu.js';
 import { ReactComponent as TrashIcon } from './icons/trash.svg'
 import { deleteObjective } from './slices/currentBoardSlice';
 import { addItem } from './slices/localStorageSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as OptionsIconV } from './icons/options_v.svg'
+import { FloatingMenu } from './FloatingMenu.js';
 
 export function ObjectiveOptions({ data, setOpen, setHover }) {
 
@@ -36,9 +36,9 @@ export function ObjectiveOptions({ data, setOpen, setHover }) {
             <button ref={button} className="objective__options-button" onClick={(e) => {e.stopPropagation(); setVisible(!visible); setOpen(!visible)} }>
             <OptionsIconV/>
             </button>
-                    
+          
             {visible &&
-                <Menu position='bottom-left' parentRef={button} close={() => {setVisible(false); setOpen(false); setHover && setHover(false)}}>
+                <FloatingMenu button={button.current} close={() => {setVisible(false); setOpen(false); setHover && setHover(false)}}>
                     <div className='options-menu'>
                         {options && options.map((option, key) => {
                         return <button className={`options-menu__item --${option.type}`} key={key} onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}>
@@ -47,7 +47,8 @@ export function ObjectiveOptions({ data, setOpen, setHover }) {
                             </button>
                         })}
                     </div>
-                </Menu>}
+                </FloatingMenu>}
+                
         </Fragment>
     );
 }

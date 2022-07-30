@@ -26,31 +26,6 @@
   padding: 10px;
 }
 
-.credentials-form {
-  justify-content: center;
-  align-items: center;
-}
-
-.sign-button {
-  height: 40px;
-  background-color: rgb(82, 94, 201);
-  color: white;
-  border: none;
-}
-
-.sign-label {
-  color: rgb(39, 39, 39);
-}
-
-.sign-input {
-  border: 1px solid rgb(160, 160, 160);
-  height: 40px;
-}
-
-.sign-input:hover, .sign-input:focus, .sign-button:hover {
-  outline: 1px solid rgb(65, 65, 65);
-}
-
 .w-250 {
   width: 250px;
 }
@@ -717,6 +692,7 @@ p {
   padding: 10px 20px 10px 20px;
   background-color: #FBFBFB;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .new-category__button {
@@ -1098,4 +1074,72 @@ p {
 .account-settings__content p {
   text-align: center;
   padding: 300px 0px;
+}
+
+.sign-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  gap: 20px;
+}
+@media (max-width: 1024px) {
+  .sign-page {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+.sign-page__form {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.sign-page__video {
+  box-shadow: 0px 0px 0px 5px rgb(2, 12, 48);
+  border-radius: 2.5%/5%;
+  width: 60%;
+  height: auto;
+}
+@media (max-width: 1024px) {
+  .sign-page__video {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.sign-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #5A5C6C;
+}
+
+.sign-input {
+  border: none;
+  background-color: #FBFBFB;
+  outline: 1px solid #e9e9e9;
+  padding: 10px;
+  border-radius: 5px;
+}
+.sign-input:hover {
+  border: none;
+  outline: 1px solid #6997EE;
+}
+.sign-input:focus {
+  border: none;
+  outline: 2px solid #6997EE;
+}
+
+.sign-button {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #6997EE;
+  color: white;
+  border: none;
+}
+.sign-button:hover {
+  background-color: #003054;
 }/*# sourceMappingURL=styles.css.map */

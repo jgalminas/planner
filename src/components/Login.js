@@ -71,18 +71,27 @@ export function Login(props) {
         }
     }
     
-    return(
-        <div className="flex col w-100 credentials-form">
-            <form onSubmit={login} className="flex col gap-10 w-250" action="">
-                <ErrorMessage errors={error}/>
-                <label className="sign-label" htmlFor="email"> Email </label>
-                <input value={email} onChange={handleChange} className="sign-input" required type="text" name="email"></input>
-                <label className="sign-label" htmlFor="password"> Password </label>
-                <input value={password} onChange={handleChange} className="sign-input" required type="password" name="password"></input>
+// flex col w-100 credentials-form
 
-                <input className="sign-button pointer" disabled={loading} type="submit" value="Log In"/>
-                <p> Haven't got an account? <a href="/signup"> Sign Up! </a> </p>
-            </form>
+    return(
+        <div className="sign-page">
+
+                <video className='sign-page__video' autoPlay loop muted>
+                    <source src='/videos/video_2.webm' type='video/webm'/>
+                </video>
+
+                <form onSubmit={login} className='sign-page__form'>
+                    <ErrorMessage errors={error}/>
+                    <label className="sign-label" htmlFor="email"> Email </label>
+                    <input value={email} onChange={handleChange} className="sign-input" required type="text" name="email"></input>
+                    <label className="sign-label" htmlFor="password"> Password </label>
+                    <input value={password} onChange={handleChange} className="sign-input" required type="password" name="password"></input>
+
+                    <input className="sign-button" disabled={loading} type="submit" value="Log In"/>
+                    <p> Haven't got an account? <a href="/signup"> Sign Up! </a> </p>
+                </form> 
+            
+
         </div>
     )
 }

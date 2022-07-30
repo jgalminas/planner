@@ -85,25 +85,34 @@ export function SignUp() {
     }
 
     return(
-        <div className="flex col w-100 credentials-form">
+<div className="sign-page">
 
-            <form onSubmit={signUp} className="flex col gap-10 w-250">
-                <ErrorMessage errors={error}/>
-                <label className="sign-label" htmlFor="email"> Email </label>
-                <input value={email} onChange={handleChange} className="sign-input" required type="text" name="email"></input>
 
-                <label className="sign-label" htmlFor="name"> Full Name </label>
-                <input value={name} onChange={handleChange} className="sign-input" required type="text" name="name"></input>
+    <video className='sign-page__video' autoPlay loop muted>
+        <source src='/videos/video_2.webm' type='video/webm'/>
+    </video>
 
-                <label className="sign-label" htmlFor="password"> Password </label>
-                <input value={password} onChange={handleChange} className="sign-input" required type="password" name="password"></input>
+    <form onSubmit={signUp} className='sign-page__form'>
+        <ErrorMessage errors={error}/>
+        <label className="sign-label" htmlFor="email"> Email </label>
+        <input value={email} onChange={handleChange} className="sign-input" required type="text" name="email"></input>
 
-                <label className="sign-label" htmlFor="repeatPassword"> Repeat Password </label>
-                <input value={repeatPassword} onChange={handleChange} className="sign-input" required type="password" name="repeatPassword"></input>
+        <label className="sign-label" htmlFor="name"> Full Name </label>
+        <input value={name} onChange={handleChange} className="sign-input" required type="text" name="name"></input>
 
-                <input className="sign-button pointer" disabled={loading} type="submit" value="Sign Up"/>
-                <p> Already have an account? <a href="/login"> Log In! </a> </p>
-            </form>
-        </div>
+        <label className="sign-label" htmlFor="password"> Password </label>
+        <input value={password} onChange={handleChange} className="sign-input" required type="password" name="password"></input>
+
+        <label className="sign-label" htmlFor="repeatPassword"> Repeat Password </label>
+        <input value={repeatPassword} onChange={handleChange} className="sign-input" required type="password" name="repeatPassword"></input>
+
+        <input className="sign-button pointer" disabled={loading} type="submit" value="Sign Up"/>
+        <p> Already have an account? <a href="/login"> Log In! </a> </p>
+    </form> 
+</div>
+
+
     )
 }
+
+

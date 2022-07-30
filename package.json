@@ -6,6 +6,8 @@
     "@dnd-kit/core": "^5.0.1",
     "@dnd-kit/sortable": "^6.0.0",
     "@dnd-kit/utilities": "^3.0.0",
+    "@floating-ui/dom": "^1.0.0",
+    "@floating-ui/react-dom-interactions": "^0.9.1",
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

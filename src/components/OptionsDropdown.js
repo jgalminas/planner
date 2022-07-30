@@ -1,6 +1,6 @@
 import { useRef, Fragment } from 'react';
+import { FloatingMenu } from './FloatingMenu';
 import useClickOutside from './hooks/ClickOutside';
-import { Menu } from './Menu.js';
 
 /**
     * A re-usable options dropdown component     
@@ -27,16 +27,16 @@ export function OptionsDropdown({ button, options, visible, setVisible }) {
     return (
         <Fragment>
         {visible &&
-            <Menu position='bottom-left' parentRef={button} close={() => setVisible(false)}>
-                <div className='options-menu'>
-                {options && options.map((option, key) => {
+            <FloatingMenu button={button.current} close={() => setVisible(false)}>
+                 <div className='options-menu'>
+                    {options && options.map((option, key) => {
                     return <button className={`options-menu__item --${option.type}`} key={key} onClick={(e) => {e.stopPropagation(); handleClick(option.click)}}>
                             { option?.icon }
                             { option.name }
                            </button>
-                })}
+                    })}
                 </div>
-            </Menu>
+            </FloatingMenu>
         }
         </Fragment>
     );

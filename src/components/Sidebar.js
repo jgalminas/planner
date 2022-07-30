@@ -14,8 +14,8 @@ import { ReactComponent as LogoutIcon } from './icons/exit.svg';
 import { ReactComponent as LogoIcon } from './icons/logo.svg';
 import { ReactComponent as MinimiseIcon } from './icons/minimise.svg';
 
-import { Menu } from './Menu';
 import { AccountSettings } from './AccountSettings';
+import { FloatingMenu } from './FloatingMenu';
 
 export function Sidebar() {
 
@@ -34,7 +34,7 @@ export function Sidebar() {
 
       <div className='sidebar__logo-section'>
         <LogoIcon/>
-        <button  className='sidebar__logo-section__minimise-button'> <MinimiseIcon/> </button>
+        {/* <button  className='sidebar__logo-section__minimise-button'> <MinimiseIcon/> </button> */}
       </div>
 
       <div className='sidebar__navigation-section'>
@@ -82,13 +82,15 @@ function Workspaces(props) {
         <button  ref={addWorkspaceRef} className='workspaces__new-button' onClick={() => setOpen(!isOpen)}> <PlusIcon/> Add Workspace </button>
         
         {isOpen &&
-          <Menu position='right' parentRef={addWorkspaceRef} close={() => setOpen(false)}>
+
+          <FloatingMenu placement='right-start' button={addWorkspaceRef.current} close={() => setOpen(false)}>
             <form className='new-workspace-form' onSubmit={(e) => submit(e)} autoComplete="off">
-            <label className='new-workspace-form__label' htmlFor='input'> Workspace name </label>
-            <input autoFocus className='new-workspace-form__input' minLength={4} id='input' ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text"/>
-            <button className='new-workspace-form__button' type="submit"> <PlusIcon/> Add </button>
+              <label className='new-workspace-form__label' htmlFor='input'> Workspace name </label>
+              <input autoFocus className='new-workspace-form__input' minLength={4} id='input' ref={input} text={name} onChange={(e) => setName(e.target.value)} type="text"/>
+              <button className='new-workspace-form__button' type="submit"> <PlusIcon/> Add </button>
             </form>
-          </Menu>
+          </FloatingMenu>
+
         }
 
         <button className='workspaces__show-button' onClick={() => setShowWorkspaces(!showWorkspaces)}>
