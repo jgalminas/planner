@@ -1,25 +1,27 @@
-# COMP1004 Main Project - Task Planner
-This is the COMP1004 main project. The objective was to develop a single page application that helps users manage time and explore the possibility of utilising the Alexa Skills technology.
+# Task Management Application
+## 💡 Background
+This is a task management application that I built during my first university year for the Computing Practice module. The aim of this project was to create something related to time management.
 
-## Overview
-This application is a time management tool where users can plan their projects / tasks to be more efficient and remember upcoming deadlines.
-The application allows users to create objectives and categorise them to their preferred structure.
+Using this tool users can plan and prioritise their projects and tasks to be more efficient and deliver work consistently and on time. The application follows a kanban board type of approach where users can create and categorise their objectives.
 
-**Currently Implemented Features:**
-- Users are able to create accounts to save their data and access it online.
-- Task creation which includes a due date, starting date, priority and description.
-- Category creation for better organised time management plan.
-- Board creation for a way of organising time management plans into seperate views.
-- Sorting tasks and categories by dragging and dropping them.
-- A popup reminder of upcoming deadlines opening the board.
+## ✨ Features
+Here are some of the features of this project:
 
-## Architecture
+✅ Ability to create accounts and access data online <br>
+✅ Breaking up objectives into smaller tasks <br>
+✅ Categorising objectives <br>
+✅ Ability to create workspaces to separate objectives <br>
+✅ Ability to quickly drag objectives and categories to sort them
 
-### Front-End
-The front-end was built using JavaScript, React and a few libraries to help me with some features of the application, such as React Router to handle site routing and React Redux for easy and effective global state management.
+<em> As a side note, this application is not something I would consider a full product, therefore, some of the features may still be partially functional
+or lack polish. </em>
 
-### Back-End
-For the back-end I used Firebase which is a service that provides a simple solution for storing data and authenticating users.
+## ⚙️ Architecture
+### 💻  Front-End
+The front-end was built using JavaScript, React and a few other libraries to help me with some of the aforementioned features. Such as React Router to handle site routing, React Redux for easy and effective global state management and Dnd-Kit for dragging and dropping capabilities.
 
-### Other Tools & Techniques
-I used SASS (Syntactically Awesome Style Sheets) to style my application, mainly for its simple approach to style nesting and re-usability.
+### ☁️ Back-End
+For the back-end, I used Firebase — a service that provides a simple solution for storing data and authenticating users.
+
+### 🧰 Other Tools & Techniques
+I used SASS (Syntactically Awesome Style Sheets) to style my application, mainly for its intuitive approach to style nesting and re-usability.
