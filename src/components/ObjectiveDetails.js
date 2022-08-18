@@ -32,12 +32,16 @@ export function ObjectiveDetails() {
   useClickOutsideExcept(panel, 'objective', () => { navigate(path) });
 
   useEffect(() => {
-      setParent(document.querySelector('.board'))
+      setParent(document.querySelector('.board'));
+  })
+
+  useEffect(() => () => {
+    updateDetails(); // run on unmount
   })
 
   useEffect(() => {
 
-      updateDetails()
+      updateDetails();
 
   }, [details.priority, details.dueDate, details.startingDate, details.progress, category])
 
@@ -51,6 +55,8 @@ export function ObjectiveDetails() {
     setPreviousCategory({ value: currentCategory.id, label: currentCategory.name })
 
   }, [id])
+
+  
 
   // function which validates and changes the dates state
   function setDate(e, type) {
